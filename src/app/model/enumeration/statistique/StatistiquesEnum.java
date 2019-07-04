@@ -1,4 +1,4 @@
-package src.model.enumeration.statistique;
+package app.model.enumeration.statistique;
 
 public enum StatistiquesEnum {
 

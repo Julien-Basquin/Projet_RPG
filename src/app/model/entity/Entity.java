@@ -1,6 +1,6 @@
-package src.model.entity;
+package app.model.entity;
 
-import src.model.Base;
+import app.model.Base;
 
 /**
  * 

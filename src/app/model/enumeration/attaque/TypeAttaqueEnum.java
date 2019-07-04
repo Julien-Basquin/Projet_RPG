@@ -1,4 +1,4 @@
-package src.model.enumeration.attaque;
+package app.model.enumeration.attaque;
 
 public enum TypeAttaqueEnum {
 

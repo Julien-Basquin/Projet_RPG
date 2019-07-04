@@ -1,10 +1,10 @@
-package src.model;
+package app.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import src.model.objet.Arme;
-import src.model.objet.Armure;
+import app.model.objet.Arme;
+import app.model.objet.Armure;
 
 /**
  * 

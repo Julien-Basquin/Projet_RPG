@@ -1,16 +1,16 @@
-package src.model.objet;
+package app.model.objet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import src.model.enumeration.attaque.TypeAttaqueEnum;
-import src.model.enumeration.attribut.AttributsEnum;
-import src.model.enumeration.element.ElementEnum;
-import src.model.enumeration.objet.TypeRareteEnum;
-import src.model.enumeration.objet.equipement.armure.TypeArmureEnum;
-import src.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
-import src.model.enumeration.statistique.StatistiquesEnum;
+import app.model.enumeration.attaque.TypeAttaqueEnum;
+import app.model.enumeration.attribut.AttributsEnum;
+import app.model.enumeration.element.ElementEnum;
+import app.model.enumeration.objet.TypeRareteEnum;
+import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
+import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
+import app.model.enumeration.statistique.StatistiquesEnum;
 
 /**
  * Définie les statistique des armures.

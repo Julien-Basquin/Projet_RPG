@@ -1,14 +1,14 @@
-package src.model.objet;
+package app.model.objet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.model.enumeration.attribut.AttributsEnum;
-import src.model.enumeration.element.ElementEnum;
-import src.model.enumeration.objet.TypeRareteEnum;
-import src.model.enumeration.statistique.StatistiquesEnum;
+import app.model.enumeration.attribut.AttributsEnum;
+import app.model.enumeration.element.ElementEnum;
+import app.model.enumeration.objet.TypeRareteEnum;
+import app.model.enumeration.statistique.StatistiquesEnum;
 
 /**
  * classe pour les objet de craft ou objet de quéte

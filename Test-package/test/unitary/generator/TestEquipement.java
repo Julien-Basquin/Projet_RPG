@@ -18,18 +18,18 @@ import org.junit.jupiter.api.Test;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
-import src.model.Equipement;
-import src.model.enumeration.attaque.TypeAttaqueEnum;
-import src.model.enumeration.attribut.AttributsEnum;
-import src.model.enumeration.element.ElementEnum;
-import src.model.enumeration.objet.TypeRareteEnum;
-import src.model.enumeration.objet.equipement.arme.TypeArmeEnum;
-import src.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
-import src.model.enumeration.objet.equipement.armure.TypeArmureEnum;
-import src.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
-import src.model.enumeration.statistique.StatistiquesEnum;
-import src.model.objet.Arme;
-import src.model.objet.Armure;
+import app.model.Equipement;
+import app.model.enumeration.attaque.TypeAttaqueEnum;
+import app.model.enumeration.attribut.AttributsEnum;
+import app.model.enumeration.element.ElementEnum;
+import app.model.enumeration.objet.TypeRareteEnum;
+import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
+import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
+import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
+import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
+import app.model.enumeration.statistique.StatistiquesEnum;
+import app.model.objet.Arme;
+import app.model.objet.Armure;
 
 /**
  * @author Simon Strzelecki
@@ -160,7 +160,7 @@ class TestEquipement {
 
 
 	/**
-	 * Test method for {@link src.model.Equipement#Equipement()}.
+	 * Test method for {@link app.model.Equipement#Equipement()}.
 	 */
 	@Test
 	void testEquipement() {
@@ -177,7 +177,7 @@ class TestEquipement {
 	}
 
 	/**
-	 * Test method for {@link src.model.Equipement#Equipement(src.model.objet.Armure, src.model.objet.Armure, src.model.objet.Armure, src.model.objet.Armure, src.model.objet.Armure, src.model.objet.Armure[], src.model.objet.Armure, src.model.objet.Arme[])}.
+	 * Test method for {@link app.model.Equipement#Equipement(app.model.objet.Armure, app.model.objet.Armure, app.model.objet.Armure, app.model.objet.Armure, app.model.objet.Armure, app.model.objet.Armure[], app.model.objet.Armure, app.model.objet.Arme[])}.
 	 */
 	@Test
 	void testEquipementArmureArmureArmureArmureArmureArmureArrayArmureArmeArray() {
@@ -185,7 +185,7 @@ class TestEquipement {
 	}
 
 	/**
-	 * Test method for {@link src.model.Equipement#getArme(int)}.
+	 * Test method for {@link app.model.Equipement#getArme(int)}.
 	 */
 	@Test
 	void testGetArme() {
@@ -193,7 +193,7 @@ class TestEquipement {
 	}
 
 	/**
-	 * Test method for {@link src.model.Equipement#getAnneau(int)}.
+	 * Test method for {@link app.model.Equipement#getAnneau(int)}.
 	 */
 	@Test
 	void testGetAnneau() {

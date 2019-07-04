@@ -1,4 +1,4 @@
-package src.model.enumeration.objet.equipement.arme.souscategorie;
+package app.model.enumeration.objet.equipement.arme.souscategorie;
 
 public enum SousCategorieArmeEnum {
 

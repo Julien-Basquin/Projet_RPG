@@ -1,4 +1,4 @@
-package src.model.enumeration.attribut;
+package app.model.enumeration.attribut;
 
 public enum AttributsEnum {
 

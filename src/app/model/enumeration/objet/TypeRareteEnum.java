@@ -1,4 +1,4 @@
-package src.model.enumeration.objet;
+package app.model.enumeration.objet;
 
 public enum TypeRareteEnum {
 

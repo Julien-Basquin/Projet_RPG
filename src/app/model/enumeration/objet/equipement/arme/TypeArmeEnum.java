@@ -1,4 +1,4 @@
-package src.model.enumeration.objet.equipement.arme;
+package app.model.enumeration.objet.equipement.arme;
 
 public enum TypeArmeEnum {
 

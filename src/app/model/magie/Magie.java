@@ -1,15 +1,15 @@
-package src.model.magie;
+package app.model.magie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.model.Base;
-import src.model.enumeration.attaque.TypeAttaqueEnum;
-import src.model.enumeration.attribut.AttributsEnum;
-import src.model.enumeration.element.ElementEnum;
-import src.model.enumeration.statistique.StatistiquesEnum;
+import app.model.Base;
+import app.model.enumeration.attaque.TypeAttaqueEnum;
+import app.model.enumeration.attribut.AttributsEnum;
+import app.model.enumeration.element.ElementEnum;
+import app.model.enumeration.statistique.StatistiquesEnum;
 
 /**
  * 

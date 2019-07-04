@@ -1,7 +1,7 @@
-package src.model.objet;
+package app.model.objet;
 
-import src.model.Base;
-import src.model.enumeration.objet.TypeRareteEnum;
+import app.model.Base;
+import app.model.enumeration.objet.TypeRareteEnum;
 
 /**
  * 

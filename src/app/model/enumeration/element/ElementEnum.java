@@ -1,4 +1,4 @@
-package src.model.enumeration.element;
+package app.model.enumeration.element;
 
 public enum ElementEnum {
 
