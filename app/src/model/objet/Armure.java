@@ -55,12 +55,19 @@ public class Armure extends GlobalObjet{
 		this.defenseMagique = defenseMagique;
 		this.type = type;
 		this.sousCategorie = sousCategorie;
-		this.typeDefense =  new HashMap<TypeAttaqueEnum, Integer>(typeDefense);
-		this.defenseElement =  new HashMap<ElementEnum, Integer>(defenseElement);
-		this.defenseAttribue =  new HashMap<AttributsEnum, Integer>(defenseAttribue);
-		this.statistiques = new HashMap<StatistiquesEnum, Integer>(statistiques);
+		
+		this.typeDefense =  new HashMap<TypeAttaqueEnum, Integer>();
+		this.typeDefense.putAll(typeDefense);
+		this.defenseElement =  new HashMap<ElementEnum, Integer>();
+		this.defenseElement.putAll(defenseElement);
+		this.defenseAttribue =  new HashMap<AttributsEnum, Integer>();
+		this.defenseAttribue.putAll(defenseAttribue);
+		this.statistiques = new HashMap<StatistiquesEnum, Integer>();
+		this.statistiques.putAll(statistiques);
+		this.attributs = new ArrayList<AttributsEnum>();
+		this.attributs.addAll(attributs);
+
 		this.element = null;
-		this.attributs = new ArrayList<AttributsEnum>(attributs);
 		this.rarete = rarete;
 		this.charge = charge;
 		this.quete = quete;

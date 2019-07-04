@@ -53,10 +53,12 @@ public class Arme extends GlobalObjet{
 		this.degatsMin = min;
 		this.type = type;
 		this.sousCategorie = sousCategorie;
+		
 		this.typeAttaque =  new ArrayList<TypeAttaqueEnum>(typeAttaque);
 		this.statistiques = new HashMap<StatistiquesEnum, Integer>(statistiques);
 		this.element = new ArrayList<ElementEnum>(element);
 		this.attributs = new ArrayList<AttributsEnum>(attributs);
+		
 		this.rarete = rarete;
 		this.charge = charge;
 		this.quete = quete;

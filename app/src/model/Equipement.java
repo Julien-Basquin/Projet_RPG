@@ -13,8 +13,8 @@ import src.model.objet.Armure;
  */
 public class Equipement {
 	
-	final int maxArmes = 2;
-	final int maxAnneaux = 2;
+	final static int maxArmes = 2;
+	final static int maxAnneaux = 2;
 	
 	private Armure tete;
 	private Armure corps;
@@ -48,7 +48,7 @@ public class Equipement {
 	 * @throws erreur si les taille de tableau ne sont pas respecté
 	 */
 	public Equipement(Armure tete, Armure corps, Armure mains, Armure jambes, Armure pieds, Armure[] anneaux, Armure amulette, Arme[] armes) {
-		Gdx.app.debug("initalization constructor start", "Start initalization of equipment");
+		Gdx.app.debug("initalization constructor Start", "Start initalization of equipment");
 		try {
 			verifLength(anneaux, armes);
 			int i;
@@ -74,7 +74,7 @@ public class Equipement {
 				i++;
 			}
 		} catch (Exception e) {
-			Gdx.app.error("Equipment_Constructor_Initalisation", "Error of initialization of equipment", e);
+			Gdx.app.error("CODE_1", "Error of initialization of equipment", e);
 		} finally {
 			Gdx.app.debug("initalization constructor End", "End initalization of equipment");
 		}
@@ -92,7 +92,7 @@ public class Equipement {
 	 */
 	private void verifLength(Armure[] anneaux, Arme[] armes) throws Exception {
 		if(anneaux.length != maxAnneaux || armes.length != maxArmes) {
-			throw new GdxRuntimeException("Error on tables size");
+			throw new GdxRuntimeException("# ERROR: Error on tables size #");
 		}
 	}
 	
@@ -136,5 +136,11 @@ public class Equipement {
 	}
 	public Armure getTete() {
 		return tete;
+	}
+	public static int getMaxAnneaux() {
+		return maxAnneaux;
+	}
+	public static int getMaxArmes() {
+		return maxArmes;
 	}
 }
