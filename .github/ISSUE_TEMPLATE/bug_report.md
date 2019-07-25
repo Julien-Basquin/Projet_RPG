@@ -25,3 +25,6 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**Bug message and logs files***
+Add the bug message if you can and the logs files
