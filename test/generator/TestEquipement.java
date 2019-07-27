@@ -2,11 +2,14 @@ package generator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -34,12 +37,16 @@ import app.model.objet.Armure;
 class TestEquipement {
 
 	private Equipement equipement = null;
+	static {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        System.setProperty("currenttime", dateFormat.format(new Date()));
+    }
 	final static Logger logger = Logger.getLogger(TestEquipement.class);
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {	
+	static void setUpBeforeClass() throws Exception {
 		logger.info("Start test Class : Equipement");
 	}
 

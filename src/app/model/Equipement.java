@@ -76,7 +76,7 @@ public class Equipement {
 				i++;
 			}
 		} catch (Exception e) {
-			logger.error("CODE_1 : Error of initialization of equipment" + e);
+			logger.fatal("CODE_1 : Error of initialization of equipment" + e);
 		} finally {
 			logger.debug("End initalization of equipment");
 		}
