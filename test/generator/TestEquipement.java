@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Logger;
 
@@ -41,10 +40,14 @@ class TestEquipement {
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {	
 		Logger log = new Logger("DEBUG : ", Logger.DEBUG);
 		System.out.println("Start test Class : Equipement\n");
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.log("MyTag", "my informative message");
+		log.debug("test");
+		log.debug("debug");
+		log.info("info");
+		log.error("error");
 	}
 
 	/**
