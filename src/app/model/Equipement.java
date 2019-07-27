@@ -1,6 +1,7 @@
 package app.model;
 
-import com.badlogic.gdx.Gdx;
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import app.model.objet.Arme;
@@ -24,6 +25,7 @@ public class Equipement {
 	private Armure[] anneaux;
 	private Armure amulette;
 	private Arme[] armes;
+	final static Logger logger = Logger.getLogger(Equipement.class);
 	
 	/**
 	 * Default constructor
@@ -48,7 +50,7 @@ public class Equipement {
 	 * @throws erreur si les taille de tableau ne sont pas respecté
 	 */
 	public Equipement(Armure tete, Armure corps, Armure mains, Armure jambes, Armure pieds, Armure[] anneaux, Armure amulette, Arme[] armes) {
-		Gdx.app.debug("initalization constructor Start", "Start initalization of equipment");
+		logger.debug("Start initalization of equipment");
 		try {
 			verifLength(anneaux, armes);
 			int i;
@@ -74,16 +76,16 @@ public class Equipement {
 				i++;
 			}
 		} catch (Exception e) {
-			Gdx.app.error("CODE_1", "Error of initialization of equipment", e);
+			logger.error("CODE_1 : Error of initialization of equipment" + e);
 		} finally {
-			Gdx.app.debug("initalization constructor End", "End initalization of equipment");
+			logger.debug("End initalization of equipment");
 		}
 	}
 	
 	/**
 	 * @author simon :
 	 * 
-	 * Vérifie la tailles des tableau
+	 * Vérifie la tailles des tableaux
 	 * 
 	 * @param anneaux : tableau des anneaux
 	 * @param armes : tableau des armes

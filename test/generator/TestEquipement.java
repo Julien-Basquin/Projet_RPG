@@ -7,14 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Logger;
 
 import app.model.Equipement;
 import app.model.enumeration.attaque.TypeAttaqueEnum;
@@ -36,18 +34,13 @@ import app.model.objet.Armure;
 class TestEquipement {
 
 	private Equipement equipement = null;
+	final static Logger logger = Logger.getLogger(TestEquipement.class);
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {	
-		Logger log = new Logger("DEBUG : ", Logger.DEBUG);
-		System.out.println("Start test Class : Equipement\n");
-		Gdx.app.log("MyTag", "my informative message");
-		log.debug("test");
-		log.debug("debug");
-		log.info("info");
-		log.error("error");
+		logger.info("Start test Class : Equipement");
 	}
 
 	/**
@@ -55,7 +48,7 @@ class TestEquipement {
 	 */
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		System.out.println("End test Class : Equipement\n");
+		logger.info("End test Class : Equipement");
 	}
 
 	/**
@@ -64,7 +57,7 @@ class TestEquipement {
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		System.out.println("\nSTART NEW TEST :\n");
+		logger.info("START NEW TEST :");
 
 		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
 		Map<TypeAttaqueEnum, Integer> typeDefense = new HashMap<TypeAttaqueEnum, Integer>();
@@ -92,42 +85,42 @@ class TestEquipement {
 		try {
 			tete = new Armure("Teste tete", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.TETE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (tete)\n");
+			logger.error("Erreur setUp : new Armure (tete)");
 		}
 		try {
 			corps = new Armure("Teste corps", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.CORPS, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (corps)\n");
+			logger.error("Erreur setUp : new Armure (corps)");
 		}
 		try {
 			mains = new Armure("Teste mains", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.MAINS, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10); 
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (mains)\n");
+			logger.error("Erreur setUp : new Armure (mains)");
 		} 
 		try {
 			jambes = new Armure("Teste jambes", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.JAMBES, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10); 
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (jambes)\n");
+			logger.error("Erreur setUp : new Armure (jambes)");
 		} 
 		try {
 			pieds = new Armure("Teste pieds", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.PIEDS, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (pieds)\n");
+			logger.error("Erreur setUp : new Armure (pieds)");
 		} 
 		try {
 			amulette = new Armure("Teste amulette", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.AMULETTE, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (amulette)\n");
+			logger.error("Erreur setUp : new Armure (amulette)");
 		} 
 		try {
 			anneau = new Armure("Teste anneau1", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.ANNEAU, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure (anneau)\n");
+			logger.error("Erreur setUp : new Armure (anneau)");
 		} 
 		try {
 			arme = new Arme("Teste arme1", "./test", "Description de teste", statistiques, element, attributs, 10, 15, TypeArmeEnum.DAGUE, typeAttaque, SousCategorieArmeEnum.LEGER, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Arme (arme)\n");
+			logger.error("Erreur setUp : new Arme (arme)");
 		} 
 		
 		try {
@@ -135,20 +128,20 @@ class TestEquipement {
 			 anneaux[0]=anneau;
 			 anneaux[1]=anneau;
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Armure[equipement.getMaxAnneaux()]\n");
+			logger.error("Erreur setUp : new Armure[equipement.getMaxAnneaux()]");
 		}
 		try {
 			armes = new Arme[Equipement.getMaxArmes()];
 			armes[0]=arme;
 			armes[1]=arme;
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Arme[equipement.getMaxArmes()]\n");
+			logger.error("Erreur setUp : new Arme[equipement.getMaxArmes()]");
 		} 
 
 		try {
 			equipement = new Equipement(tete, corps, mains, jambes, pieds, anneaux, amulette, armes);
 		} catch (Exception e) {
-			System.out.println("Erreur setUp : new Equipement(tete, corps, mains, jambes, pieds, anneaux, amulette, armes)\n");
+			logger.error("Erreur setUp : new Equipement(tete, corps, mains, jambes, pieds, anneaux, amulette, armes)");
 		}
 	}
 
@@ -158,7 +151,7 @@ class TestEquipement {
 	@AfterEach
 	void tearDown() throws Exception {
 		equipement = null;
-		System.out.println("END TEST :\n");
+		logger.info("END TEST :");
 	}
 
 
@@ -173,7 +166,7 @@ class TestEquipement {
 		try {
 			equipement = new Equipement();
 		} catch (Exception e) {
-			System.out.println("Erreur testEquipement : new Equipement()\n");
+			logger.info("Erreur testEquipement : new Equipement()");
 		}
 		
 		assertTrue(equipement != null, "Erreur sur l'initialisation a vide");
