@@ -18,7 +18,7 @@ plugins {
 }
 
 // Define the main class for the application
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = [ "src/", "test/" ]
 
 mainClassName = "view.DesktopLauncher"
 
@@ -58,7 +58,4 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 	mavenCentral()
-	maven {
-		url "http://dl.bintray.com/spookygames/oss"
-	}
 }
