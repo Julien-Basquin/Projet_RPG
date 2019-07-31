@@ -2,14 +2,11 @@ package generator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.jupiter.api.AfterAll;
@@ -30,6 +27,7 @@ import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorie
 import app.model.enumeration.statistique.StatistiquesEnum;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
+import util.DateUtile;
 
 /**
  * @author Simon Strzelecki
@@ -38,16 +36,14 @@ import app.model.objet.Armure;
 class TestEquipement {
 
 	private Equipement equipement = null;
-	static {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-        System.setProperty("currenttime", dateFormat.format(new Date()));
-    }
+	
 	final static Logger logger = Logger.getLogger(TestEquipement.class);
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		DateUtile dateUtile = new DateUtile();
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		logger.info("Start test Class : Equipement");

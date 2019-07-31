@@ -5,6 +5,8 @@ import org.apache.log4j.PropertyConfigurator;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import util.DateUtile;
+
 /**
  * Main du générateur, sert à lancer l'application.
  * 
@@ -12,7 +14,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 
 public class Launcher {
+	
+	
 	public static void main (String[] arg) {
+		DateUtile dateUtile = new DateUtile();
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
