@@ -9,9 +9,9 @@ import generateur.Generator;
 import generateur.controller.dialog.CloseDialog;
 
 /**
- * @author Julien B.
- *
  * Bouton servant à fermer le générateur.
+ * 
+ * @author Julien B.
  */
 
 public class CloseButton extends TextButton {

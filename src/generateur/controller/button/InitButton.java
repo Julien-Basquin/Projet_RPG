@@ -17,9 +17,9 @@ import app.model.enumeration.element.ElementEnum;
 import generateur.controller.select.SelectCategory;
 
 /**
+ * Bouton permettant de réinitialiser tous les champs du générateur
+ *  
  * @author Julien B.
- *
- *  Bouton permettant de réinitialiser tous les champs du générateur
  */
 
 public class InitButton extends TextButton {

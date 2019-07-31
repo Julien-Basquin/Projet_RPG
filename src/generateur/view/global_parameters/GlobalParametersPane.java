@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.utils.Align;
 
 /**
- * @author Julien B.
- *
  * Classe affichant tout la partie des paramètres globaux (titre + cotenu)
+ * 
+ * @author Julien B.
  */
 
 public class GlobalParametersPane extends SplitPane {

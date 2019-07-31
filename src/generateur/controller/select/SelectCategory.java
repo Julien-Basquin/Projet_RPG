@@ -14,9 +14,9 @@ import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorie
 import util.Converter;
 
 /**
- * @author Julien B.
- *
  * Liste déroulante des catégories et modification de toutes les informations liées.
+ * 
+ * @author Julien B.
  */
 
 public class SelectCategory extends SelectBox<CategorieEnum> {

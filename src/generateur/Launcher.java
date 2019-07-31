@@ -4,9 +4,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 /**
- * @author Julien
- *
  * Main du générateur, sert à lancer l'application.
+ * 
+ * @author Julien B.
  */
 
 public class Launcher {

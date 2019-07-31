@@ -21,9 +21,9 @@ import generateur.controller.button.SaveButton;
 import generateur.controller.select.SelectCategory;
 
 /**
- * @author Julien B.
- *
  * Contenu des paramètres globaux.
+ * 
+ * @author Julien B.
  */
 
 //TODO internationalisation

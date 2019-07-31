@@ -1,5 +1,7 @@
 package generateur;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -10,15 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileTypeFilter;
+
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
 import generateur.view.global_parameters.GlobalParametersPane;
 
 /**
- * @author Julien
- *
  * Classe principale du générateur, contient la logique de base de l'application.
+ * 
+ * @author Julien B.
  */
 
 public class Generator extends ApplicationAdapter {
@@ -29,6 +32,8 @@ public class Generator extends ApplicationAdapter {
 	public static Stage stage;
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
+	/**Logger*/
+	public final static Logger logger = Logger.getLogger(Generator.class);
 	
 	private SplitPane generatorWindow;
 
@@ -62,6 +67,8 @@ public class Generator extends ApplicationAdapter {
 		
 		//Configuration de la réception des inputs
 		Gdx.input.setInputProcessor(stage);
+		
+		logger.debug("Lancement du générateur...");
 	}
 
 	/**
