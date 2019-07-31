@@ -22,7 +22,10 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 mainClassName = "view.DesktopLauncher"
 
-ext { gdxVersion = '1.9.9' }
+ext {
+	gdxVersion = '1.9.9'
+	visuiVersion = '1.4.2'
+}
 
 configurations { natives }
 
@@ -41,6 +44,8 @@ dependencies {
 	compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
 	
+	compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+	
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
@@ -53,4 +58,7 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 	mavenCentral()
+	maven {
+		url "http://dl.bintray.com/spookygames/oss"
+	}
 }
