@@ -1,5 +1,7 @@
 package generateur;
 
+import org.apache.log4j.PropertyConfigurator;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -11,6 +13,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Launcher {
 	public static void main (String[] arg) {
+		String log4jConfPath = "./ressources/log4j.properties";
+		PropertyConfigurator.configure(log4jConfPath);
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
 		config.width = 1024;
