@@ -18,11 +18,26 @@ plugins {
 }
 
 // Define the main class for the application
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src"]
+		}
+	}
+	
+	test {
+		java {
+			srcDirs = ["test"]
+		}
+	}
+}
+
 
 mainClassName = "view.DesktopLauncher"
 
-ext { gdxVersion = '1.9.9' }
+ext {
+	gdxVersion = '1.9.9'
+}
 
 configurations { natives }
 
@@ -43,8 +58,12 @@ dependencies {
 	
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+}
+
+test {
+	useJUnitPlatform()
 }
 
 // In this section you declare where to find the dependencies of your project
