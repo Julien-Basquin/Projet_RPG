@@ -42,6 +42,8 @@ public class Generator extends ApplicationAdapter {
 	 */
 	@Override
 	public void create() {
+		logger.info("Starting generator...");
+		
 		skin = new Skin(new FileHandle("ressources/generateur/skin/default/uiskin.json"));
 		stage = new Stage();
 		
@@ -68,7 +70,7 @@ public class Generator extends ApplicationAdapter {
 		//Configuration de la réception des inputs
 		Gdx.input.setInputProcessor(stage);
 		
-		logger.debug("Lancement du générateur...");
+		logger.info("...generator started");
 	}
 
 	/**
@@ -114,6 +116,7 @@ public class Generator extends ApplicationAdapter {
 	 */
 	@Override
 	public void dispose() {
+		logger.info("...closing generator.");
 		((GlobalParametersPane) generatorWindow.findActor("global_pane")).dispose();
 		stage.dispose();
 		skin.dispose();

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -19,6 +18,7 @@ import generateur.controller.button.IconButton;
 import generateur.controller.button.InitButton;
 import generateur.controller.button.SaveButton;
 import generateur.controller.select.SelectCategory;
+import generateur.controller.select.StringSelectBox;
 
 /**
  * Contenu des paramètres globaux.
@@ -56,7 +56,7 @@ public class GlobalParametersContents extends ScrollPane {
 		//Sélection de la sous-catégorie
 		VerticalGroup subcategoryGroup = new VerticalGroup();
 		Label subcategory = new Label("Sous-catégorie", skin);
-		SelectBox<String> subcategorySelect = new SelectBox<String>(skin);
+		StringSelectBox subcategorySelect = new StringSelectBox(null, skin);
 		subcategorySelect.setName("subcategory");
 		subcategoryGroup.addActor(subcategory);
 		subcategoryGroup.addActor(subcategorySelect);
@@ -64,7 +64,7 @@ public class GlobalParametersContents extends ScrollPane {
 		//Séléction des informations complémentaires pour les armes et les armures
 		VerticalGroup typeGroup = new VerticalGroup();
 		Label type = new Label("Type", skin);
-		SelectBox<String> typeSelect = new SelectBox<String>(skin);
+		StringSelectBox typeSelect = new StringSelectBox(skin);
 		typeSelect.setName("type");
 		typeGroup.addActor(type);
 		typeGroup.addActor(typeSelect);
@@ -83,9 +83,8 @@ public class GlobalParametersContents extends ScrollPane {
 		//Sélection de l'élément
 		VerticalGroup elementGroup = new VerticalGroup();
 		Label element = new Label("Elément", skin);
-		SelectBox<ElementEnum> elementSelect = new SelectBox<ElementEnum>(skin);
+		StringSelectBox elementSelect = new StringSelectBox(ElementEnum.class, skin);
 		elementSelect.setName("element");
-		elementSelect.setItems(ElementEnum.values());
 		elementGroup.addActor(element);
 		elementGroup.addActor(elementSelect);
 		

@@ -20,11 +20,15 @@ import generateur.Generator;
  */
 
 public class IconButton extends TextButton {
+	
 	private Texture newTexture;
+	private String value;
 	
 	public IconButton(Skin skin) {
 		super("Choisir icône", skin);
 		setName("icon_selector");
+		
+		value = "";
 		
 		addListener(new ClickListener() {
 
@@ -41,6 +45,8 @@ public class IconButton extends TextButton {
 						Container<Image> container = getParent().findActor("icon_container");
 						newTexture = new Texture(files.first());
 						container.setActor(new Image(newTexture));
+						Generator.logger.info("Icon changed : " + value + " -> " + files.first().name());
+						value = files.first().name();
 					}
 					
 					@Override
