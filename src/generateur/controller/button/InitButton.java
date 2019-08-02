@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -14,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.element.ElementEnum;
+import generateur.Generator;
 import generateur.controller.select.SelectCategory;
+import generateur.controller.select.StringSelectBox;
+import util.Converter;
 
 /**
  * Bouton permettant de réinitialiser tous les champs du générateur
@@ -36,6 +38,8 @@ public class InitButton extends TextButton {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				
+				Generator.logger.info("Reinitializing parameters...");
+				
 				//Récupération du parent
 				Group parent = getParent().getParent();
 				//Réinitialisation des champs à vide ou à leur première valeur
@@ -45,8 +49,13 @@ public class InitButton extends TextButton {
 				((SelectCategory) parent.findActor("category")).setSelectedIndex(0);
 				((SelectCategory) parent.findActor("category")).fire(new ChangeListener.ChangeEvent());
 				((Container<Image>) parent.findActor("icon_container")).setActor(null);
-				((SelectBox<ElementEnum>) parent.findActor("element")).setItems(ElementEnum.values());
+				((StringSelectBox) parent.findActor("element")).setItems(Converter.enumToStringArray(ElementEnum.class));
+				((StringSelectBox) parent.findActor("element")).setSelectedIndex(0);
+//				((StringSelectBox) parent.findActor("element")).setvalue(((StringSelectBox) parent.findActor("element")).getSelected());
+				((StringSelectBox) parent.findActor("element")).fire(new ChangeListener.ChangeEvent());
 				((TextArea) parent.findActor("description")).setText("");
+				
+				Generator.logger.info("...reinitializing over.");
 			}
 			
 		});
