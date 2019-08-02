@@ -32,11 +32,11 @@ sourceSets {
 	}
 }
 
-
 mainClassName = "view.DesktopLauncher"
 
 ext {
 	gdxVersion = '1.9.9'
+	visuiVersion = '1.4.2'
 }
 
 configurations { natives }
@@ -55,6 +55,8 @@ dependencies {
 	compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
+	
+	compile "com.kotcrab.vis:vis-ui:$visuiVersion"
 	
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	
