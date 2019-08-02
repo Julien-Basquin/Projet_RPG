@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.element.ElementEnum;
-import generateur.controller.button.CloseButton;
-import generateur.controller.button.IconButton;
-import generateur.controller.button.InitButton;
-import generateur.controller.button.SaveButton;
+import generateur.controller.button.global_parameters.CloseButton;
+import generateur.controller.button.global_parameters.IconButton;
+import generateur.controller.button.global_parameters.InitButton;
+import generateur.controller.button.global_parameters.SaveButton;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 

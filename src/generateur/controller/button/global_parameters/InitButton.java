@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.global_parameters;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;

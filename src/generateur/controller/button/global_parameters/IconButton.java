@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.global_parameters;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
