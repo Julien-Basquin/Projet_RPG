@@ -1,5 +1,7 @@
 package generateur.controller.button;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -13,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.element.ElementEnum;
-import generateur.Generator;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 import util.Converter;
@@ -25,6 +26,8 @@ import util.Converter;
  */
 
 public class InitButton extends TextButton {
+	
+	private final Logger logger = Logger.getLogger(InitButton.class);
 
 	public InitButton(Skin skin) {
 		super("Réinitialiser", skin);
@@ -38,7 +41,7 @@ public class InitButton extends TextButton {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				
-				Generator.logger.info("Reinitializing parameters...");
+				logger.info("Reinitializing parameters...");
 				
 				//Récupération du parent
 				Group parent = getParent().getParent();
@@ -55,7 +58,7 @@ public class InitButton extends TextButton {
 				((StringSelectBox) parent.findActor("element")).fire(new ChangeListener.ChangeEvent());
 				((TextArea) parent.findActor("description")).setText("");
 				
-				Generator.logger.info("...reinitializing over.");
+				logger.info("...reinitializing over.");
 			}
 			
 		});

@@ -1,5 +1,7 @@
 package generateur.controller.button;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -24,6 +26,8 @@ public class IconButton extends TextButton {
 	private Texture newTexture;
 	private String value;
 	
+	private final Logger logger = Logger.getLogger(IconButton.class);
+	
 	public IconButton(Skin skin) {
 		super("Choisir icône", skin);
 		setName("icon_selector");
@@ -45,7 +49,7 @@ public class IconButton extends TextButton {
 						Container<Image> container = getParent().findActor("icon_container");
 						newTexture = new Texture(files.first());
 						container.setActor(new Image(newTexture));
-						Generator.logger.info("Icon changed : " + value + " -> " + files.first().name());
+						logger.debug("Icon changed : " + value + " -> " + files.first().name());
 						value = files.first().name();
 					}
 					
