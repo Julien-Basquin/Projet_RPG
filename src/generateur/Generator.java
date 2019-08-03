@@ -33,7 +33,7 @@ public class Generator extends ApplicationAdapter {
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
 	/**Logger*/
-	public final static Logger logger = Logger.getLogger(Generator.class);
+	private final Logger logger = Logger.getLogger(Generator.class);
 	
 	private SplitPane generatorWindow;
 
@@ -50,6 +50,7 @@ public class Generator extends ApplicationAdapter {
 		//Chargement de VisUI et du sélecteur de fichier
 		//Voir https://github.com/kotcrab/vis-ui
 		VisUI.load();
+		FileChooser.setDefaultPrefsName("generateur.filechooser");
 		fileChooser = new FileChooser(Mode.OPEN);
 		fileChooser.setSelectionMode(SelectionMode.FILES);
 		fileChooser.setDirectory("ressources/generateur/");
@@ -78,7 +79,7 @@ public class Generator extends ApplicationAdapter {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		super.resize(width, height);
+		stage.getViewport().update(width, height);
 	}
 
 	/**
