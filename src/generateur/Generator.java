@@ -33,7 +33,7 @@ public class Generator extends ApplicationAdapter {
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
 	/**Logger*/
-	public final static Logger logger = Logger.getLogger(Generator.class);
+	private final Logger logger = Logger.getLogger(Generator.class);
 	
 	private SplitPane generatorWindow;
 

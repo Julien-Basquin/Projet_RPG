@@ -1,5 +1,7 @@
 package generateur.controller.select;
 
+import org.apache.log4j.Logger;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -19,6 +21,7 @@ import util.Converter;
 public class StringSelectBox extends SelectBox<String> {
 	
 	private String value;
+	private final Logger logger = Logger.getLogger(StringSelectBox.class);
 
 	/**
 	 * Constructeur d'une SelectBox de String vide.
@@ -65,7 +68,7 @@ public class StringSelectBox extends SelectBox<String> {
 			public void changed(ChangeEvent event, Actor actor) {
 				//Logging du changement de valeur si la valeur a été changée
 				if (getSelected() != null && value != getSelected()) {
-					Generator.logger.info(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected() : ""));
+					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected() : ""));
 				}
 				value = getSelected();
 			}
