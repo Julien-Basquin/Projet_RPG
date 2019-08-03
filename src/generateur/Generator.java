@@ -50,6 +50,7 @@ public class Generator extends ApplicationAdapter {
 		//Chargement de VisUI et du sélecteur de fichier
 		//Voir https://github.com/kotcrab/vis-ui
 		VisUI.load();
+		FileChooser.setDefaultPrefsName("generateur.filechooser");
 		fileChooser = new FileChooser(Mode.OPEN);
 		fileChooser.setSelectionMode(SelectionMode.FILES);
 		fileChooser.setDirectory("ressources/generateur/");
