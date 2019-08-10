@@ -17,9 +17,15 @@ public class Launcher {
 	
 	
 	public static void main (String[] arg) {
+		
+		// Set date for logging system
 		DateUtile dateUtile = new DateUtile();
+		// Set log-level for logging system
+		System.setProperty("logLevel", "DEBUG");
+		// Set Log4j properties
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
+		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
 		config.width = 1024;
