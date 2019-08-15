@@ -39,6 +39,14 @@ public class LanguageManager {
         }
 	}
 	
+	public String getProperty(String key) {
+		String message = prop.getProperty(key);
+		if(message == null) {
+			logger.error("No key \"" + key + "\" find.");
+		}
+		return  message;
+	}
+	
 	/**
 	 * Change la langue du jeu.
 	 */

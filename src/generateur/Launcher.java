@@ -15,6 +15,7 @@ import util.DateUtile;
 
 public class Launcher {
 	
+	public static LanguageManager languageManager;
 	
 	public static void main (String[] arg) {
 		
@@ -26,7 +27,7 @@ public class Launcher {
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		// Set language
-		LanguageManager languageManager = new LanguageManager("en");
+		languageManager = new LanguageManager("en");
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
