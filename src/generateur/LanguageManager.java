@@ -47,7 +47,7 @@ public class LanguageManager {
 
 
             //load a properties file from class path, inside static method
-			defaultProp.load(input);
+			defaultProp.load(new InputStreamReader(input, Charset.forName("UTF-8")));
 
         } catch (IOException ex) {
         	logger.fatal("Error in Default \n" + ex);
@@ -101,7 +101,7 @@ public class LanguageManager {
 
 
             //load a properties file from class path, inside static method
-            prop.load(input);
+            prop.load(new InputStreamReader(input, Charset.forName("UTF-8")));
 
             //get the property value and print it out
             logger.info("Language load : " + prop.getProperty("Languague.File.Used"));
