@@ -27,7 +27,7 @@ public class Launcher {
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		// Set language
-		languageManager = new LanguageManager("en");
+		languageManager = new LanguageManager("fr");
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.foregroundFPS = 60;
