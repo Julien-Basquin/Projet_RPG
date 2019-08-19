@@ -7,14 +7,18 @@ package app.model.enumeration;
  */
 
 public enum CategorieEnum {
-	ARME,
-	ARMURE,
-	COMPETENCE,
-	ENTITE,
-	OBJET;
+	ARME("Weapon"),
+	ARMURE("Armor"),
+	COMPETENCE("Ability"),
+	ENTITE("Entity"),
+	OBJET("Object");
 	
-	@Override
-	public String toString() {
-		return this.name();
+	private String nom;
+	
+	private CategorieEnum(String nom) {
+		this.nom=nom;
+	}
+	public String getNom() {
+		return nom;
 	}
 }
