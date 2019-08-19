@@ -30,9 +30,15 @@ public class Launcher {
 		languageManager = new LanguageManager("fr");
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		// max 60 fps
 		config.foregroundFPS = 60;
-		config.width = 1024;
-		config.height = 768;
+		// set resolution to HD ready (1920 x 1080)
+		config.width = 1920;
+		config.height = 1080;
+		// set full screen
+		config.fullscreen = true;
+		// set VSync
+		config.vSyncEnabled = true;
 		new LwjglApplication(new Generator(), config);
 	}
 }
