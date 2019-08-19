@@ -52,7 +52,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 			public void changed(ChangeEvent event, Actor actor) {
 				//Logging du changement de valeur si la valeur a été changée
 				if (getSelected() != null && value != getSelected().name()) {
-					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected().name() : ""));
+					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected().getNom() : ""));
 				}
 				//Récupération des listes des sous-catégories et des types pour mise à jour
 				StringSelectBox subcategorySelect = (StringSelectBox) parent.findActor("subcategory");

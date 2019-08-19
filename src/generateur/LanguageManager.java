@@ -7,6 +7,8 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
 /**
  * 
  * @author simon
@@ -18,6 +20,7 @@ public class LanguageManager {
 	/**Logger*/
 	private final Logger logger = Logger.getLogger(LanguageManager.class);
 	private Properties prop;
+	private Properties defaultProp;
 	
 	/**
 	 * Initialisation de la lecture des langues avec choix par défeaut : anglais.
@@ -37,12 +40,52 @@ public class LanguageManager {
         } catch (IOException ex) {
         	logger.fatal(ex);
         }
+		try (InputStream input = new FileInputStream("ressources/generateur/language/language_en.properties")) {
+
+			defaultProp = new Properties();
+
+
+            //load a properties file from class path, inside static method
+			defaultProp.load(input);
+
+        } catch (IOException ex) {
+        	logger.fatal("Error in Default \n" + ex);
+        }
 	}
 	
+	/**
+	 * recherche dans le properties, si non trouver regarde dans le Default
+	 * @param key
+	 * @return Value
+	 */
 	public String getProperty(String key) {
 		String message = prop.getProperty(key);
 		if(message == null) {
+			logger.error(new GdxRuntimeException("# ERROR: No key :"+ key + " find #"));
+			message = defaultProp.getProperty(key);
+			if(message == null) {
+				logger.error(new GdxRuntimeException("# ERROR: No key :"+ key + " find in default#"));
+			}
+		}
+		return  message;
+	}
+	
+	/**
+	 * Construit le Path et recherche dans le properties, si non trouver regarde dans le Default
+	 * @param pathGlobal
+	 * @param enumName
+	 * @return Value
+	 */
+	public String getEnumProperty(String pathGlobal, String enumName) {
+		String key = pathGlobal + "." + enumName;
+		
+		String message = prop.getProperty(key);
+		if(message == null) {
 			logger.error("No key \"" + key + "\" find.");
+			message = defaultProp.getProperty(key);
+			if(message == null) {
+				logger.error("No key \"" + key + "\" find in default.");
+			}
 		}
 		return  message;
 	}
