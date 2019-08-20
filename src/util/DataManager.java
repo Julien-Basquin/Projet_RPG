@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Json;
@@ -31,6 +33,12 @@ import generateur.controller.select.StringSelectBox;
 
 public class DataManager {
 
+	/**
+	 * Save data
+	 * @param object
+	 * @param path
+	 * @param fileName
+	 */
 	public static void saveData(Object object, String path, String fileName) {
 		Json json = new Json();
 		json.setOutputType(OutputType.json);
@@ -45,9 +53,42 @@ public class DataManager {
 	}
 	
 	public static void downloadData() {
-		
+		// TODO
 	}
 	
+	/**
+	 * Valide l'objet pour la sauvegarde
+	 * @param parent
+	 * @return la liste des erreurs
+	 * @throws Exception si parent est null
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<String> objectValidation(Group parent) throws Exception{
+		List<String> errors = new ArrayList<String>();
+		if(parent == null) {
+			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
+		}
+		if (((TextField) parent.findActor("name")).getText().equals("") || ((TextField) parent.findActor("name")).getText() == null) {
+			errors.add("Generator.Error.Name.Empty");
+		}
+		if (((Container<Image>) parent.findActor("icon_container")).getActor() == null) {
+			errors.add("Generator.Error.Icon.Empty");
+		}
+		if (((TextField) parent.findActor("description")).getText().equals("") || ((TextField) parent.findActor("description")).getText() == null) {
+			errors.add("Generator.Error.Description.Empty");
+		}
+		if (errors.isEmpty()) {
+			errors = null;
+		}
+		return errors;
+	}
+	
+	/**
+	 * Construit l'objet pour la sauvegarde
+	 * @param parent
+	 * @return l'objet a sauvegarder
+	 * @throws Exception si parent est null
+	 */
 	public static Base objectConstructor(Group parent) throws Exception{
 		
 		Base object = null;
@@ -68,7 +109,7 @@ public class DataManager {
 		
 		//set value
 		String name = ((TextField) parent.findActor("name")).getText();
-		String iconPath = "";
+		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
 		String description = ((TextField) parent.findActor("description")).getText();
 		int minDamage = 1;
 		int maxDamage = 10;
@@ -105,6 +146,12 @@ public class DataManager {
 		return object;
 	}
 
+	/**
+	 * Construit le path en fonction de la catégorie en entrée
+	 * @param categorieEnum
+	 * @return Path
+	 * @throws Exception if categorieEnum is null
+	 */
 	public static String pathConstructor(CategorieEnum categorieEnum) throws Exception{
 		
 		if(categorieEnum == null) {

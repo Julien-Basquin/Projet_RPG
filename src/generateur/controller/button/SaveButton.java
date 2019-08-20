@@ -1,9 +1,13 @@
 package generateur.controller.button;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -11,7 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import app.model.Base;
 import app.model.enumeration.CategorieEnum;
+import generateur.Generator;
 import generateur.Launcher;
+import generateur.controller.dialog.CloseDialog;
+import generateur.controller.dialog.ConfirmDialog;
+import generateur.controller.dialog.ErrorDialog;
 import generateur.controller.select.SelectCategory;
 import util.DataManager;
 
@@ -30,6 +38,7 @@ public class SaveButton extends TextButton {
 		setName("save");
 		
 		addListener(new ClickListener() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
@@ -55,12 +64,18 @@ public class SaveButton extends TextButton {
 				Base object = null;
 				try {
 					object = DataManager.objectConstructor(parent);
+					List<String> errors = DataManager.objectValidation(parent);
+					if ( errors != null ) {
+						Generator.stage.addActor(new ErrorDialog(skin,errors));
+					} else {
+						//Sauvegarde de l'objet
+						DataManager.saveData(object, path, ((TextField) parent.findActor("name")).getText()+".json");
+						Generator.stage.addActor(new ConfirmDialog(skin));
+						logger.info("File save : "+path+((TextField) parent.findActor("name")).getText()+".json");
+					}
 				} catch (Exception e) {
 					logger.fatal(e);
 				}
-				
-				//Sauvegarde de l'objet
-				DataManager.saveData(object, path, ((TextField) parent.findActor("name")).getText()+".json");
 				
 				logger.info("...Saving over.");
 			}
