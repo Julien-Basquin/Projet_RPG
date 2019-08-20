@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.widget.file.FileChooserListener;
 
 import generateur.Generator;
+import generateur.Launcher;
 
 /**
  * @author Julien B.
@@ -29,7 +30,7 @@ public class IconButton extends TextButton {
 	private final Logger logger = Logger.getLogger(IconButton.class);
 	
 	public IconButton(Skin skin) {
-		super("Choisir icône", skin);
+		super(Launcher.languageManager.getProperty("Global.Choose.Icone"), skin);
 		setName("icon_selector");
 		
 		value = "";

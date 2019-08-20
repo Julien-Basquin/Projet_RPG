@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.element.ElementEnum;
+import generateur.Launcher;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 import util.Converter;
@@ -30,7 +31,7 @@ public class InitButton extends TextButton {
 	private final Logger logger = Logger.getLogger(InitButton.class);
 
 	public InitButton(Skin skin) {
-		super("Réinitialiser", skin);
+		super(Launcher.languageManager.getProperty("Global.Reset"), skin);
 		setName("reinit");
 		
 		addListener(new ClickListener() {

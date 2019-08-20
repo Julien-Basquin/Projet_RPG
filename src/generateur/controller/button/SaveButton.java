@@ -3,6 +3,8 @@ package generateur.controller.button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+import generateur.Launcher;
+
 /**
  * @author Julien B.
  *
@@ -12,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class SaveButton extends TextButton {
 
 	public SaveButton(Skin skin) {
-		super("Enregistrer", skin);
+		super(Launcher.languageManager.getProperty("Global.Save"), skin);
 		setName("save");
 		
 		//TODO Gérer l'enregistrement

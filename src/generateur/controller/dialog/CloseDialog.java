@@ -7,10 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import generateur.Launcher;
+
 public class CloseDialog extends Dialog {
 
 	public CloseDialog(Skin skin) {
-		super("Confirmation", skin);
+		super(Launcher.languageManager.getProperty("Global.Confirm"), skin);
 		//Récupération de la résolution active
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
@@ -18,10 +20,10 @@ public class CloseDialog extends Dialog {
 		//Création d'une boîte de dialogue
 		setSize(width / 2, height / 2);
 		setPosition(width / 2 - getWidth() / 2, height / 2 - getHeight() / 2);
-		text("Quitter le générateur ?\n\nATTENTION :\nLes changements non enregistrés seront perdus.");
+		text(Launcher.languageManager.getProperty("Global.Confirm.Text"));
 		
 		//Bouton d'annulation, ferme la fenêtre de dialogue
-		TextButton cancel = new TextButton("Annuler", skin);
+		TextButton cancel = new TextButton(Launcher.languageManager.getProperty("Global.Cancel"), skin);
 		cancel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -33,7 +35,7 @@ public class CloseDialog extends Dialog {
 		});
 		
 		//Bouton de confirmation, ferme le générateur
-		TextButton confirm = new TextButton("Confirmer", skin);
+		TextButton confirm = new TextButton(Launcher.languageManager.getProperty("Global.Confirm"), skin);
 		confirm.setName("confirm");
 		confirm.addListener(new ClickListener() {
 

@@ -36,14 +36,18 @@ import util.DateUtile;
 class TestEquipement {
 
 	private Equipement equipement = null;
-	
+
 	final static Logger logger = Logger.getLogger(TestEquipement.class);
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		// Set date for logging system
 		DateUtile dateUtile = new DateUtile();
+		// Set log-level for logging system
+		System.setProperty("logLevel", "DEBUG");
+		// Set Log4j properties
 		String log4jConfPath = "./ressources/log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		logger.info("Start test Class : Equipement");
@@ -62,14 +66,14 @@ class TestEquipement {
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		
+
 		logger.info("START NEW TEST :");
 
 		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
 		Map<TypeAttaqueEnum, Integer> typeDefense = new HashMap<TypeAttaqueEnum, Integer>();
 		Map<ElementEnum, Integer> defenseElement = new HashMap<ElementEnum, Integer>();
 		Map<AttributsEnum, Integer> defenseAttribue = new HashMap<AttributsEnum, Integer>();
-		
+
 		List<ElementEnum> element = new ArrayList<ElementEnum>();
 		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
 		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
@@ -81,13 +85,13 @@ class TestEquipement {
 		Armure pieds = null;
 		Armure amulette = null;
 		Armure anneau = null;
-		
+
 		Arme arme = null;
-		
+
 		Armure[] anneaux = null;
-		
+
 		Arme[] armes = null;
-		
+
 		try {
 			tete = new Armure("Teste tete", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.TETE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {
@@ -128,11 +132,11 @@ class TestEquipement {
 		} catch (Exception e) {
 			logger.error("Erreur setUp : new Arme (arme)");
 		} 
-		
+
 		try {
-			 anneaux = new Armure[Equipement.getMaxAnneaux()]; 
-			 anneaux[0]=anneau;
-			 anneaux[1]=anneau;
+			anneaux = new Armure[Equipement.getMaxAnneaux()]; 
+			anneaux[0]=anneau;
+			anneaux[1]=anneau;
 		} catch (Exception e) {
 			logger.error("Erreur setUp : new Armure[equipement.getMaxAnneaux()]");
 		}
@@ -174,7 +178,7 @@ class TestEquipement {
 		} catch (Exception e) {
 			logger.info("Erreur testEquipement : new Equipement()");
 		}
-		
+
 		assertTrue(equipement != null, "Erreur sur l'initialisation a vide");
 	}
 

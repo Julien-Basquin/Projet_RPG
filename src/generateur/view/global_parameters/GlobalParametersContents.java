@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.element.ElementEnum;
+import generateur.Launcher;
 import generateur.controller.button.CloseButton;
 import generateur.controller.button.IconButton;
 import generateur.controller.button.InitButton;
@@ -38,7 +39,7 @@ public class GlobalParametersContents extends ScrollPane {
 
 		//Zone du nom
 		VerticalGroup nameGroup = new VerticalGroup();
-		Label name = new Label("Nom", skin);
+		Label name = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
 		TextField nameField = new TextField("", skin);
 		nameField.setName("name");
 		nameGroup.addActor(name);
@@ -46,7 +47,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Sélection de la catégorie
 		VerticalGroup categoryGroup = new VerticalGroup();
-		Label category = new Label("Categorie", skin);
+		Label category = new Label(Launcher.languageManager.getProperty("Global.Category"), skin);
 		SelectCategory categorySelect = new SelectCategory(groupContent, skin);
 		categorySelect.setName("category");
 		categorySelect.setItems(CategorieEnum.values());
@@ -55,7 +56,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Sélection de la sous-catégorie
 		VerticalGroup subcategoryGroup = new VerticalGroup();
-		Label subcategory = new Label("Sous-catégorie", skin);
+		Label subcategory = new Label(Launcher.languageManager.getProperty("Global.Sub.Category"), skin);
 		StringSelectBox subcategorySelect = new StringSelectBox(null, skin);
 		subcategorySelect.setName("subcategory");
 		subcategoryGroup.addActor(subcategory);
@@ -63,7 +64,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Séléction des informations complémentaires pour les armes et les armures
 		VerticalGroup typeGroup = new VerticalGroup();
-		Label type = new Label("Type", skin);
+		Label type = new Label(Launcher.languageManager.getProperty("Global.Type"), skin);
 		StringSelectBox typeSelect = new StringSelectBox(skin);
 		typeSelect.setName("type");
 		typeGroup.addActor(type);
@@ -71,7 +72,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Gestion de l'icône
 		VerticalGroup iconGroup = new VerticalGroup();
-		Label icon = new Label("Icône", skin);
+		Label icon = new Label(Launcher.languageManager.getProperty("Global.Icon"), skin);
 		Container<Image> iconContainer = new Container<Image>();
 		iconContainer.setName("icon_container");
 		iconContainer.setSize(64, 64);
@@ -82,7 +83,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Sélection de l'élément
 		VerticalGroup elementGroup = new VerticalGroup();
-		Label element = new Label("Elément", skin);
+		Label element = new Label(Launcher.languageManager.getProperty("Global.Element"), skin);
 		StringSelectBox elementSelect = new StringSelectBox(ElementEnum.class, skin);
 		elementSelect.setName("element");
 		elementGroup.addActor(element);
@@ -90,7 +91,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		//Description
 		VerticalGroup descriptionGroup = new VerticalGroup();
-		Label description = new Label("Description", skin);
+		Label description = new Label(Launcher.languageManager.getProperty("Global.Description"), skin);
 		TextArea descriptionArea = new TextArea("", skin);
 		descriptionArea.setName("description");
 		descriptionArea.setPrefRows(5);
