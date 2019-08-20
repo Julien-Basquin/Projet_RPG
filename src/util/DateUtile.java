@@ -12,8 +12,10 @@ import java.util.Date;
 public class DateUtile {
 
 	static {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_hh-mm-ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh-mm-ss");
         System.setProperty("currenttime", dateFormat.format(new Date()));
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        System.setProperty("currentday", dateFormat.format(new Date()));
     }
 	
 	/**
