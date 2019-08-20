@@ -22,7 +22,7 @@ public abstract class Base {
 	protected String iconPath;
 	protected String description;
 	protected Map<StatistiquesEnum,Integer> statistiques;
-	protected List<ElementEnum> element;
+	protected ElementEnum element;
 	protected List<AttributsEnum> attributs;
 	
 	public List<AttributsEnum> getAttributs() {
@@ -31,7 +31,7 @@ public abstract class Base {
 	public String getDescription() {
 		return description;
 	}
-	public List<ElementEnum> getElement() {
+	public ElementEnum getElement() {
 		return element;
 	}
 	public String getIconPath() {

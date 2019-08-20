@@ -1,0 +1,18 @@
+{
+"nom": "test",
+"iconPath": "",
+"description": "je suis un teste",
+"statistiques": {
+	"class": "java.util.HashMap"
+},
+"element": "NEUTRE",
+"attributs": [],
+"rarete": "RARE",
+"charge": 10,
+"quete": false,
+"type": "EPEE",
+"degatsMin": 1,
+"degatsMax": 10,
+"typeAttaque": [],
+"sousCategorie": "LEGER"
+}

@@ -44,7 +44,7 @@ public class Arme extends GlobalObjet{
 	 * @param quete : true si objet de quete
 	 * @param charge : poids de l'objet
 	 */
-	public Arme(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, List<ElementEnum> element, List<AttributsEnum> attributs, 
+	public Arme(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, ElementEnum element, List<AttributsEnum> attributs, 
 			int min, int max, TypeArmeEnum type, List<TypeAttaqueEnum> typeAttaque, SousCategorieArmeEnum sousCategorie, TypeRareteEnum rarete, boolean quete, int charge) {
 		this.nom = nom;
 		this.description = description;
@@ -56,7 +56,7 @@ public class Arme extends GlobalObjet{
 		
 		this.typeAttaque =  new ArrayList<TypeAttaqueEnum>(typeAttaque);
 		this.statistiques = new HashMap<StatistiquesEnum, Integer>(statistiques);
-		this.element = new ArrayList<ElementEnum>(element);
+		this.element = element;
 		this.attributs = new ArrayList<AttributsEnum>(attributs);
 		
 		this.rarete = rarete;
@@ -78,7 +78,7 @@ public class Arme extends GlobalObjet{
 		this.sousCategorie = arme.getSousCategorie();
 		this.typeAttaque =  new ArrayList<TypeAttaqueEnum>(arme.getTypeAttaque());
 		this.statistiques = new HashMap<StatistiquesEnum, Integer>(arme.getStatistiques());
-		this.element = new ArrayList<ElementEnum>(arme.getElement());
+		this.element = arme.getElement();
 		this.attributs = new ArrayList<AttributsEnum>(arme.getAttributs());
 		this.rarete = arme.getRarete();
 		this.charge = arme.getCharge();

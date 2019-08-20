@@ -73,10 +73,10 @@ class TestEquipement {
 		Map<TypeAttaqueEnum, Integer> typeDefense = new HashMap<TypeAttaqueEnum, Integer>();
 		Map<ElementEnum, Integer> defenseElement = new HashMap<ElementEnum, Integer>();
 		Map<AttributsEnum, Integer> defenseAttribue = new HashMap<AttributsEnum, Integer>();
-
-		List<ElementEnum> element = new ArrayList<ElementEnum>();
 		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
 		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
+		
+		ElementEnum element = ElementEnum.EAU;
 
 		Armure tete = null;
 		Armure corps = null;

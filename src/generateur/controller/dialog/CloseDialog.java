@@ -20,7 +20,7 @@ public class CloseDialog extends Dialog {
 		//Création d'une boîte de dialogue
 		setSize(width / 2, height / 2);
 		setPosition(width / 2 - getWidth() / 2, height / 2 - getHeight() / 2);
-		text(Launcher.languageManager.getProperty("Global.Confirm.Text"));
+		text(Launcher.languageManager.getProperty("Global.Confirm.Text.Quite"));
 		
 		//Bouton d'annulation, ferme la fenêtre de dialogue
 		TextButton cancel = new TextButton(Launcher.languageManager.getProperty("Global.Cancel"), skin);
