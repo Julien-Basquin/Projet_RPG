@@ -38,7 +38,6 @@ public class SaveButton extends TextButton {
 		setName("save");
 		
 		addListener(new ClickListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
@@ -69,9 +68,9 @@ public class SaveButton extends TextButton {
 						Generator.stage.addActor(new ErrorDialog(skin,errors));
 					} else {
 						//Sauvegarde de l'objet
-						DataManager.saveData(object, path, ((TextField) parent.findActor("name")).getText()+".json");
+						DataManager.saveData(object, path, ((TextField) parent.findActor("name")).getText());
 						Generator.stage.addActor(new ConfirmDialog(skin));
-						logger.info("File save : "+path+((TextField) parent.findActor("name")).getText()+".json");
+						logger.info("File save : "+path+((TextField) parent.findActor("name")).getText());
 					}
 				} catch (Exception e) {
 					logger.fatal(e);
