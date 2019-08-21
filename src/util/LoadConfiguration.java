@@ -10,8 +10,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 public class LoadConfiguration {
-	/**Logger*/
-	private final Logger logger = Logger.getLogger(LanguageManager.class);
 	private Properties configuration;
 	
 	public LoadConfiguration() {
@@ -22,11 +20,8 @@ public class LoadConfiguration {
             //load a properties file from class path, inside static method
 			configuration.load(new InputStreamReader(input, Charset.forName("UTF-8")));
 
-            //get the property value and print it out
-            logger.info("configuration load");
-
         } catch (IOException ex) {
-        	logger.fatal(ex);
+        	ex.printStackTrace();//can't log this
         }
 	}
 	
