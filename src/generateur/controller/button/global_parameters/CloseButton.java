@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
+import generateur.Launcher;
 import generateur.controller.dialog.CloseDialog;
 
 /**
@@ -17,7 +18,7 @@ import generateur.controller.dialog.CloseDialog;
 public class CloseButton extends TextButton {
 
 	public CloseButton(Skin skin) {
-		super("Fermer", skin);
+		super(Launcher.languageManager.getProperty("Global.Quite"), skin);
 		setName("close");
 		
 		//Ajout d'une fenêtre de dialogue en cliquant sur le bouton
