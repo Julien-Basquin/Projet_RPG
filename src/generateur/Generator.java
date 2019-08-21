@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -32,10 +33,11 @@ public class Generator extends ApplicationAdapter {
 	public static Stage stage;
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
+	public static InputMultiplexer inputMultiplexer;
 	/**Logger*/
 	private final Logger logger = Logger.getLogger(Generator.class);
 	
-	private SplitPane generatorWindow;
+	public static SplitPane generatorWindow;
 
 	/**
 	 * Called when the Application is first created.
@@ -69,7 +71,9 @@ public class Generator extends ApplicationAdapter {
 		generatorWindow.setFillParent(true);
 		
 		//Configuration de la réception des inputs
-		Gdx.input.setInputProcessor(stage);
+		inputMultiplexer = new InputMultiplexer(stage);
+		
+		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 		logger.info("...generator started");
 	}
@@ -80,6 +84,9 @@ public class Generator extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height);
+//		if (generatorWindow.findActor("graph") != null) {
+//			((EntityParametersGraph) generatorWindow.findActor("graph")).getLocalStage().getViewport().update(width, height);
+//		}
 	}
 
 	/**

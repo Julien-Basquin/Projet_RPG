@@ -1,5 +1,6 @@
 package generateur.view.global_parameters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
@@ -24,9 +25,9 @@ public class GlobalParametersPane extends SplitPane {
 		this.setFirstWidget(title);
 
 		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
-		this.setMinSplitAmount(title.getPrefHeight() / this.getPrefHeight());
-		this.setSplitAmount(title.getPrefHeight() / this.getPrefHeight());
-		this.setMaxSplitAmount(title.getPrefHeight() / this.getPrefHeight());
+		this.setMinSplitAmount(title.getPrefHeight() / Gdx.graphics.getHeight());
+		this.setSplitAmount(title.getPrefHeight() / Gdx.graphics.getHeight());
+		this.setMaxSplitAmount(title.getPrefHeight() / Gdx.graphics.getHeight());
 	}
 	
 	public void dispose() {

@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  * @author Julien B.
  */
 
-public class CancelButton extends TextButton {
+public class UndoButton extends TextButton {
 
-	public CancelButton(Skin skin) {
+	public UndoButton(Skin skin) {
 		super("Annuler", skin);
-		setName("cancel");
+		setName("undo");
 		
 		//TODO Gérer l'annulation des actions (implique une pile)
 	}

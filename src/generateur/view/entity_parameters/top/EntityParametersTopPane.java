@@ -5,6 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.utils.Align;
 
+/**
+ * Conteneur des informations supérieures de l'interface des entités.
+ * Contient le titre et la barre des boutons.
+ * 
+ * @author Julien B.
+ */
+
 public class EntityParametersTopPane extends SplitPane {
 
 	public EntityParametersTopPane(Skin skin) {
@@ -16,11 +23,6 @@ public class EntityParametersTopPane extends SplitPane {
 		title.setName("entity_title");
 		title.setAlignment(Align.center);
 		this.setFirstWidget(title);
-		
-		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
-		this.setMinSplitAmount(0.5f);
-		this.setSplitAmount(0.5f);
-		this.setMaxSplitAmount(0.5f);
 	}
 
 }
