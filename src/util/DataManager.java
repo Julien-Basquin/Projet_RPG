@@ -34,7 +34,7 @@ import generateur.controller.select.StringSelectBox;
 public class DataManager {
 
 	/**
-	 * Save data
+	 * Save data on Json file
 	 * @param object
 	 * @param path
 	 * @param fileName
@@ -42,7 +42,7 @@ public class DataManager {
 	public static void saveData(Object object, String path, String fileName) {
 		Json json = new Json();
 		json.setOutputType(OutputType.json);
-		try(FileWriter file = new FileWriter(path+fileName)){
+		try(FileWriter file = new FileWriter(path+fileName+".json")){
 			file.write(json.prettyPrint(object));
 			file.flush();
 		} catch (Exception e) {
@@ -52,8 +52,10 @@ public class DataManager {
 		}
 	}
 	
-	public static void downloadData() {
+	public static Base downloadData(String path, String fileName) {
 		// TODO
+		return new Base() {
+		};
 	}
 	
 	/**
