@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.global_parameters;
 
 import org.apache.log4j.Logger;
 

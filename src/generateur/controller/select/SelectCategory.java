@@ -15,6 +15,8 @@ import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
 import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
+import generateur.Generator;
+import generateur.view.entity_parameters.EntityParametersGlobalPane;
 import util.Converter;
 
 /**
@@ -82,8 +84,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							logger.fatal("Error during the loading of armor related data", e);
 						}
 						break;
-					case COMPETENCE:
 					case ENTITE:
+						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
+					case COMPETENCE:
 					case OBJET:
 						logger.info("No corresponding data. Cleaning lists...");
 						subcategorySelect.clearItems();
