@@ -9,9 +9,17 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Class for load project configuration
+ * @author simon
+ *
+ */
 public class LoadConfiguration {
 	private Properties configuration;
 	
+	/**
+	 * load project configuration
+	 */
 	public LoadConfiguration() {
 		try (InputStream input = new FileInputStream("ressources/config.properties")) {
 
@@ -25,14 +33,29 @@ public class LoadConfiguration {
         }
 	}
 	
+	/**
+	 * get Integer property
+	 * @param key
+	 * @return
+	 */
 	public int getInteger(String key) {
 		return Integer.parseInt(configuration.getProperty(key));
 	}
 	
+	/**
+	 * get Boolean property
+	 * @param key
+	 * @return
+	 */
 	public boolean getBoolean(String key) {
 		return Boolean.parseBoolean(configuration.getProperty(key));
 	}
 	
+	/**
+	 * get String property
+	 * @param key
+	 * @return
+	 */
 	public String getString(String key) {
 		return configuration.getProperty(key);
 	}

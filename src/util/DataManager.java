@@ -33,10 +33,15 @@ import app.model.objet.Armure;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 
+/**
+ * Class for Save and Download data from Json file
+ * @author simon
+ *
+ */
 public class DataManager {
 
 	/**
-	 * Save data on Json file
+	 * Save data as Json file
 	 * @param object
 	 * @param path
 	 * @param fileName
@@ -90,7 +95,7 @@ public class DataManager {
 	/**
 	 * Construit l'objet pour la sauvegarde
 	 * @param parent
-	 * @return l'Objet java à sauvegarder
+	 * @return <b>Java Object</b> à sauvegarder
 	 * @throws Exception si parent est null
 	 */
 	public static Base objectConstructor(Group parent) throws Exception{
@@ -123,7 +128,7 @@ public class DataManager {
 	}
 
 	/**
-	 * Create magic Java Object for saving
+	 * Create magic <b>Java Object</b> for saving
 	 * @param parent
 	 * @return magic
 	 * @throws Exception if parent is null
@@ -158,7 +163,7 @@ public class DataManager {
 	}
 
 	/**
-	 * Create armor Java Object for saving
+	 * Create armor <b>Java Object</b> for saving
 	 * @param parent
 	 * @return armor
 	 * @throws Exception if parent is null
@@ -195,7 +200,7 @@ public class DataManager {
 	}
 
 	/**
-	 * Create weapon Java Object for saving
+	 * Create weapon <b>Java Object</b> for saving
 	 * @param parent
 	 * @return weapon
 	 * @throws Exception if parent is null
