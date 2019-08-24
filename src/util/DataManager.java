@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
 import app.model.Base;
+import app.model.entity.Entity;
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.attaque.TypeAttaqueEnum;
 import app.model.enumeration.attribut.AttributsEnum;
@@ -26,6 +27,7 @@ import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieAr
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
 import app.model.enumeration.statistique.StatistiquesEnum;
+import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
 import generateur.controller.select.SelectCategory;
@@ -51,13 +53,13 @@ public class DataManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Base downloadData(String path, String fileName) {
 		// TODO
 		return new Base() {
 		};
 	}
-	
+
 	/**
 	 * Valide l'objet pour la sauvegarde
 	 * @param parent
@@ -84,67 +86,149 @@ public class DataManager {
 		}
 		return errors;
 	}
-	
+
 	/**
 	 * Construit l'objet pour la sauvegarde
 	 * @param parent
-	 * @return l'objet a sauvegarder
+	 * @return l'Objet java à sauvegarder
 	 * @throws Exception si parent est null
 	 */
 	public static Base objectConstructor(Group parent) throws Exception{
-		
+
 		Base object = null;
-		
+
 		if(parent == null) {
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
-		
-		CategorieEnum categorieEnum =((SelectCategory) parent.findActor("category")).getSelected();
-		
-		//Maping
-		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
-		Map<TypeAttaqueEnum, Integer> typeDefense = new HashMap<TypeAttaqueEnum, Integer>();
-		Map<ElementEnum, Integer> defenseElement = new HashMap<ElementEnum, Integer>();
-		Map<AttributsEnum, Integer> defenseAttribue = new HashMap<AttributsEnum, Integer>();
-		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
-		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
-		
-		//set value
-		String name = ((TextField) parent.findActor("name")).getText();
-		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
-		String description = ((TextField) parent.findActor("description")).getText();
-		int minDamage = 1;
-		int maxDamage = 10;
-		int defensePhysique = 10;
-		int defenseMagique = 10;
-		ElementEnum element = ElementEnum.valueOf(((StringSelectBox) parent.findActor("element")).getSelected());
-		TypeRareteEnum rarity = TypeRareteEnum.RARE;
-		Boolean quest = false;
-		int charge = 10;
-		
-		switch (categorieEnum) {
+
+		switch (((SelectCategory) parent.findActor("category")).getSelected()) {
 		case ARME:
-			// TODO
-			SousCategorieArmeEnum type = SousCategorieArmeEnum.valueOf(((StringSelectBox) parent.findActor("type")).getSelected());
-			TypeArmeEnum subCategory = TypeArmeEnum.valueOf(((StringSelectBox) parent.findActor("subcategory")).getSelected());
-			object = new Arme(name, iconPath, description, statistiques, element, attributs, minDamage, maxDamage, subCategory, typeAttaque, type, rarity, quest, charge);
+			object = createWeapon(parent);
 			break;
 		case ARMURE:
-			// TODO
-			SousCategorieArmureEnum type1 = SousCategorieArmureEnum.valueOf(((StringSelectBox) parent.findActor("type")).getSelected());
-			TypeArmureEnum subCategory1 = TypeArmureEnum.valueOf(((StringSelectBox) parent.findActor("subcategory")).getSelected());
-			object = new Armure(name, iconPath, description, statistiques, defensePhysique, defenseMagique, subCategory1, typeDefense, defenseElement, defenseAttribue, type1, rarity, quest, charge);
+			object = createArmor(parent);
 			break;
 		case COMPETENCE:
-			// TODO
+			object = createMagic(parent);
 			break;
 		case ENTITE:
 			// TODO
+			object = new Entity();
 			break;
 		case OBJET:
 			// TODO
 			break;
 		}
+		return object;
+	}
+
+	/**
+	 * Create magic Java Object for saving
+	 * @param parent
+	 * @return magic
+	 * @throws Exception if parent is null
+	 */
+	private static Base createMagic(Group parent) throws Exception{
+		Base object = null;
+
+		if(parent == null) {
+			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
+		}
+
+		//Maping
+		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
+		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
+		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
+
+		//set value
+		// TODO set attribute
+		String name = ((TextField) parent.findActor("name")).getText();
+		String description = ((TextField) parent.findActor("description")).getText();
+		ElementEnum element = ElementEnum.valueOf(((StringSelectBox) parent.findActor("element")).getSelected());
+		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
+		int minDamage = 1;
+		int maxDamage = 10;
+		int mana = 10;
+		Boolean utilisableCombat = false;
+		Boolean utilisableHorsCombat = false;
+
+		object = new Magie(name, iconPath, description, statistiques, element, attributs, minDamage, maxDamage, mana, utilisableCombat, utilisableHorsCombat, typeAttaque);
+
+		return object;
+	}
+
+	/**
+	 * Create armor Java Object for saving
+	 * @param parent
+	 * @return armor
+	 * @throws Exception if parent is null
+	 */
+	private static Base createArmor(Group parent) throws Exception{
+		Base object = null;
+
+		if(parent == null) {
+			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
+		}
+
+		//Maping
+		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
+		Map<TypeAttaqueEnum, Integer> typeDefense = new HashMap<TypeAttaqueEnum, Integer>();
+		Map<ElementEnum, Integer> defenseElement = new HashMap<ElementEnum, Integer>();
+		Map<AttributsEnum, Integer> defenseAttribue = new HashMap<AttributsEnum, Integer>();
+
+		//set value
+		String name = ((TextField) parent.findActor("name")).getText();
+		String description = ((TextField) parent.findActor("description")).getText();
+		SousCategorieArmureEnum type1 = SousCategorieArmureEnum.valueOf(((StringSelectBox) parent.findActor("type")).getSelected());
+		TypeArmureEnum subCategory1 = TypeArmureEnum.valueOf(((StringSelectBox) parent.findActor("subcategory")).getSelected());
+		// TODO set attribute
+		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
+		int defensePhysique = 10;
+		int defenseMagique = 10;
+		TypeRareteEnum rarity = TypeRareteEnum.RARE;
+		Boolean quest = false;
+		int charge = 10;
+
+		object = new Armure(name, iconPath, description, statistiques, defensePhysique, defenseMagique, subCategory1, typeDefense, defenseElement, defenseAttribue, type1, rarity, quest, charge);
+
+		return object;
+	}
+
+	/**
+	 * Create weapon Java Object for saving
+	 * @param parent
+	 * @return weapon
+	 * @throws Exception if parent is null
+	 */
+	private static Base createWeapon(Group parent) throws Exception{
+		Base object = null;
+
+		if(parent == null) {
+			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
+		}
+
+		//Maping
+		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
+		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
+		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
+
+		//set value
+		String name = ((TextField) parent.findActor("name")).getText();
+		String description = ((TextField) parent.findActor("description")).getText();
+		ElementEnum element = ElementEnum.valueOf(((StringSelectBox) parent.findActor("element")).getSelected());
+		SousCategorieArmeEnum type = SousCategorieArmeEnum.valueOf(((StringSelectBox) parent.findActor("type")).getSelected());
+		TypeArmeEnum subCategory = TypeArmeEnum.valueOf(((StringSelectBox) parent.findActor("subcategory")).getSelected());
+
+		// TODO set attribute
+		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
+		TypeRareteEnum rarity = TypeRareteEnum.RARE;
+		Boolean quest = false;
+		int charge = 10;
+		int minDamage = 1;
+		int maxDamage = 10;
+
+		object = new Arme(name, iconPath, description, statistiques, element, attributs, minDamage, maxDamage, subCategory, typeAttaque, type, rarity, quest, charge);
+
 		return object;
 	}
 
@@ -155,7 +239,7 @@ public class DataManager {
 	 * @throws Exception if categorieEnum is null
 	 */
 	public static String pathConstructor(CategorieEnum categorieEnum) throws Exception{
-		
+
 		if(categorieEnum == null) {
 			throw new GdxRuntimeException("# ERROR: Categorie is NULL #");
 		}
