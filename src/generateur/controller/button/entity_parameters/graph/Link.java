@@ -31,17 +31,35 @@ public class Link extends Button {
 		} else {
 			node1 = end1;
 			node2 = end2;
-			line = new Pixmap((int) Math.abs(node1.getX() - node2.getX()), (int) Math.abs(node1.getY() - node2.getY()), Format.RGBA8888);
+			float directionX = node2.getX() - node1.getX();
+			float directionY = node2.getY() - node1.getY();
+			int width = (int) Math.abs(directionX);
+			int height = (int) Math.abs(directionY);
+			int x = (int) (node1.getX() + node1.getWidth() / 2);
+			int y = (int) (node1.getY() + node1.getHeight() / 2);
+			
+			//Création de l'image
+			line = new Pixmap((int) width, (int)  height, Format.RGBA8888);
 			line.setColor(Color.WHITE);
-			int x1 = (int) (node1.getX() + node1.getWidth() / 2);
-			int y1 = (int) (node1.getY() - node1.getHeight());
-			int x2 = (int) (Math.abs(node2.getX() - node1.getX()));
-			int y2 = (int) (Math.abs(node2.getY() - node1.getY()));
-			line.drawLine(0, 0, x2, y2);
+			
+			//Positionnement
+			if (directionX >= 0 && directionY >= 0) {
+				setPosition(x, y);
+				line.drawLine(0, height, width, 0);
+			} else if (directionX >= 0 && directionY < 0) {
+				setPosition(x, y - height);
+				line.drawLine(0, 0, width, height);
+			} else if (directionX < 0 && directionY >= 0) {
+				setPosition(x - width, y);
+				line.drawLine(0, 0, width, height);
+			} else {
+				line.drawLine(0, height, width, 0);
+				setPosition(x - width, y - height);
+			}
+			
 			texture = new Texture(line);
 			setStyle(new LinkStyle(texture));
-			setSize(Math.abs(node1.getX() - node2.getX()), Math.abs(node1.getY() - node2.getY()));
-			setPosition(x1, y1);
+			setSize(width, height);
 		}
 	}
 

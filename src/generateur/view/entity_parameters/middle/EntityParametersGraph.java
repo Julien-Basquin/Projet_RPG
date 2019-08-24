@@ -55,9 +55,9 @@ public class EntityParametersGraph extends Group {
 		if (linkList.add(link)) {
 			node1.getLinks().add(link);
 			node2.getLinks().add(link);
-			System.out.println("YES");
-			logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
+
 			Generator.stage.addActor(link);
+			logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 			
 			return true;
 		}
