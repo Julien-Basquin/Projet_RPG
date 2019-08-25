@@ -33,7 +33,6 @@ import app.model.enumeration.statistique.StatistiquesEnum;
 import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
-import generateur.Generator;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 
@@ -49,7 +48,6 @@ public class DataManager {
 	
 	/**
 	 * Save data as Json file
-	 * @param objectClass	Class of the object to save
 	 * @param object		Object to save
 	 * @param path			Path of the folder to save
 	 * @param fileName		Name of the file to save
