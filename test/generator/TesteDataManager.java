@@ -40,8 +40,6 @@ import util.DateUtile;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TesteDataManager {
 
-	private Equipement equipement = null;
-
 	final static Logger logger = Logger.getLogger(TesteDataManager.class);
 	/**
 	 * @throws java.lang.Exception
@@ -63,17 +61,6 @@ class TesteDataManager {
 	 */
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		
-		File file = new File("./ressources/generateur/Data/Object/Equipement/Armor/JuniteTest.json"); 
-        
-        if(file.delete()) 
-        { 
-            logger.info("File deleted successfully"); 
-        } 
-        else
-        { 
-        	logger.error("Failed to delete the file"); 
-        } 
 		logger.info("End test Class : DataManager");
 	}
 
@@ -136,7 +123,19 @@ class TesteDataManager {
 		try {
 			assertTrue(DataManager.pathConstructor(categorieEnum).equals("./ressources/generateur/Data/Object/Equipement/Armor/"), "Erreur sur le Path");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			fail("fail to find Path");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@Order(4) 
+	void testDelete() {
+		
+		try {
+			DataManager.deleteFile("./ressources/generateur/Data/Object/Equipement/Armor/", "JuniteTest");
+		} catch (Exception e) {
+			fail("fail to delete file");
 			e.printStackTrace();
 		}
 	}

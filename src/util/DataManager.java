@@ -1,6 +1,7 @@
 package util;
 
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class DataManager {
 
 	/**Logger*/
 	private final Logger logger = Logger.getLogger(DataManager.class);
-	
+
 	/**
 	 * Save data as Json file
 	 * @param object		Object to save
@@ -75,12 +76,12 @@ public class DataManager {
 	 */
 	public static <T> T convertInstanceOfObject(Object object, Class<T> clazz) throws Exception{
 		Logger logger = Logger.getLogger("DataManager.convertInstanceOfObject");
-	    try {
-	        return clazz.cast(object);
-	    } catch(ClassCastException e) {
-	    	logger.error("Error for casting Object " + e);
-	        return null;
-	    }
+		try {
+			return clazz.cast(object);
+		} catch(ClassCastException e) {
+			logger.error("Error for casting Object " + e);
+			return null;
+		}
 	}
 
 	/**
@@ -99,13 +100,13 @@ public class DataManager {
 		Json parser = new Json();
 		Object object = null;
 		try(FileReader file = new FileReader(path+fileName+".json")) {
-			
+
 			object = parser.fromJson(Class.forName(objectClass.getName()), file);
 
 		} catch (Exception e) {
 			logger.error("File not found " + path+fileName+".json " + e);
 		}
-		
+
 		return object;
 	}
 
@@ -330,5 +331,26 @@ public class DataManager {
 			return "./ressources/generateur/Data/Object/Other/";
 		}
 		return null;
+	}
+
+	/**
+	 * delete the file
+	 * @param path
+	 * @param fileName
+	 */
+	public static void deleteFile(String path, String fileName) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.deleteFile");
+		
+		File file = new File(path+fileName+".json"); 
+
+		if(file.delete()) 
+		{ 
+			logger.info("File deleted successfully"); 
+		} 
+		else
+		{ 
+			logger.error("Failed to delete the file");
+			throw new GdxRuntimeException("# ERROR: Failed to delete the file #");
+		} 
 	}
 }
