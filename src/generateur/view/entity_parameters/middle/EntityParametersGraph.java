@@ -75,6 +75,9 @@ public class EntityParametersGraph extends Group {
 			Generator.stage.addActor(link);
 			logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 			
+			//Envoi du lien à l'arrière du stage, permet de sélectionner les noeuds
+			link.setZIndex(0);
+			
 			return true;
 		}
 		
