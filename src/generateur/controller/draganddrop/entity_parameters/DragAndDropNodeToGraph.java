@@ -15,9 +15,9 @@ import generateur.controller.button.entity_parameters.graph.node.Node;
  * @author Julien B.
  */
 
-public class DragAndDropGraph extends DragAndDrop {
+public class DragAndDropNodeToGraph extends DragAndDrop {
 	
-	public DragAndDropGraph(Actor source, Actor target) {
+	public DragAndDropNodeToGraph(Actor source, Actor target) {
 		super();
 		
 		addSource(new Source(source) {

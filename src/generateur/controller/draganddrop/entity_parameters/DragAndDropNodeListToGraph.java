@@ -23,12 +23,12 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  * @author Julien B.
  */
 
-public class DragAndDropNode extends DragAndDrop {
+public class DragAndDropNodeListToGraph extends DragAndDrop {
 	private String path;
 	private NodeCategorieEnum category;
-	private Logger logger = Logger.getLogger(DragAndDropNode.class);
+	private Logger logger = Logger.getLogger(DragAndDropNodeListToGraph.class);
 	
-	public DragAndDropNode(Actor source, Actor target) {
+	public DragAndDropNodeListToGraph(Actor source, Actor target) {
 		super();
 		
 		addSource(new Source(source) {

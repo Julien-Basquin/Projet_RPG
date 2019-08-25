@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
-import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
+import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGraph;
 
 /**
  * Graphe associé aux entités.
@@ -46,7 +46,7 @@ public class EntityParametersGraph extends Group {
 	 */
 	public boolean addNode(Node node) {
 		if (nodeList.add(node)) {
-			new DragAndDropGraph(node, this);
+			new DragAndDropNodeToGraph(node, this);
 			return true;
 		}
 		

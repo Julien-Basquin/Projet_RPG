@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import generateur.Generator;
-import generateur.controller.draganddrop.entity_parameters.DragAndDropNode;
+import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeListToGraph;
 import generateur.view.entity_parameters.bottom.EntityParametersBottomPane;
 
 /**
@@ -32,6 +32,6 @@ public class EntityParametersMiddlePane extends SplitPane {
 		this.setMaxSplitAmount(prefWidth / splitPosition);
 		
 		//Initialisation du drag and drop des noeuds
-		new DragAndDropNode(findActor("entity_node_column"), ((SplitPane) findActor("entity_bottom_pane")).findActor("graph"));
+		new DragAndDropNodeListToGraph(findActor("entity_node_column"), ((SplitPane) findActor("entity_bottom_pane")).findActor("graph"));
 	}
 }
