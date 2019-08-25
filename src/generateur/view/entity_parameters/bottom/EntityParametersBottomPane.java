@@ -3,6 +3,7 @@ package generateur.view.entity_parameters.bottom;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 
+import generateur.controller.button.entity_parameters.graph.GraphEvents;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 /**

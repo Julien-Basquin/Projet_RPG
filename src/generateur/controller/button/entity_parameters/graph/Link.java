@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+import generateur.controller.button.entity_parameters.graph.node.Node;
+
 /**
  * Classe représentant un lien entre plusieurs noeuds dans le graphe.
  * 
@@ -109,6 +111,9 @@ public class Link extends Button {
 	}
 	
 	public void dispose() {
-		texture.dispose();
+		remove();
+		if (texture != null) {
+			texture.dispose();
+		}
 	}
 }

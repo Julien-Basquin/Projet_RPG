@@ -7,11 +7,11 @@ import org.apache.log4j.Logger;
 import java.util.HashSet;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
-import generateur.controller.button.entity_parameters.graph.Node;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
 
 /**
@@ -20,23 +20,20 @@ import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
  * @author Julien B.
  */
 
-//TODO Ajouter le drag and drop de graph vers graph
 public class EntityParametersGraph extends Group {
-	private Stage localStage;
 	private Set<Node> nodeList;
 	private Set<Link> linkList;
 	private Node selected;
 	private final Logger logger = Logger.getLogger(EntityParametersGraph.class);
+	
+	private boolean remove;
 
 	public EntityParametersGraph() {
 		super();
 		setName("graph");
 
-		//TODO Faire le graphe
-		localStage = new Stage();
 		nodeList = new HashSet<Node>();
 		linkList = new HashSet<Link>();
-		Generator.inputMultiplexer.addProcessor(0, localStage);
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
 	}
 
@@ -84,6 +81,18 @@ public class EntityParametersGraph extends Group {
 		return false;
 	}
 	
+	//TODO Transformer en controller
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		//Suppression d'un noeud
+		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
+			selected.dispose();
+			selected = null;
+		}
+	}
+
 	public Set<Node> getNodeList() {
 		return nodeList;
 	}
@@ -108,11 +117,26 @@ public class EntityParametersGraph extends Group {
 		this.selected = selected;
 	}
 
-	public Stage getLocalStage() {
-		return localStage;
+//	public Stage getLocalStage() {
+//		return localStage;
+//	}
+//
+//	public void setLocalStage(Stage localStage) {
+//		this.localStage = localStage;
+//	}
+	
+	public boolean isRemove() {
+		return remove;
 	}
 
-	public void setLocalStage(Stage localStage) {
-		this.localStage = localStage;
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
+
+	public void dispose() {
+		for (Link link : linkList) {
+			link.remove();
+			link.dispose();
+		}
 	}
 }

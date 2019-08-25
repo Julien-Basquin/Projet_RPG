@@ -1,19 +1,18 @@
-package generateur.controller.button.entity_parameters.graph;
+package generateur.controller.button.entity_parameters.graph.node;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.model.entity_parameters.NodeCategorieEnum;
 import generateur.model.entity_parameters.NodeData;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
@@ -63,37 +62,8 @@ public class Node extends Button {
 		links = new HashSet<Link>();
 	}
 	
-	public void addClickEvent(EntityParametersGraph graph) {
-		Node node = this;
-		
-		addListener(new InputListener() {
-
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-			}
-
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				super.touchDown(event, x, y, pointer, button);
-				
-				switch(button) {
-					case Buttons.LEFT :
-						if (graph.getSelected() != null) {
-							graph.getSelected().setChecked(false);
-						}
-						node.setChecked(true);
-						graph.setSelected(node);
-						break;
-					case Buttons.RIGHT :
-						if (graph.getSelected() != null) {
-							graph.addLink(graph.getSelected(), node);
-						}
-						break;
-				}
-			}
-			
-		});
+	public void addEvents(EntityParametersGraph graph) {
+		new NodeEvents(this, graph);
 	}
 	
 	/**
@@ -162,6 +132,17 @@ public class Node extends Button {
 	}
 
 	public void dispose() {
+		remove();
+		
+		for (Link link : links) {
+			link.dispose();
+		}
+		
 		data.dispose();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return data.equals(((Node) obj).getData());
 	}
 }

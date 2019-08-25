@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import generateur.Generator;
-import generateur.controller.button.entity_parameters.graph.Node;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.NodeCategorieEnum;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
@@ -84,14 +84,15 @@ public class DragAndDropNode extends DragAndDrop {
 			public void drop(Source source, Payload payload, float x, float y, int pointer) {
 				//Création du noeud
 				Node node = new Node(category, Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
+				
 				//Ajout du noeud sur le graphe
 				((EntityParametersGraph) target).addNode(node);
+				
 				//Ajout des inputs sur le noeud
-				node.addClickEvent((EntityParametersGraph) target);
+				node.addEvents((EntityParametersGraph) target);
 				logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 				
 				Generator.stage.addActor(node);
-//				((EntityParametersGraph) target).getLocalStage().addActor(node);
 			}
 			
 			@Override

@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  */
 
 public class NodeData {
+	private static int globalId;
+	
+	private int id;
 	/**Nom*/
 	private String name;
 	/**Categorie*/
@@ -27,7 +30,16 @@ public class NodeData {
 	private Image iconImage;
 	
 	public NodeData() {
-		
+		id = globalId++;
+		System.out.println(id);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -95,7 +107,16 @@ public class NodeData {
 	}
 	
 	public void dispose() {
-		categoryTexture.dispose();
-		iconTexture.dispose();
+		if (categoryTexture != null) {
+			categoryTexture.dispose();
+		}
+		if (iconTexture != null) {
+			iconTexture.dispose();
+		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return id == ((NodeData) obj).getId();
 	}
 }
