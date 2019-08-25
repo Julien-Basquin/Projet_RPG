@@ -31,36 +31,50 @@ public class Link extends Button {
 		} else {
 			node1 = end1;
 			node2 = end2;
-			float directionX = node2.getX() - node1.getX();
-			float directionY = node2.getY() - node1.getY();
-			int width = (int) Math.abs(directionX);
-			int height = (int) Math.abs(directionY);
-			int x = (int) (node1.getX() + node1.getWidth() / 2);
-			int y = (int) (node1.getY() + node1.getHeight() / 2);
 			
-			//Création de l'image
-			line = new Pixmap((int) width, (int)  height, Format.RGBA8888);
-			line.setColor(Color.WHITE);
-			
-			//Positionnement
-			if (directionX >= 0 && directionY >= 0) {
-				setPosition(x, y);
-				line.drawLine(0, height, width, 0);
-			} else if (directionX >= 0 && directionY < 0) {
-				setPosition(x, y - height);
-				line.drawLine(0, 0, width, height);
-			} else if (directionX < 0 && directionY >= 0) {
-				setPosition(x - width, y);
-				line.drawLine(0, 0, width, height);
-			} else {
-				line.drawLine(0, height, width, 0);
-				setPosition(x - width, y - height);
-			}
-			
-			texture = new Texture(line);
-			setStyle(new LinkStyle(texture));
-			setSize(width, height);
+			draw();
 		}
+	}
+	
+	/**
+	 * Création et positionnement du lien sur le graphe.
+	 * N'ajoute pas le lien à l'écran.
+	 */
+	public void draw() {
+		if (texture != null) {
+			texture.dispose();
+		}
+		
+		float directionX = node2.getX() - node1.getX();
+		float directionY = node2.getY() - node1.getY();
+		int width = (int) Math.abs(directionX);
+		int height = (int) Math.abs(directionY);
+		int x = (int) (node1.getX() + node1.getWidth() / 2);
+		int y = (int) (node1.getY() + node1.getHeight() / 2);
+		
+		//Création de l'image
+		line = new Pixmap((int) width, (int)  height, Format.RGBA8888);
+		line.setColor(Color.WHITE);
+		
+		//Positionnement
+		if (directionX >= 0 && directionY >= 0) {
+			setPosition(x, y);
+			line.drawLine(0, height, width, 0);
+		} else if (directionX >= 0 && directionY < 0) {
+			setPosition(x, y - height);
+			line.drawLine(0, 0, width, height);
+		} else if (directionX < 0 && directionY >= 0) {
+			setPosition(x - width, y);
+			line.drawLine(0, 0, width, height);
+		} else {
+			line.drawLine(0, height, width, 0);
+			setPosition(x - width, y - height);
+		}
+		
+		texture = new Texture(line);
+		line.dispose();
+		setStyle(new LinkStyle(texture));
+		setSize(width, height);
 	}
 
 	@Override
@@ -96,6 +110,5 @@ public class Link extends Button {
 	
 	public void dispose() {
 		texture.dispose();
-		line.dispose();
 	}
 }

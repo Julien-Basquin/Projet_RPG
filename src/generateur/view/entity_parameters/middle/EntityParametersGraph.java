@@ -40,6 +40,13 @@ public class EntityParametersGraph extends Group {
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
 	}
 
+	/**
+	 * Ajoute un noeud sur le graphe.
+	 * 
+	 * @param node	Noeud à ajouter
+	 * 
+	 * @return	True si l'ajout a réussi, false sinon
+	 */
 	public boolean addNode(Node node) {
 		if (nodeList.add(node)) {
 			new DragAndDropGraph(node, this);
@@ -49,6 +56,15 @@ public class EntityParametersGraph extends Group {
 		return false;
 	}
 	
+	/**
+	 * Ajout d'un lien sur le graphe ayant deux noeuds distincts à chaque extrémité.
+	 * Le lien est dessiné.
+	 * 
+	 * @param node1	Noeud 1
+	 * @param node2	Noeud 2
+	 * 
+	 * @return True si l'ajout a réussi, false sinon
+	 */
 	public boolean addLink(Node node1, Node node2) {
 		Link link = new Link(node1, node2);
 		
@@ -61,7 +77,6 @@ public class EntityParametersGraph extends Group {
 			
 			return true;
 		}
-		System.out.println("NO");
 		
 		return false;
 	}

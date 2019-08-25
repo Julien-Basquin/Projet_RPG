@@ -96,6 +96,13 @@ public class Node extends Button {
 		});
 	}
 	
+	/**
+	 * Nom de la couleur de la catégorie du noeud en paramètre
+	 * 
+	 * @param category	Catégorie du noeud
+	 * 
+	 * @return	Nom de la couleur de la catégorie
+	 */
 	public String findColor(NodeCategorieEnum category) {
 		String color = "";
 		
@@ -114,6 +121,15 @@ public class Node extends Button {
 		}
 		
 		return color;
+	}
+	
+	/**
+	 * Dessine les liens du noeud
+	 */
+	public void drawLink() {
+		for (Link link : links) {
+			link.draw();
+		}
 	}
 	
 	public NodeData getData() {
