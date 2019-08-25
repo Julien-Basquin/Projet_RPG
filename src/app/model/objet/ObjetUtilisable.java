@@ -21,6 +21,12 @@ public class ObjetUtilisable extends GlobalObjet{
 	private boolean utilisableHorsCombat;
 	
 	/**
+	 * create null weapon for loading
+	 */
+	public ObjetUtilisable() {
+	}
+	
+	/**
 	 * default constructor
 	 * @param nom : nom de l'objet
 	 * @param iconPath : path de l'icon

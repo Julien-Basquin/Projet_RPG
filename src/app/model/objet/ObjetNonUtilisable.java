@@ -19,6 +19,12 @@ public class ObjetNonUtilisable extends GlobalObjet{
 	private boolean materiau;
 	
 	/**
+	 * create null Object for loading
+	 */
+	public ObjetNonUtilisable() {
+	}
+	
+	/**
 	 * default constructor
 	 * @param nom : nom de l'objet
 	 * @param iconPath : path de l'icon

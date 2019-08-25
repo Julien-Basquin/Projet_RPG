@@ -1,11 +1,14 @@
 package util;
 
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -30,39 +33,81 @@ import app.model.enumeration.statistique.StatistiquesEnum;
 import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
+import generateur.Generator;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
 
 /**
- * Class for Save and Download data from Json file
+ * Class for Save and Load data from Json file
  * @author simon
  *
  */
 public class DataManager {
 
+	/**Logger*/
+	private final Logger logger = Logger.getLogger(DataManager.class);
+	
 	/**
 	 * Save data as Json file
-	 * @param object
-	 * @param path
-	 * @param fileName
+	 * @param objectClass	Class of the object to save
+	 * @param object		Object to save
+	 * @param path			Path of the folder to save
+	 * @param fileName		Name of the file to save
 	 */
 	public static void saveData(Object object, String path, String fileName) {
+		Logger logger = Logger.getLogger("DataManager.saveData");
 		Json json = new Json();
 		json.setOutputType(OutputType.json);
 		try(FileWriter file = new FileWriter(path+fileName+".json")){
 			file.write(json.prettyPrint(object));
 			file.flush();
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			logger.error("Can't write in path : " +path+fileName+".json " +e);
 		}
 	}
 
-	public static Base downloadData(String path, String fileName) {
+	/**
+	 * Cast Object
+	 * @param <T>
+	 * @param object		Object for cast
+	 * @param clazz			Class for cast
+	 * @return				Object cast
+	 * @throws Exception	if cast fail
+	 */
+	private static <T> T convertInstanceOfObject(Object object, Class<T> clazz) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.convertInstanceOfObject");
+	    try {
+	        return clazz.cast(object);
+	    } catch(ClassCastException e) {
+	    	logger.error("Error for casting Object " + e);
+	        return null;
+	    }
+	}
+
+	/**
+	 * Load object's data from a json file
+	 * 
+	 * @param objectClass	Class of the object to load
+	 * @param path			Path of the folder to load
+	 * @param fileName		Name of the file to load
+	 * 
+	 * @return	An object containing the file's data
+	 */
+	public static Object loadData(Class<?> objectClass, String path, String fileName) {
+
+		Logger logger = Logger.getLogger("DataManager.loadData");
 		// TODO
-		return new Base() {
-		};
+		Json parser = new Json();
+		Object object = null;
+		try(FileReader file = new FileReader(path+fileName+".json")) {
+			
+			object = parser.fromJson(Class.forName(objectClass.getName()), file);
+
+		} catch (Exception e) {
+			logger.error("File not found " + path+fileName+".json " + e);
+		}
+		
+		return object;
 	}
 
 	/**
@@ -73,17 +118,22 @@ public class DataManager {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<String> objectValidation(Group parent) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.objectValidation");
 		List<String> errors = new ArrayList<String>();
 		if(parent == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 		if (((TextField) parent.findActor("name")).getText().equals("") || ((TextField) parent.findActor("name")).getText() == null) {
+			logger.error("Name is Empty or null");
 			errors.add("Generator.Error.Name.Empty");
 		}
 		if (((Container<Image>) parent.findActor("icon_container")).getActor() == null) {
+			logger.error("Icon is Empty or null");
 			errors.add("Generator.Error.Icon.Empty");
 		}
 		if (((TextField) parent.findActor("description")).getText().equals("") || ((TextField) parent.findActor("description")).getText() == null) {
+			logger.error("Description is Empty or null");
 			errors.add("Generator.Error.Description.Empty");
 		}
 		if (errors.isEmpty()) {
@@ -100,28 +150,35 @@ public class DataManager {
 	 */
 	public static Base objectConstructor(Group parent) throws Exception{
 
+		Logger logger = Logger.getLogger("DataManager.objectConstructor");
 		Base object = null;
 
 		if(parent == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
 		switch (((SelectCategory) parent.findActor("category")).getSelected()) {
 		case ARME:
+			logger.info("Weapon create");
 			object = createWeapon(parent);
 			break;
 		case ARMURE:
+			logger.info("Armor create");
 			object = createArmor(parent);
 			break;
 		case COMPETENCE:
+			logger.info("Ability create");
 			object = createMagic(parent);
 			break;
 		case ENTITE:
 			// TODO
+			logger.info("Entity create");
 			object = new Entity();
 			break;
 		case OBJET:
 			// TODO
+			logger.info("Object create");
 			break;
 		}
 		return object;
@@ -134,9 +191,11 @@ public class DataManager {
 	 * @throws Exception if parent is null
 	 */
 	private static Base createMagic(Group parent) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.createMagic");
 		Base object = null;
 
 		if(parent == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
@@ -169,9 +228,11 @@ public class DataManager {
 	 * @throws Exception if parent is null
 	 */
 	private static Base createArmor(Group parent) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.createArmor");
 		Base object = null;
 
 		if(parent == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
@@ -206,9 +267,11 @@ public class DataManager {
 	 * @throws Exception if parent is null
 	 */
 	private static Base createWeapon(Group parent) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.createWeapon");
 		Base object = null;
 
 		if(parent == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
@@ -244,20 +307,27 @@ public class DataManager {
 	 * @throws Exception if categorieEnum is null
 	 */
 	public static String pathConstructor(CategorieEnum categorieEnum) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.pathConstructor");
 
 		if(categorieEnum == null) {
+			logger.error("Parent is NULL");
 			throw new GdxRuntimeException("# ERROR: Categorie is NULL #");
 		}
 		switch (categorieEnum) {
 		case ARME:
+			logger.info("Path : ./ressources/generateur/Data/Object/Equipement/Weapon/");
 			return "./ressources/generateur/Data/Object/Equipement/Weapon/";
 		case ARMURE:
+			logger.info("Path : ./ressources/generateur/Data/Object/Equipement/Armor/");
 			return "./ressources/generateur/Data/Object/Equipement/Armor/";
 		case COMPETENCE:
+			logger.info("Path : ./ressources/generateur/Data/skill/");
 			return "./ressources/generateur/Data/skill/";
 		case ENTITE:
+			logger.info("Path : ./ressources/generateur/Data/Entity/");
 			return "./ressources/generateur/Data/Entity/";
 		case OBJET:
+			logger.info("Path : ./ressources/generateur/Data/Object/Other/");
 			return "./ressources/generateur/Data/Object/Other/";
 		}
 		return null;

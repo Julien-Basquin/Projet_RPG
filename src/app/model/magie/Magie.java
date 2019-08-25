@@ -26,6 +26,11 @@ public class Magie extends Base {
 	private boolean utilisableCombat;
 	private boolean utilisableHorsCombat;
 	
+	/**
+	 * create null Ability for loading
+	 */
+	public Magie() {
+	}
 	
 	/**
 	 * Default constructor.

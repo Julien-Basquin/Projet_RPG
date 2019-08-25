@@ -28,6 +28,12 @@ public class Arme extends GlobalObjet{
 	private SousCategorieArmeEnum sousCategorie;
 	
 	/**
+	 * create null weapon for loading
+	 */
+	public Arme() {
+	}
+	
+	/**
 	 * Default constructor
 	 * @param nom : nom de l'arme
 	 * @param iconPath : path de l'icon

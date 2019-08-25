@@ -27,6 +27,12 @@ public class Armure extends GlobalObjet{
 	private int defenseMagique;
 	
 	/**
+	 * create null armor for loading
+	 */
+	public Armure() {
+	}
+	
+	/**
 	 * default constructor
 	 * @param nom : nom de l'armure
 	 * @param iconPath : path de l'icon
