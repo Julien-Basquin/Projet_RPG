@@ -64,7 +64,7 @@ public class DataManager {
 
 	/**
 	 * Cast Object
-	 * @deprecated
+	 * @deprecated			Function is updated and loader don't need it for moment ..... let see after development if Object needed cast
 	 * @param <T>
 	 * @param object		Object for cast
 	 * @param clazz			Class for cast
@@ -93,7 +93,7 @@ public class DataManager {
 	public static Object loadData(Class<?> objectClass, String path, String fileName) {
 
 		Logger logger = Logger.getLogger("DataManager.loadData");
-		// TODO
+		// TODO import function in loader code
 		Json parser = new Json();
 		Object object = null;
 		try(FileReader file = new FileReader(path+fileName+".json")) {
