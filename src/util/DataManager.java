@@ -44,9 +44,6 @@ import generateur.controller.select.StringSelectBox;
  */
 public class DataManager {
 
-	/**Logger*/
-	private final Logger logger = Logger.getLogger(DataManager.class);
-
 	/**
 	 * Save data as Json file
 	 * @param object		Object to save
