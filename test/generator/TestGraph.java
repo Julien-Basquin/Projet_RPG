@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-
-import generateur.controller.button.entity_parameters.graph.Node;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 /**

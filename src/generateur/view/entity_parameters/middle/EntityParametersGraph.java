@@ -7,11 +7,11 @@ import org.apache.log4j.Logger;
 import java.util.HashSet;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
-import generateur.controller.button.entity_parameters.graph.Node;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
 
 /**
@@ -20,26 +20,30 @@ import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
  * @author Julien B.
  */
 
-//TODO Ajouter le drag and drop de graph vers graph
 public class EntityParametersGraph extends Group {
-	private Stage localStage;
 	private Set<Node> nodeList;
 	private Set<Link> linkList;
 	private Node selected;
 	private final Logger logger = Logger.getLogger(EntityParametersGraph.class);
+	
+	private boolean remove;
 
 	public EntityParametersGraph() {
 		super();
 		setName("graph");
 
-		//TODO Faire le graphe
-		localStage = new Stage();
 		nodeList = new HashSet<Node>();
 		linkList = new HashSet<Link>();
-		Generator.inputMultiplexer.addProcessor(0, localStage);
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
 	}
 
+	/**
+	 * Ajoute un noeud sur le graphe.
+	 * 
+	 * @param node	Noeud à ajouter
+	 * 
+	 * @return	True si l'ajout a réussi, false sinon
+	 */
 	public boolean addNode(Node node) {
 		if (nodeList.add(node)) {
 			new DragAndDropGraph(node, this);
@@ -49,6 +53,15 @@ public class EntityParametersGraph extends Group {
 		return false;
 	}
 	
+	/**
+	 * Ajout d'un lien sur le graphe ayant deux noeuds distincts à chaque extrémité.
+	 * Le lien est dessiné.
+	 * 
+	 * @param node1	Noeud 1
+	 * @param node2	Noeud 2
+	 * 
+	 * @return True si l'ajout a réussi, false sinon
+	 */
 	public boolean addLink(Node node1, Node node2) {
 		Link link = new Link(node1, node2);
 		
@@ -59,13 +72,27 @@ public class EntityParametersGraph extends Group {
 			Generator.stage.addActor(link);
 			logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 			
+			//Envoi du lien à l'arrière du stage, permet de sélectionner les noeuds
+			link.setZIndex(0);
+			
 			return true;
 		}
-		System.out.println("NO");
 		
 		return false;
 	}
 	
+	//TODO Transformer en controller
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		//Suppression d'un noeud
+		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
+			selected.dispose();
+			selected = null;
+		}
+	}
+
 	public Set<Node> getNodeList() {
 		return nodeList;
 	}
@@ -90,11 +117,26 @@ public class EntityParametersGraph extends Group {
 		this.selected = selected;
 	}
 
-	public Stage getLocalStage() {
-		return localStage;
+//	public Stage getLocalStage() {
+//		return localStage;
+//	}
+//
+//	public void setLocalStage(Stage localStage) {
+//		this.localStage = localStage;
+//	}
+	
+	public boolean isRemove() {
+		return remove;
 	}
 
-	public void setLocalStage(Stage localStage) {
-		this.localStage = localStage;
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
+
+	public void dispose() {
+		for (Link link : linkList) {
+			link.remove();
+			link.dispose();
+		}
 	}
 }

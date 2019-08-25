@@ -1,4 +1,4 @@
-package generateur.controller.button.entity_parameters.graph;
+package generateur.controller.button.entity_parameters.graph.node;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;

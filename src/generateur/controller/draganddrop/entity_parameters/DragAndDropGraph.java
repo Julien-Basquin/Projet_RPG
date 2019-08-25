@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-import generateur.controller.button.entity_parameters.graph.Node;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 
 /**
  * Implémentation du drag and drop pour déplacer des noeuds sur le graphe des entités.
@@ -43,9 +43,9 @@ public class DragAndDropGraph extends DragAndDrop {
 			public void drop(Source source, Payload payload, float x, float y, int pointer) {
 				//Changement des coordonnée du noeud déplacé
 				Node node = ((Node) source.getActor());
-//				node.remove();
-//				((EntityParametersGraph) target).getLocalStage().addActor(node);
+
 				node.setPosition(Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
+				node.drawLink();
 			}
 			
 			@Override
