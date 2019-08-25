@@ -66,6 +66,7 @@ public class DataManager {
 
 	/**
 	 * Cast Object
+	 * @deprecated
 	 * @param <T>
 	 * @param object		Object for cast
 	 * @param clazz			Class for cast
