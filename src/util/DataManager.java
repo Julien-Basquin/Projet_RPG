@@ -73,7 +73,7 @@ public class DataManager {
 	 * @return				Object cast
 	 * @throws Exception	if cast fail
 	 */
-	private static <T> T convertInstanceOfObject(Object object, Class<T> clazz) throws Exception{
+	public static <T> T convertInstanceOfObject(Object object, Class<T> clazz) throws Exception{
 		Logger logger = Logger.getLogger("DataManager.convertInstanceOfObject");
 	    try {
 	        return clazz.cast(object);
