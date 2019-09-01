@@ -13,6 +13,7 @@ import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGraph;
+import generateur.controller.draganddrop.entity_parameters.MoveNodeController;
 
 /**
  * Graphe associé aux entités.
@@ -34,7 +35,12 @@ public class EntityParametersGraph extends Group {
 
 		nodeList = new HashSet<Node>();
 		linkList = new HashSet<Link>();
+		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
+	}
+	
+	public void addMoveNodeController() {
+		addListener(new MoveNodeController(this));
 	}
 
 	/**
@@ -117,14 +123,6 @@ public class EntityParametersGraph extends Group {
 		this.selected = selected;
 	}
 
-//	public Stage getLocalStage() {
-//		return localStage;
-//	}
-//
-//	public void setLocalStage(Stage localStage) {
-//		this.localStage = localStage;
-//	}
-	
 	public boolean isRemove() {
 		return remove;
 	}

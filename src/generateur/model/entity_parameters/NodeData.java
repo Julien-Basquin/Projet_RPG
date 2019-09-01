@@ -31,7 +31,6 @@ public class NodeData {
 	
 	public NodeData() {
 		id = globalId++;
-		System.out.println(id);
 	}
 
 	public int getId() {

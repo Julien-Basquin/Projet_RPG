@@ -84,9 +84,6 @@ public class Generator extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height);
-//		if (generatorWindow.findActor("graph") != null) {
-//			((EntityParametersGraph) generatorWindow.findActor("graph")).getLocalStage().getViewport().update(width, height);
-//		}
 	}
 
 	/**

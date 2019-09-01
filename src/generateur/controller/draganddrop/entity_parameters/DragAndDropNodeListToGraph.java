@@ -93,6 +93,9 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 				logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 				
 				Generator.stage.addActor(node);
+				
+				//Envoi le noeud au fond du stage, juste devant les liens
+				node.setZIndex(1);
 			}
 			
 			@Override

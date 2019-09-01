@@ -3,7 +3,6 @@ package generateur.view.entity_parameters.bottom;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 
-import generateur.controller.button.entity_parameters.graph.GraphEvents;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 /**
@@ -19,6 +18,7 @@ public class EntityParametersBottomPane extends SplitPane {
 		super(new EntityParametersGraph(), new EntityParametersStats(skin), true, skin);
 		setName("entity_bottom_pane");
 		
+		((EntityParametersGraph) findActor("graph")).addMoveNodeController();
 		//TODO Gérer la séparation du splitpane
 	}
 

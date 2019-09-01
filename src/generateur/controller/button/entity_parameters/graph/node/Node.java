@@ -37,7 +37,6 @@ public class Node extends Button {
 		data = new NodeData();
 		data.setCategory(NodeCategorieEnum.STATISTIQUE);
 		data.setCoordinates(new Vector2(x, y));
-//		this.setPosition(x, y);
 		data.setCategoryTexture(new Texture(new FileHandle(path + "green.png")));
 		data.setCategoryImage(new Image(data.getCategoryTexture()));
 		ButtonStyle style = new NodeStyle(data.getCategoryTexture());
@@ -52,7 +51,6 @@ public class Node extends Button {
 		data = new NodeData();
 		data.setCategory(category);
 		data.setCoordinates(new Vector2(x, y));
-//		this.setPosition(x, y);
 		data.setCategoryTexture(new Texture(new FileHandle(path + findColor(category) + ".png")));
 		data.setCategoryImage(new Image(data.getCategoryTexture()));
 		ButtonStyle style = new NodeStyle(data.getCategoryTexture());
