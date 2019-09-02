@@ -18,7 +18,7 @@ import generateur.controller.dialog.CloseDialog;
 public class CloseButton extends TextButton {
 
 	public CloseButton(Skin skin) {
-		super(Launcher.languageManager.getProperty("Global.Quite"), skin);
+		super(Launcher.languageManager.getProperty("Global.Quit"), skin);
 		setName("close");
 		
 		//Ajout d'une fenêtre de dialogue en cliquant sur le bouton
