@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
@@ -56,6 +57,13 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 				if (getSelected() != null && value != getSelected().name()) {
 					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected().getNom() : ""));
 				}
+				
+				//Retrait de la partie droite de l'écran
+				if (Generator.generatorWindow != null
+						&& Generator.generatorWindow.getChildren().items[1] != null) {
+					((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
+				}
+				
 				//Récupération des listes des sous-catégories et des types pour mise à jour
 				StringSelectBox subcategorySelect = (StringSelectBox) parent.findActor("subcategory");
 				StringSelectBox typeSelect = (StringSelectBox) parent.findActor("type");
@@ -86,8 +94,8 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 						break;
 					case ENTITE:
 						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
+						break;
 					case COMPETENCE:
-						((EntityParametersGlobalPane) Generator.findActor("entity_pane")).dispose();
 					case OBJET:
 						logger.info("No corresponding data. Cleaning lists...");
 						subcategorySelect.clearItems();

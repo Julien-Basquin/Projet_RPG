@@ -29,5 +29,7 @@ public class EntityParametersGlobalPane extends SplitPane implements Disposable 
 
 	public void dispose() {
 		((EntityParametersMiddlePane) findActor("entity_middle_pane")).dispose();
+		
+		remove();
 	}
 }
