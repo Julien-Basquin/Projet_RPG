@@ -46,7 +46,7 @@ public class ResetGraphDialog extends Dialog {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 
-				((EntityParametersGraph) Generator.findActor("graph")).clean();
+				((EntityParametersGraph) Generator.findActor("graph")).dispose();
 				
 				remove();
 			}

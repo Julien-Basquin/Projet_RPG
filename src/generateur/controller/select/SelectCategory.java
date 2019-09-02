@@ -87,6 +87,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 					case ENTITE:
 						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
 					case COMPETENCE:
+						((EntityParametersGlobalPane) Generator.findActor("entity_pane")).dispose();
 					case OBJET:
 						logger.info("No corresponding data. Cleaning lists...");
 						subcategorySelect.clearItems();

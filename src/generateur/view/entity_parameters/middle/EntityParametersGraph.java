@@ -87,22 +87,6 @@ public class EntityParametersGraph extends Group {
 		return false;
 	}
 	
-	/**
-	 * Supprime tous les noeuds et tous les liens du graphe
-	 */
-	public void clean() {
-		for (Link link : linkList) {
-			link.dispose();
-		}
-		
-		for (Node node : nodeList) {
-			node.dispose();
-		}
-		
-		linkList.clear();
-		nodeList.clear();
-	}
-	
 	//TODO Transformer en controller
 	@Override
 	public void act(float delta) {
@@ -154,10 +138,19 @@ public class EntityParametersGraph extends Group {
 		this.remove = remove;
 	}
 
+	/**
+	 * Supprime tous les noeuds et tous les liens du graphe
+	 */
 	public void dispose() {
 		for (Link link : linkList) {
-			link.remove();
 			link.dispose();
 		}
+		
+		for (Node node : nodeList) {
+			node.dispose();
+		}
+		
+		linkList.clear();
+		nodeList.clear();
 	}
 }

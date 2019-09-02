@@ -112,6 +112,7 @@ public class Link extends Button {
 	
 	public void dispose() {
 		remove();
+		
 		if (texture != null) {
 			texture.dispose();
 		}

@@ -130,12 +130,11 @@ public class Node extends Button {
 	}
 
 	public void dispose() {
-		remove();
-		
 		for (Link link : links) {
 			link.dispose();
 		}
 		
+		remove();
 		data.dispose();
 	}
 

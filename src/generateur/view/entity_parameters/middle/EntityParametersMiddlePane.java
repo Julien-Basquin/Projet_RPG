@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.utils.Disposable;
+
 import generateur.Generator;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeListToGraph;
 import generateur.view.entity_parameters.bottom.EntityParametersBottomPane;
@@ -15,7 +17,7 @@ import generateur.view.entity_parameters.bottom.EntityParametersBottomPane;
  * @author Julien B.
  */
 
-public class EntityParametersMiddlePane extends SplitPane {
+public class EntityParametersMiddlePane extends SplitPane implements Disposable {
 
 	public EntityParametersMiddlePane(Skin skin) {
 		super(new EntityParametersNodeColumn(skin), new EntityParametersBottomPane(skin), false, skin);
@@ -33,5 +35,11 @@ public class EntityParametersMiddlePane extends SplitPane {
 		
 		//Initialisation du drag and drop des noeuds
 		new DragAndDropNodeListToGraph(findActor("entity_node_column"), ((SplitPane) findActor("entity_bottom_pane")).findActor("graph"));
+	}
+
+	@Override
+	public void dispose() {
+		((EntityParametersNodeColumn) findActor("entity_node_column")).dispose();
+		((EntityParametersBottomPane) findActor("entity_bottom_pane")).dispose();
 	}
 }

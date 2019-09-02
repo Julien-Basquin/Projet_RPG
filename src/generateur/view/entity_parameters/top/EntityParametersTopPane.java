@@ -24,5 +24,4 @@ public class EntityParametersTopPane extends SplitPane {
 		title.setAlignment(Align.center);
 		this.setFirstWidget(title);
 	}
-
 }
