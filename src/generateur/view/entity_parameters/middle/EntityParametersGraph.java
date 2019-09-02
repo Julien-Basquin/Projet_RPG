@@ -87,6 +87,22 @@ public class EntityParametersGraph extends Group {
 		return false;
 	}
 	
+	/**
+	 * Supprime tous les noeuds et tous les liens du graphe
+	 */
+	public void clean() {
+		for (Link link : linkList) {
+			link.dispose();
+		}
+		
+		for (Node node : nodeList) {
+			node.dispose();
+		}
+		
+		linkList.clear();
+		nodeList.clear();
+	}
+	
 	//TODO Transformer en controller
 	@Override
 	public void act(float delta) {
@@ -95,6 +111,13 @@ public class EntityParametersGraph extends Group {
 		//Suppression d'un noeud
 		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
 			selected.dispose();
+			
+			for (Link link : selected.getLinks()) {
+				linkList.remove(link);
+			}
+			
+			nodeList.remove(selected);
+			
 			selected = null;
 		}
 	}

@@ -1,4 +1,4 @@
-package generateur.controller.dialog;
+package generateur.controller.dialog.graph;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -7,12 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import generateur.Generator;
 import generateur.Launcher;
+import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
-public class CloseDialog extends Dialog {
+public class ResetGraphDialog extends Dialog {
 
-	public CloseDialog(Skin skin) {
+	public ResetGraphDialog(Skin skin) {
 		super(Launcher.languageManager.getProperty("Global.Confirm"), skin);
+		
 		//Récupération de la résolution active
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
@@ -20,7 +23,7 @@ public class CloseDialog extends Dialog {
 		//Création d'une boîte de dialogue
 		setSize(width / 2, height / 2);
 		setPosition(width / 2 - getWidth() / 2, height / 2 - getHeight() / 2);
-		text(Launcher.languageManager.getProperty("Global.Confirm.Leave")
+		text(Launcher.languageManager.getProperty("Global.Graph.Confirm.Reset")
 				+ Launcher.languageManager.getProperty("Global.Warning.Unsaved"));
 		
 		//Bouton d'annulation, ferme la fenêtre de dialogue
@@ -43,7 +46,9 @@ public class CloseDialog extends Dialog {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 
-				Gdx.app.exit();
+				((EntityParametersGraph) Generator.findActor("graph")).clean();
+				
+				remove();
 			}
 			
 		});
