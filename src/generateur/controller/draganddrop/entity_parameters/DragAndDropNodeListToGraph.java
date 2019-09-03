@@ -23,12 +23,12 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  * @author Julien B.
  */
 
-public class DragAndDropNode extends DragAndDrop {
+public class DragAndDropNodeListToGraph extends DragAndDrop {
 	private String path;
 	private NodeCategorieEnum category;
-	private Logger logger = Logger.getLogger(DragAndDropNode.class);
+	private Logger logger = Logger.getLogger(DragAndDropNodeListToGraph.class);
 	
-	public DragAndDropNode(Actor source, Actor target) {
+	public DragAndDropNodeListToGraph(Actor source, Actor target) {
 		super();
 		
 		addSource(new Source(source) {
@@ -40,27 +40,26 @@ public class DragAndDropNode extends DragAndDrop {
 				Pattern pattern = Pattern.compile("^([a-z]+)_?[a-z_]*");
 				Matcher match = pattern.matcher(event.getTarget().getParent().getName());
 				
-				try {
-					match.find();
+				if (match.find()) {
 					path = "ressources/generateur/node/";
 					
 					switch(match.group(1)) {
-						case "stat":
-							path += "green";
-							category = NodeCategorieEnum.STATISTIQUE;
-							break;
-						case "skill":
-							path += "red";
-							category = NodeCategorieEnum.COMPETENCE;
-							break;
-						case "equipment":
-							path += "blue";
-							category = NodeCategorieEnum.EQUIPEMENT;
-							break;
-						case "attribute":
-							path += "magenta";
-							category = NodeCategorieEnum.ATTRIBUT;
-							break;
+					case "stat":
+						path += "green";
+						category = NodeCategorieEnum.STATISTIQUE;
+						break;
+					case "skill":
+						path += "red";
+						category = NodeCategorieEnum.COMPETENCE;
+						break;
+					case "equipment":
+						path += "blue";
+						category = NodeCategorieEnum.EQUIPEMENT;
+						break;
+					case "attribute":
+						path += "magenta";
+						category = NodeCategorieEnum.ATTRIBUT;
+						break;
 					}
 					
 					path += ".png";
@@ -70,8 +69,6 @@ public class DragAndDropNode extends DragAndDrop {
 					
 					payload.setDragActor(image);
 					payload.getDragActor().setPosition(x, y);
-				} catch (Exception e) {
-					//TODO Logger l'exception
 				}
 				
 				return payload;

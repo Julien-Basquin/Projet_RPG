@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
- * Style d'un noeud du graphe des entités.
+ * Style d'un lien du graphe des entités.
  * 
  * @author Julien B.
  */

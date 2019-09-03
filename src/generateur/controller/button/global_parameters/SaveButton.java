@@ -24,9 +24,9 @@ import generateur.controller.select.SelectCategory;
 import util.DataManager;
 
 /**
- * @author Julien B.
- *
  * Bouton permettant d'enregistrer un objet du générateur.
+ * 
+ * @author Julien B.
  */
 
 public class SaveButton extends TextButton {

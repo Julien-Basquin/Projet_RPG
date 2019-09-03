@@ -15,9 +15,9 @@ import generateur.controller.button.entity_parameters.graph.node.Node;
  * @author Julien B.
  */
 
-public class DragAndDropGraph extends DragAndDrop {
+public class DragAndDropNodeToGraph extends DragAndDrop {
 	
-	public DragAndDropGraph(Actor source, Actor target) {
+	public DragAndDropNodeToGraph(Actor source, Actor target) {
 		super();
 		
 		addSource(new Source(source) {
@@ -27,7 +27,7 @@ public class DragAndDropGraph extends DragAndDrop {
 				Payload payload = new Payload();
 				
 				//Déplacement de l'image du noeud sélectionné avec un alpha réduit de moitié
-				Image image = ((Node) event.getTarget()).getData().getCategoryImage();
+				Image image = ((Node) event.getTarget()).getCategoryImage();
 				Color color = image.getColor();
 				image.setColor(color.r, color.g, color.b, 0.5f);
 				payload.setDragActor(image);
@@ -41,10 +41,11 @@ public class DragAndDropGraph extends DragAndDrop {
 			
 			@Override
 			public void drop(Source source, Payload payload, float x, float y, int pointer) {
-				//Changement des coordonnée du noeud déplacé
 				Node node = ((Node) source.getActor());
 
+				//Changement des coordonnée du noeud déplacé
 				node.setPosition(Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
+				
 				node.drawLink();
 			}
 			

@@ -2,6 +2,7 @@ package generateur.view.entity_parameters.bottom;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
+import com.badlogic.gdx.utils.Disposable;
 
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
@@ -12,13 +13,19 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  * @author Julien B.
  */
 
-public class EntityParametersBottomPane extends SplitPane {
+public class EntityParametersBottomPane extends SplitPane implements Disposable {
 
 	public EntityParametersBottomPane(Skin skin) {
 		super(new EntityParametersGraph(), new EntityParametersStats(skin), true, skin);
 		setName("entity_bottom_pane");
 		
+		((EntityParametersGraph) findActor("graph")).addMoveNodeController();
 		//TODO Gérer la séparation du splitpane
 	}
 
+	@Override
+	public void dispose() {
+		((EntityParametersGraph) findActor("graph")).dispose();
+//		((EntityParametersStats) findActor("entity_stats")).dispose();
+	}
 }

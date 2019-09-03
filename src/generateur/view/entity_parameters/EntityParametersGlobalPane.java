@@ -3,6 +3,7 @@ package generateur.view.entity_parameters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
+import com.badlogic.gdx.utils.Disposable;
 
 import generateur.view.entity_parameters.middle.EntityParametersMiddlePane;
 import generateur.view.entity_parameters.top.EntityParametersTopPane;
@@ -13,7 +14,7 @@ import generateur.view.entity_parameters.top.EntityParametersTopPane;
  * @author Julien B.
  */
 
-public class EntityParametersGlobalPane extends SplitPane {
+public class EntityParametersGlobalPane extends SplitPane implements Disposable {
 
 	public EntityParametersGlobalPane(Skin skin) {
 		super(new EntityParametersTopPane(skin), new EntityParametersMiddlePane(skin), true, skin);
@@ -26,4 +27,9 @@ public class EntityParametersGlobalPane extends SplitPane {
 		this.setMaxSplitAmount(splitAmount / Gdx.graphics.getHeight());
 	}
 
+	public void dispose() {
+		((EntityParametersMiddlePane) findActor("entity_middle_pane")).dispose();
+		
+		remove();
+	}
 }

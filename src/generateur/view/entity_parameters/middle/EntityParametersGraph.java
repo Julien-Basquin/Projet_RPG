@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
-import generateur.controller.draganddrop.entity_parameters.DragAndDropGraph;
+import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGraph;
+import generateur.controller.draganddrop.entity_parameters.MoveNodeController;
 
 /**
  * Graphe associé aux entités.
@@ -34,7 +35,12 @@ public class EntityParametersGraph extends Group {
 
 		nodeList = new HashSet<Node>();
 		linkList = new HashSet<Link>();
+		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
+	}
+	
+	public void addMoveNodeController() {
+		addListener(new MoveNodeController(this));
 	}
 
 	/**
@@ -46,7 +52,7 @@ public class EntityParametersGraph extends Group {
 	 */
 	public boolean addNode(Node node) {
 		if (nodeList.add(node)) {
-			new DragAndDropGraph(node, this);
+			new DragAndDropNodeToGraph(node, this);
 			return true;
 		}
 		
@@ -89,6 +95,13 @@ public class EntityParametersGraph extends Group {
 		//Suppression d'un noeud
 		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
 			selected.dispose();
+			
+			for (Link link : selected.getLinks()) {
+				linkList.remove(link);
+			}
+			
+			nodeList.remove(selected);
+			
 			selected = null;
 		}
 	}
@@ -117,14 +130,6 @@ public class EntityParametersGraph extends Group {
 		this.selected = selected;
 	}
 
-//	public Stage getLocalStage() {
-//		return localStage;
-//	}
-//
-//	public void setLocalStage(Stage localStage) {
-//		this.localStage = localStage;
-//	}
-	
 	public boolean isRemove() {
 		return remove;
 	}
@@ -133,10 +138,19 @@ public class EntityParametersGraph extends Group {
 		this.remove = remove;
 	}
 
+	/**
+	 * Supprime tous les noeuds et tous les liens du graphe
+	 */
 	public void dispose() {
 		for (Link link : linkList) {
-			link.remove();
 			link.dispose();
 		}
+		
+		for (Node node : nodeList) {
+			node.dispose();
+		}
+		
+		linkList.clear();
+		nodeList.clear();
 	}
 }
