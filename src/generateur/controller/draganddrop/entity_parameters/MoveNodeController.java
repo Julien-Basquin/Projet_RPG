@@ -11,6 +11,12 @@ import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
+/**
+ * Evènement gérant le déplacement du graphe.
+ * 
+ * @author Julien B.
+ */
+
 public class MoveNodeController extends DragListener {
 	private int actualX;
 	private int actualY;
@@ -25,12 +31,12 @@ public class MoveNodeController extends DragListener {
 		actualX = Gdx.input.getX();
 		actualY = Gdx.input.getY();
 		
+		//Désactivation des éléments du graphe
 		for (Node node : graph.getNodeList()) {
 			if (node.isVisible()) {
 				node.setTouchable(Touchable.disabled);
 			}
 		}
-		
 		for (Link link : graph.getLinkList()) {
 			link.setTouchable(Touchable.disabled);
 		}
@@ -38,7 +44,7 @@ public class MoveNodeController extends DragListener {
 	
 	@Override
 	public void drag(InputEvent event, float x, float y, int pointer) {
-		//Condition empêchant le glissement
+		//Condition empêchant le glissement de l'écran
 		if (Math.abs(Gdx.input.getDeltaX()) > 0 || Math.abs(Gdx.input.getDeltaY()) > 0) {
 			int newX = Gdx.input.getX();
 			int newY = Gdx.input.getY();
@@ -78,12 +84,12 @@ public class MoveNodeController extends DragListener {
 
 	@Override
 	public void dragStop(InputEvent event, float x, float y, int pointer) {
+		//Réactivation des éléments du graphe
 		for (Node node : graph.getNodeList()) {
 			if (node.isVisible()) {
 				node.setTouchable(Touchable.enabled);
 			}
 		}
-		
 		for (Link link : graph.getLinkList()) {
 			link.setTouchable(Touchable.enabled);
 		}

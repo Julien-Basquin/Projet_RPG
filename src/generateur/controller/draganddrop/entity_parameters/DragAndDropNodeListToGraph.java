@@ -40,27 +40,26 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 				Pattern pattern = Pattern.compile("^([a-z]+)_?[a-z_]*");
 				Matcher match = pattern.matcher(event.getTarget().getParent().getName());
 				
-				try {
-					match.find();
+				if (match.find()) {
 					path = "ressources/generateur/node/";
 					
 					switch(match.group(1)) {
-						case "stat":
-							path += "green";
-							category = NodeCategorieEnum.STATISTIQUE;
-							break;
-						case "skill":
-							path += "red";
-							category = NodeCategorieEnum.COMPETENCE;
-							break;
-						case "equipment":
-							path += "blue";
-							category = NodeCategorieEnum.EQUIPEMENT;
-							break;
-						case "attribute":
-							path += "magenta";
-							category = NodeCategorieEnum.ATTRIBUT;
-							break;
+					case "stat":
+						path += "green";
+						category = NodeCategorieEnum.STATISTIQUE;
+						break;
+					case "skill":
+						path += "red";
+						category = NodeCategorieEnum.COMPETENCE;
+						break;
+					case "equipment":
+						path += "blue";
+						category = NodeCategorieEnum.EQUIPEMENT;
+						break;
+					case "attribute":
+						path += "magenta";
+						category = NodeCategorieEnum.ATTRIBUT;
+						break;
 					}
 					
 					path += ".png";
@@ -70,8 +69,6 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 					
 					payload.setDragActor(image);
 					payload.getDragActor().setPosition(x, y);
-				} catch (Exception e) {
-					//TODO Logger l'exception
 				}
 				
 				return payload;
@@ -93,9 +90,6 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 				logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 				
 				Generator.stage.addActor(node);
-				
-				//Envoi le noeud au fond du stage, juste devant les liens
-				node.setZIndex(1);
 			}
 			
 			@Override

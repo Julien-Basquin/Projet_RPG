@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
 import generateur.Launcher;
-import generateur.controller.dialog.CloseDialog;
+import generateur.view.dialog.global_parameters.CloseDialog;
 
 /**
  * Bouton servant à fermer le générateur.

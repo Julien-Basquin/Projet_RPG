@@ -41,10 +41,11 @@ public class DragAndDropNodeToGraph extends DragAndDrop {
 			
 			@Override
 			public void drop(Source source, Payload payload, float x, float y, int pointer) {
-				//Changement des coordonnée du noeud déplacé
 				Node node = ((Node) source.getActor());
 
+				//Changement des coordonnée du noeud déplacé
 				node.setPosition(Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
+				
 				node.drawLink();
 			}
 			

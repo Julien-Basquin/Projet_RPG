@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
 import generateur.Launcher;
-import generateur.controller.dialog.graph.ResetGraphDialog;
+import generateur.view.dialog.entity_parameters.graph.ResetGraphDialog;
 
 /**
  * Bouton de création d'un nouveau fichier d'entité.

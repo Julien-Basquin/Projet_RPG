@@ -18,7 +18,9 @@ import generateur.controller.button.entity_parameters.graph.node.Node;
  */
 
 public class Link extends Button {
+	/**Extrémité du lien*/
 	private Node node1;
+	/**Extrémité du lien*/
 	private Node node2;
 	private Pixmap line;
 	private Texture texture;
@@ -29,7 +31,6 @@ public class Link extends Button {
 		
 		if (end1.equals(end2)) {
 			logger.error("Second node is already attached to this link.\nCreation aborted.");
-			//TODO Throw exception
 		} else {
 			node1 = end1;
 			node2 = end2;
@@ -100,14 +101,6 @@ public class Link extends Button {
 
 	public void setNode2(Node node2) {
 		this.node2 = node2;
-	}
-
-	public Pixmap getLine() {
-		return line;
-	}
-
-	public void setLine(Pixmap line) {
-		this.line = line;
 	}
 	
 	public void dispose() {

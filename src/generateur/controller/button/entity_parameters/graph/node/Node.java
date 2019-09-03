@@ -25,7 +25,7 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
 public class Node extends Button {
 	private static int globalId;
 	
-	/**Données du noeud*/	
+	/**Identifiant*/	
 	private int id;
 	/**Nom*/
 	private String name;
@@ -33,15 +33,22 @@ public class Node extends Button {
 	private NodeCategorieEnum category;
 	/**Description*/
 	private String description;
-	/**Coordonnées*/
+	
+	/**Texture de l'image de la catégorie*/
 	private Texture categoryTexture;
+	/**Texture de l'icone*/
 	private Texture iconTexture;
+	/**Image de la catégorie (chargée depuis la texture)*/
 	private Image categoryImage;
+	/**Image de l'icone (chargée depuis la texture)*/
 	private Image iconImage;
 	
 	/**Base du chemin des images des noeuds*/
 	private String path = "ressources/generateur/node/";
+	
+	/**Liste des liens du noeuds*/
 	private Set<Link> links;
+	
 	private Logger logger = Logger.getLogger(Node.class);
 
 	public Node(float x, float y) {
@@ -68,6 +75,11 @@ public class Node extends Button {
 		links = new HashSet<Link>();
 	}
 	
+	/**
+	 * Création des évènements du noeud
+	 * 
+	 * @param graph	Graphe contenant le noeud
+	 */
 	public void addEvents(EntityParametersGraph graph) {
 		new NodeEvents(this, graph);
 	}

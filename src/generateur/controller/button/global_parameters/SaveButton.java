@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import generateur.Launcher;
 
 /**
- * @author Julien B.
- *
  * Bouton permettant d'enregistrer un objet du générateur.
+ * 
+ * @author Julien B.
  */
 
 public class SaveButton extends TextButton {

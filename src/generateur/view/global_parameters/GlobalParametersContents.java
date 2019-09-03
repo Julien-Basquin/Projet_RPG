@@ -27,7 +27,6 @@ import generateur.controller.select.StringSelectBox;
  * @author Julien B.
  */
 
-//TODO internationalisation
 public class GlobalParametersContents extends ScrollPane {
 
 	public GlobalParametersContents(Skin skin) {
