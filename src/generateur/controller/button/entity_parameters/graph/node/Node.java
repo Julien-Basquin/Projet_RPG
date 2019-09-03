@@ -8,13 +8,11 @@ import org.apache.log4j.Logger;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.model.entity_parameters.NodeCategorieEnum;
-import generateur.model.entity_parameters.NodeData;
 import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 /**
@@ -25,8 +23,22 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  */
 
 public class Node extends Button {
-	/**Données du noeud*/
-	private NodeData data;
+	private static int globalId;
+	
+	/**Données du noeud*/	
+	private int id;
+	/**Nom*/
+	private String name;
+	/**Categorie*/
+	private NodeCategorieEnum category;
+	/**Description*/
+	private String description;
+	/**Coordonnées*/
+	private Texture categoryTexture;
+	private Texture iconTexture;
+	private Image categoryImage;
+	private Image iconImage;
+	
 	/**Base du chemin des images des noeuds*/
 	private String path = "ressources/generateur/node/";
 	private Set<Link> links;
@@ -34,13 +46,11 @@ public class Node extends Button {
 
 	public Node(float x, float y) {
 		super();
-		data = new NodeData();
-		data.setCategory(NodeCategorieEnum.STATISTIQUE);
-		data.setCoordinates(new Vector2(x, y));
-		data.setCategoryTexture(new Texture(new FileHandle(path + "green.png")));
-		data.setCategoryImage(new Image(data.getCategoryTexture()));
-		ButtonStyle style = new NodeStyle(data.getCategoryTexture());
-		setStyle(style);
+		id = globalId++;
+		category = NodeCategorieEnum.STATISTIQUE;
+		categoryTexture = new Texture(new FileHandle(path + "green.png"));
+		categoryImage = new Image(categoryTexture);
+		setStyle(new NodeStyle(categoryTexture));
 		setSize(64, 64);
 		setPosition(x, y);
 		links = new HashSet<Link>();
@@ -48,13 +58,11 @@ public class Node extends Button {
 	
 	public Node(NodeCategorieEnum category, float x, float y) {
 		super();
-		data = new NodeData();
-		data.setCategory(category);
-		data.setCoordinates(new Vector2(x, y));
-		data.setCategoryTexture(new Texture(new FileHandle(path + findColor(category) + ".png")));
-		data.setCategoryImage(new Image(data.getCategoryTexture()));
-		ButtonStyle style = new NodeStyle(data.getCategoryTexture());
-		setStyle(style);
+		id = globalId++;
+		this.category = category;
+		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
+		categoryImage = new Image(categoryTexture);
+		setStyle(new NodeStyle(categoryTexture));
 		setSize(64, 64);
 		setPosition(x, y);
 		links = new HashSet<Link>();
@@ -99,13 +107,81 @@ public class Node extends Button {
 			link.draw();
 		}
 	}
-	
-	public NodeData getData() {
-		return data;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setData(NodeData data) {
-		this.data = data;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public NodeCategorieEnum getCategory() {
+		return category;
+	}
+
+	public void setCategory(NodeCategorieEnum category) {
+		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Texture getCategoryTexture() {
+		return categoryTexture;
+	}
+
+	public void setCategoryTexture(Texture categoryTexture) {
+		this.categoryTexture = categoryTexture;
+	}
+
+	public Texture getIconTexture() {
+		return iconTexture;
+	}
+
+	public void setIconTexture(Texture iconTexture) {
+		this.iconTexture = iconTexture;
+	}
+
+	public Image getCategoryImage() {
+		return categoryImage;
+	}
+
+	public void setCategoryImage(Image categoryImage) {
+		this.categoryImage = categoryImage;
+	}
+
+	public Image getIconImage() {
+		return iconImage;
+	}
+
+	public void setIconImage(Image iconImage) {
+		this.iconImage = iconImage;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	public static int getGlobalId() {
+		return globalId;
 	}
 
 	public String getPath() {
@@ -134,12 +210,18 @@ public class Node extends Button {
 			link.dispose();
 		}
 		
+		if (categoryTexture != null) {
+			categoryTexture.dispose();
+		}
+		if (iconTexture != null) {
+			iconTexture.dispose();
+		}
+		
 		remove();
-		data.dispose();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return data.equals(((Node) obj).getData());
+		return id == ((Node) obj).getId();
 	}
 }

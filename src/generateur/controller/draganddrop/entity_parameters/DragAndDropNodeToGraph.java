@@ -27,7 +27,7 @@ public class DragAndDropNodeToGraph extends DragAndDrop {
 				Payload payload = new Payload();
 				
 				//Déplacement de l'image du noeud sélectionné avec un alpha réduit de moitié
-				Image image = ((Node) event.getTarget()).getData().getCategoryImage();
+				Image image = ((Node) event.getTarget()).getCategoryImage();
 				Color color = image.getColor();
 				image.setColor(color.r, color.g, color.b, 0.5f);
 				payload.setDragActor(image);
