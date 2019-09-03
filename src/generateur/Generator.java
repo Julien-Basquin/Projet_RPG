@@ -154,6 +154,8 @@ public class Generator extends ApplicationAdapter {
 					continue;
 				}
 			}
+			
+			i++;
 		} while (actorByName == null && i < stage.getActors().size);
 		
 		return actorByName;
