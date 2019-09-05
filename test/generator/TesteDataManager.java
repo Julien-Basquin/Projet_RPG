@@ -92,7 +92,7 @@ class TesteDataManager {
 		Armure tete = new Armure("Teste tete", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.TETE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.LOURDE, TypeRareteEnum.RARE, false, 10);
 		
 		try {
-			DataManager.saveData(tete, "./ressources/generateur/Data/Object/Equipement/Armor/", "JuniteTest");	
+			DataManager.saveData(tete, "./ressources/Data/Object/Equipement/Armor/", "JuniteTest");	
 			
 			logger.debug("Object successful load : "+tete.getNom());
 		} catch (Exception e) {
@@ -109,7 +109,7 @@ class TesteDataManager {
 		
 		Armure tete = null;
 		
-		tete = (Armure)DataManager.loadData(Armure.class, "./ressources/generateur/Data/Object/Equipement/Armor/", "JuniteTest");
+		tete = (Armure)DataManager.loadData(Armure.class, "./ressources/Data/Object/Equipement/Armor/", "JuniteTest");
 		
 		assertTrue(tete != null, "Erreur sur le chargement");
 	}
@@ -121,7 +121,7 @@ class TesteDataManager {
 		CategorieEnum categorieEnum = CategorieEnum.ARMURE;
 		
 		try {
-			assertTrue(DataManager.pathConstructor(categorieEnum).equals("./ressources/generateur/Data/Object/Equipement/Armor/"), "Erreur sur le Path");
+			assertTrue(DataManager.pathConstructor(categorieEnum).equals("./ressources/Data/Object/Equipement/Armor/"), "Erreur sur le Path");
 		} catch (Exception e) {
 			fail("fail to find Path");
 			e.printStackTrace();
@@ -133,7 +133,7 @@ class TesteDataManager {
 	void testDelete() {
 		
 		try {
-			DataManager.deleteFile("./ressources/generateur/Data/Object/Equipement/Armor/", "JuniteTest");
+			DataManager.deleteFile("./ressources/Data/Object/Equipement/Armor/", "JuniteTest");
 		} catch (Exception e) {
 			fail("fail to delete file");
 			e.printStackTrace();

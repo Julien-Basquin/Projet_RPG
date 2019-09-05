@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
 import app.model.Base;
 import app.model.entity.Entity;
+import app.model.entity.SkillTree;
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.attaque.TypeAttaqueEnum;
 import app.model.enumeration.attribut.AttributsEnum;
@@ -34,8 +35,10 @@ import app.model.enumeration.statistique.StatistiquesEnum;
 import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
+import generateur.Generator;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
+import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 /**
  * Class for Save and Load data from Json file
@@ -171,7 +174,7 @@ public class DataManager {
 		case ENTITE:
 			// TODO
 			logger.info("Entity create");
-			object = new Entity();
+			object = createEntity(parent);
 			break;
 		case OBJET:
 			// TODO
@@ -181,6 +184,47 @@ public class DataManager {
 		return object;
 	}
 
+	private static Base createEntity(Group parent) throws Exception{
+		Logger logger = Logger.getLogger("DataManager.createMagic");
+		Base object = null;
+
+		if(parent == null) {
+			logger.error("Parent is NULL");
+			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
+		}
+
+		EntityParametersGraph graph = (EntityParametersGraph) Generator.findActor("graph");
+		
+		if(graph == null) {
+			logger.error("graph is NULL");
+			throw new GdxRuntimeException("# ERROR: Graph is NULL #");
+		}
+		
+		//SkillTree
+		SkillTree skillTree = new SkillTree(graph.getNodeList(), graph.getLinkList());
+		
+		//Maping
+		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();
+		List<AttributsEnum> attributs = new ArrayList<AttributsEnum>();
+		List<TypeAttaqueEnum> typeAttaque = new ArrayList<TypeAttaqueEnum>();
+
+		//set value
+		// TODO set attribute
+		String name = ((TextField) parent.findActor("name")).getText();
+		String description = ((TextField) parent.findActor("description")).getText();
+		ElementEnum element = ElementEnum.valueOf(((StringSelectBox) parent.findActor("element")).getSelected());
+		String iconPath = ""; //((TextField) parent.findActor("icon_container")).getText();
+		int minDamage = 1;
+		int maxDamage = 10;
+		int mana = 10;
+		Boolean utilisableCombat = false;
+		Boolean utilisableHorsCombat = false;
+
+		object = new Entity(skillTree, name, iconPath, description, statistiques, element, attributs);
+
+		return object;
+	}
+	
 	/**
 	 * Create magic <b>Java Object</b> for saving
 	 * @param parent
@@ -312,20 +356,20 @@ public class DataManager {
 		}
 		switch (categorieEnum) {
 		case ARME:
-			logger.info("Path : ./ressources/generateur/Data/Object/Equipement/Weapon/");
-			return "./ressources/generateur/Data/Object/Equipement/Weapon/";
+			logger.info("Path : ./ressources/Data/Object/Equipement/Weapon/");
+			return "./ressources/Data/Object/Equipement/Weapon/";
 		case ARMURE:
-			logger.info("Path : ./ressources/generateur/Data/Object/Equipement/Armor/");
-			return "./ressources/generateur/Data/Object/Equipement/Armor/";
+			logger.info("Path : ./ressources/Data/Object/Equipement/Armor/");
+			return "./ressources/Data/Object/Equipement/Armor/";
 		case COMPETENCE:
-			logger.info("Path : ./ressources/generateur/Data/skill/");
-			return "./ressources/generateur/Data/skill/";
+			logger.info("Path : ./ressources/Data/Skill/");
+			return "./ressources/Data/Skill/";
 		case ENTITE:
-			logger.info("Path : ./ressources/generateur/Data/Entity/");
-			return "./ressources/generateur/Data/Entity/";
+			logger.info("Path : ./ressources/Data/Entity/");
+			return "./ressources/Data/Entity/";
 		case OBJET:
-			logger.info("Path : ./ressources/generateur/Data/Object/Other/");
-			return "./ressources/generateur/Data/Object/Other/";
+			logger.info("Path : ./ressources/Data/Object/Other/");
+			return "./ressources/Data/Object/Other/";
 		}
 		return null;
 	}
