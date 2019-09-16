@@ -4,7 +4,9 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.Generator;
+import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.view.entity_parameters.middle.Graph;
 
 /**
  * Classe des évènements d'un noeud
@@ -14,7 +16,7 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
 
 public class NodeEvents {
 	
-	public NodeEvents(Node node, EntityParametersGraph graph) {
+	public NodeEvents(Node node, Graph graph) {
 		node.addListener(new InputListener() {
 
 			@Override
@@ -34,7 +36,11 @@ public class NodeEvents {
 						break;
 					case Buttons.RIGHT :	//Création d'un lien
 						if (graph.getSelected() != null) {
-							graph.addLink(graph.getSelected(), node);
+							Link link = new Link(graph.getSelected(), node);
+							if (graph.addLink(link, true)) {
+								Generator.stage.addActor(link);
+								link.setZIndex(0);
+							}
 						}
 						break;
 				}

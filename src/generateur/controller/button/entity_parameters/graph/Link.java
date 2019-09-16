@@ -9,7 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.model.entity_parameters.Cancelable;
+import generateur.model.entity_parameters.EventsEnum;
+import generateur.view.entity_parameters.middle.Graph;
+import util.stack.ObjectEvent;
 
 /**
  * Classe représentant un lien entre plusieurs noeuds dans le graphe.
@@ -17,7 +22,10 @@ import generateur.controller.button.entity_parameters.graph.node.Node;
  * @author Julien B.
  */
 
-public class Link extends Button {
+public class Link extends Button implements Cancelable {
+	private static int globalId;
+	
+	private int id;
 	/**Extrémité du lien*/
 	private Node node1;
 	/**Extrémité du lien*/
@@ -27,23 +35,27 @@ public class Link extends Button {
 	private final Logger logger = Logger.getLogger(Link.class);
 	
 	public Link(Node end1, Node end2) {
-		super((Drawable)null);
+		super((Drawable) null);
 		
 		if (end1.equals(end2)) {
 			logger.error("Second node is already attached to this link.\nCreation aborted.");
 		} else {
+			id = globalId++;
 			node1 = end1;
 			node2 = end2;
+			node1.getLinks().put(id, this);
+			node2.getLinks().put(id, this);
 			
-			draw();
+			link();
+			setZIndex(0);
 		}
 	}
 	
 	/**
 	 * Création et positionnement du lien sur le graphe.
-	 * N'ajoute pas le lien à l'écran.
+	 * Ne dessine pas le lien à l'écran.
 	 */
-	public void draw() {
+	public void link() {
 		if (texture != null) {
 			texture.dispose();
 		}
@@ -79,12 +91,38 @@ public class Link extends Button {
 		setStyle(new LinkStyle(texture));
 		setSize(width, height);
 	}
+	
+	/**
+	 * Met à jour les noeuds du lien
+	 * 
+	 * @param graph	Graphe contenant les noeuds
+	 */
+	public void update(Graph graph) {
+		node1 = graph.getNodeList().get(node1.getId());
+		node2 = graph.getNodeList().get(node2.getId());
+	}
+	
+	public boolean isEmpty() {
+		return node1 == null && node2 == null;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Link o = (Link) obj;
 		
 		return node1.equals(o.getNode1()) || node1.equals(o.getNode2()) || node2.equals(o.getNode1()) || node2.equals(o.getNode2());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public static int getGlobalId() {
+		return globalId;
 	}
 
 	public Node getNode1() {
@@ -108,6 +146,55 @@ public class Link extends Button {
 		
 		if (texture != null) {
 			texture.dispose();
+		}
+	}
+
+	@Override
+	public void undo(EventsEnum event) {
+		Graph graph = (Graph) Generator.findActor("graph");
+		ObjectEvent objectEvent = Generator.previousStates.pop();
+		Link link = graph.getLinkList().get(id);
+		
+		Generator.nextStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
+
+		switch(event) {
+		case ADD:
+			link.remove();
+			graph.getLinkList().remove(id);
+			break;
+		case DELETE:
+			update(graph);
+			graph.getLinkList().put(id, this);
+			Generator.stage.addActor(this);
+			setZIndex(0);
+			break;
+		default:
+			
+			break;
+		}
+	}
+
+	@Override
+	public void redo(EventsEnum event) {
+		Graph graph = (Graph) Generator.findActor("graph");
+		ObjectEvent objectEvent = Generator.nextStates.pop();
+		Link link = graph.getLinkList().get(id);
+		
+		Generator.previousStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
+		switch(event) {
+		case ADD:
+			update(graph);
+			graph.getLinkList().put(id, this);
+			Generator.stage.addActor(this);
+			setZIndex(0);
+			break;
+		case DELETE:
+			link.remove();
+			graph.getLinkList().remove(id);
+			break;
+		default:
+			
+			break;
 		}
 	}
 }

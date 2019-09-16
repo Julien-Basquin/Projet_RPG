@@ -1,8 +1,8 @@
 package generateur.controller.button.entity_parameters.graph.node;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -11,9 +11,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.model.entity_parameters.Cancelable;
+import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.view.entity_parameters.middle.Graph;
+import util.stack.ObjectEvent;
 
 /**
  * Classe d'un noeud représenté sur le graphe.
@@ -22,7 +26,7 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  * @author Julien B.
  */
 
-public class Node extends Button {
+public class Node extends Button implements Cancelable {
 	private static int globalId;
 	
 	/**Identifiant*/	
@@ -47,7 +51,7 @@ public class Node extends Button {
 	private String path = "ressources/generateur/node/";
 	
 	/**Liste des liens du noeuds*/
-	private Set<Link> links;
+	private Map<Integer, Link> links;
 	
 	private Logger logger = Logger.getLogger(Node.class);
 
@@ -60,7 +64,7 @@ public class Node extends Button {
 		setStyle(new NodeStyle(categoryTexture));
 		setSize(64, 64);
 		setPosition(x, y);
-		links = new HashSet<Link>();
+		links = new HashMap<Integer, Link>();
 	}
 	
 	public Node(NodeCategorieEnum category, float x, float y) {
@@ -72,7 +76,22 @@ public class Node extends Button {
 		setStyle(new NodeStyle(categoryTexture));
 		setSize(64, 64);
 		setPosition(x, y);
-		links = new HashSet<Link>();
+		links = new HashMap<Integer, Link>();
+	}
+	
+	public Node(Node node) {
+		super();
+		id = node.getId();
+		category = node.getCategory();
+		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
+		categoryImage = new Image(categoryTexture);
+		setStyle(new NodeStyle(categoryTexture));
+		setSize(64, 64);
+		setPosition(node.getX(), node.getY());
+		links = node.getLinks();
+		
+		//Visibilité du noeud
+		setVisible(node.isVisible());
 	}
 	
 	/**
@@ -80,7 +99,7 @@ public class Node extends Button {
 	 * 
 	 * @param graph	Graphe contenant le noeud
 	 */
-	public void addEvents(EntityParametersGraph graph) {
+	public void addEvents(Graph graph) {
 		new NodeEvents(this, graph);
 	}
 	
@@ -112,11 +131,12 @@ public class Node extends Button {
 	}
 	
 	/**
-	 * Dessine les liens du noeud
+	 * Création et positionnement des liens du noeud sur le graphe.
+	 * Ne dessine pas les liens à l'écran.
 	 */
-	public void drawLink() {
-		for (Link link : links) {
-			link.draw();
+	public void link() {
+		for (Entry<Integer, Link> link : links.entrySet()) {
+			link.getValue().link();
 		}
 	}
 
@@ -204,11 +224,11 @@ public class Node extends Button {
 		this.path = path;
 	}
 
-	public Set<Link> getLinks() {
+	public Map<Integer, Link> getLinks() {
 		return links;
 	}
 
-	public void setLinks(Set<Link> links) {
+	public void setLinks(Map<Integer, Link> links) {
 		this.links = links;
 	}
 
@@ -218,8 +238,8 @@ public class Node extends Button {
 	}
 
 	public void dispose() {
-		for (Link link : links) {
-			link.dispose();
+		for (Entry<Integer, Link> link : links.entrySet()) {
+			link.getValue().dispose();
 		}
 		
 		if (categoryTexture != null) {
@@ -235,5 +255,84 @@ public class Node extends Button {
 	@Override
 	public boolean equals(Object obj) {
 		return id == ((Node) obj).getId();
+	}
+
+	@Override
+	public void undo(EventsEnum event) {
+		//Graphe actuel
+		Graph graph = (Graph) Generator.findActor("graph");
+		//Retrait de l'évènement précédent
+		ObjectEvent objectEvent = Generator.previousStates.pop();
+		//Récupération du noeud sur le graphe ayant le même id que this
+		Node node = graph.getNodeList().get(id);
+
+		switch(event) {
+		case ADD:	//Utilisation du noeud récupéré car différent de this
+			//Retrait du noeud récupéré
+			node.remove();
+			graph.getNodeList().remove(id);
+			
+			Generator.nextStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
+			break;
+		case DELETE:	//Utilsiation de this car node n'existe plus
+			//Ajout de this au graphe
+			graph.addNode(this, true);
+
+			Generator.nextStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
+			break;
+		case EDIT:
+			//TODO Edition d'un noeud
+			break;
+		case MOVE:
+			Generator.nextStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
+			
+			node.setPosition(getX(), getY());
+			node.setVisible(isVisible());
+			
+			link();
+			break;
+		default:
+			
+			break;
+		}
+	}
+
+	@Override
+	public void redo(EventsEnum event) {
+		//Graphe actuel
+		Graph graph = (Graph) Generator.findActor("graph");
+		//Récupération de l'évènement suivant
+		ObjectEvent objectEvent = Generator.nextStates.pop();
+		//Récupération du noeud sur le graphe ayant le même id que this
+		Node node = graph.getNodeList().get(id);
+
+		switch(event) {
+		case ADD:
+			//Ajout de this au graphe
+			graph.addNode(this, true);
+
+			Generator.previousStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
+			break;
+		case DELETE:
+			node.remove();
+			graph.getNodeList().remove(id);
+			
+			Generator.previousStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
+			break;
+		case EDIT:
+			//TODO Edition d'un noeud
+			break;
+		case MOVE:
+			Generator.previousStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
+			
+			node.setPosition(getX(), getY());
+			node.setVisible(isVisible());
+			
+			link();
+			break;
+		default:
+			
+			break;
+		}
 	}
 }

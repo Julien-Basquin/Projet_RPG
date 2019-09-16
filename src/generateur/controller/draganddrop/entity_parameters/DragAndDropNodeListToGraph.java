@@ -3,18 +3,19 @@ package generateur.controller.draganddrop.entity_parameters;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.view.entity_parameters.middle.Graph;
+import util.stack.ObjectEvent;
 
 /**
  * Implémentation du drag and drop pour les noeuds du graphe des entités.
@@ -26,7 +27,6 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
 public class DragAndDropNodeListToGraph extends DragAndDrop {
 	private String path;
 	private NodeCategorieEnum category;
-	private Logger logger = Logger.getLogger(DragAndDropNodeListToGraph.class);
 	
 	public DragAndDropNodeListToGraph(Actor source, Actor target) {
 		super();
@@ -83,13 +83,11 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 				Node node = new Node(category, Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
 				
 				//Ajout du noeud sur le graphe
-				((EntityParametersGraph) target).addNode(node);
+				((Graph) target).addNode(node, true);
 				
-				//Ajout des inputs sur le noeud
-				node.addEvents((EntityParametersGraph) target);
-				logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
-				
-				Generator.stage.addActor(node);
+				//Enregistrement de l'état
+				Generator.previousStates.push(new ObjectEvent(new Node(node), EventsEnum.ADD + "_Node"));
+				Generator.nextStates.clear();
 			}
 			
 			@Override

@@ -8,12 +8,12 @@ package generateur.model.entity_parameters;
 
 public interface Cancelable {
 	/**
-	 * Annuler
+	 * Annuler un évènement
 	 */
-	void undo();
+	void undo(EventsEnum event);
 	
 	/**
-	 * Refaire
+	 * Refaire un évènement
 	 */
-	void redo();
+	void redo(EventsEnum event);
 }

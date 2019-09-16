@@ -1,19 +1,14 @@
 package generateur.view.entity_parameters.middle;
 
-import java.util.Set;
-import java.util.Stack;
-
 import org.apache.log4j.Logger;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
-
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
@@ -30,12 +25,9 @@ import util.stack.ObjectEvent;
  */
 
 public class Graph extends Group implements Cancelable {
-	private Set<Node> nodeList;
-	private Set<Link> linkList;
+	private Map<Integer, Node> nodeList;
+	private Map<Integer, Link> linkList;
 	private Node selected;
-	
-//	private static Stack<EntityParametersGraph> previousStates = new Stack<EntityParametersGraph>();
-//	private static Stack<EntityParametersGraph> nextStates = new Stack<EntityParametersGraph>();
 	
 	private final Logger logger = Logger.getLogger(Graph.class);
 	
@@ -43,89 +35,47 @@ public class Graph extends Group implements Cancelable {
 		super();
 		setName("graph");
 
-		nodeList = new HashSet<Node>();
-		linkList = new HashSet<Link>();
+		nodeList = new HashMap<Integer, Node>();
+		linkList = new HashMap<Integer, Link>();
+		
+		addListener(new MoveNodeController(this));
 		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
-		
-//		//First state
-//		if (previousStates.isEmpty()) {
-//			previousStates.push(this);
-//		}
 	}
 	
 	public Graph(Graph graph) {
 		super();
 		setName("graph");
 
-		nodeList = new HashSet<Node>();
-		for (Node node : graph.getNodeList()) {
-			addNode(new Node(node));
+		nodeList = new HashMap<Integer, Node>();
+		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+			addNode(new Node(node.getValue()), false);
 		}
 		
-		linkList = new HashSet<Link>();
-		for (Link link : graph.getLinkList()) {
-			Link newLink = new Link(findNode(link.getNode1()), findNode(link.getNode2()));
-			addLink(newLink, false);
+		linkList = new HashMap<Integer, Link>();
+		for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
+			link.getValue().update(this);
+			addLink(link.getValue(), false);
 		}
 		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
-		
-//		//First state
-//		if (previousStates.isEmpty()) {
-//			previousStates.push(new EntityParametersGraph(this));
-//		}
-	}
-	
-	public void addMoveNodeController() {
-		addListener(new MoveNodeController(this));
-	}
-
-	/**
-	 * Ajoute un noeud sur le graphe sans changer l'historique.
-	 * 
-	 * @param node	Noeud à ajouter
-	 * 
-	 * @return	True si l'ajout a réussi, false sinon
-	 */
-	public boolean addNode(Node node) {
-		return addNode(node, false);
 	}
 	
 	/**
 	 * Ajoute un noeud sur le graphe.
 	 * 
-	 * @param node			Noeud à ajouter
-	 * @param changeHistory true pour changer l'historique, false sinon
-	 * 
-	 * @return	True si l'ajout a réussi, false sinon
+	 * @param node	Noeud à ajouter
 	 */
-	public boolean addNode(Node node, boolean changeHistory) {
-//		if (changeHistory) {
-//			//Actual state becomes a previous state
-//			previousStates.push(new EntityParametersGraph(this));
-//		}
+	public void addNode(Node node, boolean draw) {
+		nodeList.put(node.getId(), node);
+		new DragAndDropNodeToGraph(node, this);
+		node.addEvents(this);
 		
-		if (nodeList.add(node)) {
-			new DragAndDropNodeToGraph(node, this);
-			
-//			if (changeHistory) {
-//				//Clearing the following states
-//				for (EntityParametersGraph state : nextStates) {
-//					state.dispose();
-//				}
-//				Generator.nextStates.clear();
-//			}
-			
-			return true;
+		if (draw) {			
+			Generator.stage.addActor(node);
+			logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 		}
 
-		if (changeHistory) {
-			//If no node added, this state stays the actual one
-//			previousStates.pop();
-		}
-		
-		return false;
 	}
 	
 	/**
@@ -133,15 +83,10 @@ public class Graph extends Group implements Cancelable {
 	 * Le lien est dessiné.
 	 * L'historique n'est pas modifié.
 	 * 
-	 * @param node1	Noeud 1
-	 * @param node2	Noeud 2
+	 * @param link	Lien à ajouter
 	 * 
 	 * @return True si l'ajout a réussi, false sinon
 	 */
-//	public boolean addLink(Node node1, Node node2) {
-//		return addLink(node1, node2, false);
-//	}
-	
 	public boolean addLink(Link link) {
 		return addLink(link, false);
 	}
@@ -150,47 +95,12 @@ public class Graph extends Group implements Cancelable {
 	 * Ajout d'un lien sur le graphe ayant deux noeuds distincts à chaque extrémité.
 	 * Le lien est dessiné.
 	 * 
-	 * @param node1			Noeud 1
-	 * @param node2			Noeud 2
+	 * @param link			Lien à ajouter
 	 * @param changeHistory true pour changer l'historique, false sinon
 	 * 
 	 * @return True si l'ajout a réussi, false sinon
 	 */
-//	public boolean addLink(Node node1, Node node2, boolean changeHistory) {
-//		Link link = new Link(node1, node2);
-//		
-//		if (!link.isEmpty()) {
-//			if (changeHistory) {
-//				//Actual state becomes a previous state
-//				Generator.previousStates.push(new ObjectEvent(link, EventsEnum.ADD + "_Link"));
-//			}
-//			
-//			//TODO A CORRIGER
-//			if (linkList.add(link)) {
-//				node1.getLinks().add(link);
-//				node2.getLinks().add(link);
-//				
-////				Generator.stage.addActor(link);
-//				logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
-//				
-//				//Envoi du lien à l'arrière du stage, permet de sélectionner les noeuds
-//				link.setZIndex(0);
-//				
-//				return true;
-//			}
-//		}
-//		
-//		if (changeHistory) {
-//			//If no link added, this state stays the actual one
-////			previousStates.pop();
-//		}
-//		
-//		return false;
-//	}
-	
 	public boolean addLink(Link link, boolean changeHistory) {
-//		Link link = new Link(node1, node2);
-		
 		if (!link.isEmpty()) {
 			if (changeHistory) {
 				//Actual state becomes a previous state
@@ -198,64 +108,13 @@ public class Graph extends Group implements Cancelable {
 				Generator.nextStates.clear();
 			}
 			
-			//TODO A CORRIGER
-			if (linkList.add(link)) {
-//				link.getNode1().getLinks().add(link);
-//				link.getNode2().getLinks().add(link);
-				
-//				Generator.stage.addActor(link);
-				logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
-				
-				//Envoi du lien à l'arrière du stage, permet de sélectionner les noeuds
-				link.setZIndex(0);
-				
-				return true;
-			}
-		}
-		
-		if (changeHistory) {
-			//If no link added, this state stays the actual one
-//			previousStates.pop();
+			linkList.put(link.getId(), link);
+			logger.debug("Link added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
+			
+			return true;
 		}
 		
 		return false;
-	}
-	
-	/**
-	 * Retourne un noeud du graphe
-	 * 
-	 * @param nodeToFind	Noeud à trouver
-	 * 
-	 * @return	Le noeud si trouvé, null sinon
-	 */
-	public Node findNode(Node nodeToFind) {
-		Node node = null;
-		
-		Iterator<Node> iterator = nodeList.iterator();
-		
-		while (iterator.hasNext() && node == null) {
-			Node next = (Node) iterator.next();
-			if (next.equals(nodeToFind)) {
-				node = next;
-			}
-		}
-		
-		return node;
-	}
-	
-	public Link findLink(Link linkToFind) {
-		Link link = null;
-		
-		Iterator<Link> iterator = linkList.iterator();
-		
-		while (iterator.hasNext() && link == null) {
-			Link next = (Link) iterator.next();
-			if (next.equals(linkToFind)) {
-				link = next;
-			}
-		}
-		
-		return link;
 	}
 
 	//TODO Transformer en controller
@@ -265,62 +124,37 @@ public class Graph extends Group implements Cancelable {
 		
 		//Suppression d'un noeud
 		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
-			//Actual state becomes a previous state
-//			previousStates.push(new EntityParametersGraph(this));
-			
-			//Saving state
-			
-			//Clearing the following states
-//			for (EntityParametersGraph state : nextStates) {
-//				state.dispose();
-//			}
-//			nextStates.clear();
-//			for (ObjectEvent objectEvent : Generator.)
-			
-//			selected.dispose();
-			
-			for (Link link : selected.getLinks()) {
-				link.remove();
-				Generator.previousStates.push(new ObjectEvent(link, EventsEnum.DELETE + "_Link", ObjectEvent.getGlobalGroupId()));
-				linkList.remove(link);
+			for (Entry<Integer, Link> link : selected.getLinks().entrySet()) {
+				link.getValue().remove();
+				Generator.previousStates.push(new ObjectEvent(link.getValue(), EventsEnum.DELETE + "_Link", ObjectEvent.getGlobalGroupId()));
+				linkList.remove(link.getKey());
 			}
-			
-//			selected.remove();
-//			nodeList.remove(selected);
-			for (Actor actor : Generator.stage.getRoot().getChildren()) {
-				try {
-					if (selected.equals((Node) actor)) {
-						actor.remove();
-						nodeList.remove(actor);
-						break;
-					}
-				} catch (ClassCastException e) {
-					continue;
-				}
-			}
+
+			selected.setChecked(false);
+			nodeList.get(selected.getId()).remove();
+			nodeList.remove(selected.getId());
 
 			Generator.previousStates.push(new ObjectEvent(selected, EventsEnum.DELETE + "_Node", ObjectEvent.getGlobalGroupId()));
 			ObjectEvent.incrGroupId();
 			Generator.nextStates.clear();
 			
-			
 			selected = null;
 		}
 	}
 
-	public Set<Node> getNodeList() {
+	public Map<Integer, Node> getNodeList() {
 		return nodeList;
 	}
-
-	public void setNodeList(Set<Node> nodeList) {
+	
+	public void setNodeList(Map<Integer, Node> nodeList) {
 		this.nodeList = nodeList;
 	}
-
-	public Set<Link> getLinkList() {
+	
+	public Map<Integer, Link> getLinkList() {
 		return linkList;
 	}
-
-	public void setLinkList(Set<Link> linkList) {
+	
+	public void setLinkList(Map<Integer, Link> linkList) {
 		this.linkList = linkList;
 	}
 
@@ -336,12 +170,12 @@ public class Graph extends Group implements Cancelable {
 	 * Supprime tous les noeuds et tous les liens du graphe
 	 */
 	public void dispose() {
-		for (Link link : linkList) {
-			link.dispose();
+		for (Entry<Integer, Link> link : linkList.entrySet()) {
+			link.getValue().dispose();
 		}
 		
-		for (Node node : nodeList) {
-			node.dispose();
+		for (Entry<Integer, Node> node : nodeList.entrySet()) {
+			node.getValue().dispose();
 		}
 		
 		linkList.clear();
@@ -350,22 +184,22 @@ public class Graph extends Group implements Cancelable {
 
 	@Override
 	public void undo(EventsEnum event) {
+		//Récupération du graphe actuel, différent de this
 		Graph graph = (Graph) Generator.findActor("graph");
 		ObjectEvent objectEvent = Generator.previousStates.pop();
 		
 		switch(event) {
 		case INIT:
 			Generator.nextStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
-//			graph.setNodeList(nodeList);
-			for (Node node : nodeList) {
-				Node newNode = new Node(node);
-				graph.addNode(newNode);
-				Generator.stage.addActor(newNode);
+			for (Entry<Integer, Node> node : nodeList.entrySet()) {
+				Node newNode = new Node(node.getValue());
+				graph.addNode(newNode, true);
 			}
 			
-//			graph.setLinkList(linkList);
-			for (Link link : linkList) {
-				Generator.stage.addActor(link);
+			for (Entry<Integer, Link> link : linkList.entrySet()) {
+				link.getValue().update(graph);
+				graph.addLink(link.getValue(), false);
+				Generator.stage.addActor(link.getValue());
 			}
 			break;
 		default:
@@ -382,13 +216,13 @@ public class Graph extends Group implements Cancelable {
 		switch(event) {
 		case INIT:
 			Generator.previousStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
-			for (Link link : graph.getLinkList()) {
-				link.remove();
+			for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
+				link.getValue().remove();
 			}
 			graph.getLinkList().clear();
 			
-			for (Node node : graph.getNodeList()) {
-				node.remove();
+			for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+				node.getValue().remove();
 			}
 			graph.getNodeList().clear();
 			break;

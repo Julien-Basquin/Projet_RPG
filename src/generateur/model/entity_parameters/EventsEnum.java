@@ -12,6 +12,7 @@ public enum EventsEnum {
 	MOVE,
 	EDIT,
 	INIT,
+//	SELECT,
 	UNDO,
 	REDO;
 }

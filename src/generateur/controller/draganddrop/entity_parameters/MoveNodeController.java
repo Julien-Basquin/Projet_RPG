@@ -1,5 +1,7 @@
 package generateur.controller.draganddrop.entity_parameters;
 
+import java.util.Map.Entry;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,7 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.model.entity_parameters.EventsEnum;
+import generateur.view.entity_parameters.middle.Graph;
+import util.stack.ObjectEvent;
 
 /**
  * Evènement gérant le déplacement du graphe.
@@ -20,9 +24,9 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
 public class MoveNodeController extends DragListener {
 	private int actualX;
 	private int actualY;
-	private EntityParametersGraph graph;
+	private Graph graph;
 	
-	public MoveNodeController(EntityParametersGraph graph) {
+	public MoveNodeController(Graph graph) {
 		this.graph = graph;
 	}
 	
@@ -32,13 +36,14 @@ public class MoveNodeController extends DragListener {
 		actualY = Gdx.input.getY();
 		
 		//Désactivation des éléments du graphe
-		for (Node node : graph.getNodeList()) {
-			if (node.isVisible()) {
-				node.setTouchable(Touchable.disabled);
+		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+			Generator.previousStates.add(new ObjectEvent(new Node(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+			if (node.getValue().isVisible()) {
+				node.getValue().setTouchable(Touchable.disabled);
 			}
 		}
-		for (Link link : graph.getLinkList()) {
-			link.setTouchable(Touchable.disabled);
+		for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
+			link.getValue().setTouchable(Touchable.disabled);
 		}
 	}
 	
@@ -51,29 +56,29 @@ public class MoveNodeController extends DragListener {
 			int moveByX = (int) (actualX - newX);
 			int moveByY = (int) (actualY - newY);
 			
-			for (Node node : graph.getNodeList()) {
-				node.moveBy(moveByX, -moveByY);
+			for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+				node.getValue().moveBy(moveByX, -moveByY);
 
 				//Acteur situé sous le noeud
-				Actor firstActorEncountered = Generator.stage.hit(node.getX(), node.getY(), true);
+				Actor firstActorEncountered = Generator.stage.hit(node.getValue().getX(), node.getValue().getY(), true);
 				
 				//Gestion de la visibilité des noeuds
-				if (node.isVisible() && (firstActorEncountered != null) && !firstActorEncountered.equals(graph)) {
-					node.setVisible(false);
-				} else if (!node.isVisible() && (firstActorEncountered != null) && firstActorEncountered.equals(graph)) {
-					node.setVisible(true);
+				if (node.getValue().isVisible() && (firstActorEncountered != null) && !firstActorEncountered.equals(graph)) {
+					node.getValue().setVisible(false);
+				} else if (!node.getValue().isVisible() && (firstActorEncountered != null) && firstActorEncountered.equals(graph)) {
+					node.getValue().setVisible(true);
 				}
 				
 				//Gestion de la visibilité des liens
-				for (Link link : node.getLinks()) {
-					if (!link.getNode1().isVisible() && !link.getNode2().isVisible()) {
-						link.setVisible(false);
-					} else if (link.getNode1().isVisible() || link.getNode2().isVisible()) {
-						link.setVisible(true);
+				for (Entry<Integer, Link> link : node.getValue().getLinks().entrySet()) {
+					if (!link.getValue().getNode1().isVisible() && !link.getValue().getNode2().isVisible()) {
+						link.getValue().setVisible(false);
+					} else if (link.getValue().getNode1().isVisible() || link.getValue().getNode2().isVisible()) {
+						link.getValue().setVisible(true);
 					}
 				}
 				
-				node.drawLink();
+				node.getValue().link();
 			}
 			
 			//Réinitialisation de la position
@@ -85,14 +90,19 @@ public class MoveNodeController extends DragListener {
 	@Override
 	public void dragStop(InputEvent event, float x, float y, int pointer) {
 		//Réactivation des éléments du graphe
-		for (Node node : graph.getNodeList()) {
-			if (node.isVisible()) {
-				node.setTouchable(Touchable.enabled);
+		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+			
+			if (node.getValue().isVisible()) {
+				node.getValue().setTouchable(Touchable.enabled);
 			}
 		}
-		for (Link link : graph.getLinkList()) {
-			link.setTouchable(Touchable.enabled);
+
+		for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
+			link.getValue().setTouchable(Touchable.enabled);
 		}
+		
+		ObjectEvent.incrGroupId();
+		Generator.nextStates.clear();
 	}
 	
 }

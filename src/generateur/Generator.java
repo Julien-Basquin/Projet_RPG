@@ -20,6 +20,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
 import generateur.view.global_parameters.GlobalParametersPane;
+import util.stack.EventStack;
 
 /**
  * Classe principale du générateur, contient la logique de base de l'application.
@@ -40,6 +41,8 @@ public class Generator extends ApplicationAdapter {
 	private final Logger logger = Logger.getLogger(Generator.class);
 	
 	public static SplitPane generatorWindow;
+	public static EventStack previousStates;
+	public static EventStack nextStates;
 
 	/**
 	 * Called when the Application is first created.
@@ -74,6 +77,10 @@ public class Generator extends ApplicationAdapter {
 		
 		//Configuration de la réception des inputs
 		inputMultiplexer = new InputMultiplexer(stage);
+		
+		//Création des piles d'états
+		previousStates = new EventStack();
+		nextStates = new EventStack();
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		
@@ -160,4 +167,23 @@ public class Generator extends ApplicationAdapter {
 		
 		return actorByName;
 	}
+	
+//	public static void clearNextStates() {
+//		Pattern pattern = Pattern.compile("^(!:[A-Z]+)_([A-Z])*");
+//		Matcher match;
+//		
+//		
+//		for (ObjectEvent objectEvent : nextStates) {
+//			match = pattern.matcher(objectEvent.getEvent());
+//			if (match.find()) {
+//				String regexClass = match.group(1);
+//				regexClass = regexClass.toLowerCase();
+//				regexClass = regexClass.replaceFirst("" + regexClass.charAt(0), "" + (regexClass.charAt(0) - 22));
+//				//TODO TESTER
+//				((Disposable) objectEvent).dispose();
+//			}
+//		}
+//		
+//		nextStates.clear();
+//	}
 }

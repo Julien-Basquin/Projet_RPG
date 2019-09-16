@@ -35,7 +35,7 @@ public class InitButton extends TextButton {
 		setName("reinit");
 		
 		addListener(new ClickListener() {
-
+			//TODO Gérer l'annulation de la réinitialisation globale
 			//@SuppressWarnings("unchecked") car type connu
 			@SuppressWarnings("unchecked")
 			@Override
