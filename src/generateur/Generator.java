@@ -19,8 +19,8 @@ import com.kotcrab.vis.ui.widget.file.FileTypeFilter;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
+import generateur.model.entity_parameters.stack.EventStack;
 import generateur.view.global_parameters.GlobalParametersPane;
-import util.stack.EventStack;
 
 /**
  * Classe principale du générateur, contient la logique de base de l'application.

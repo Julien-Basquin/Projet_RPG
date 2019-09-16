@@ -13,8 +13,8 @@ import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
-import util.stack.ObjectEvent;
 
 /**
  * Classe représentant un lien entre plusieurs noeuds dans le graphe.

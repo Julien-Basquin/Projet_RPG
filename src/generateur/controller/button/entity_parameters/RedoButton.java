@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import generateur.Generator;
 import generateur.Launcher;
 import generateur.model.entity_parameters.EventsEnum;
-import util.stack.ObjectEvent;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 
 /**
  * Bouton permettant de réappliquer une action annulée.

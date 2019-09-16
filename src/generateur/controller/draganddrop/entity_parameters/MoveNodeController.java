@@ -12,8 +12,8 @@ import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.EventsEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
-import util.stack.ObjectEvent;
 
 /**
  * Evènement gérant le déplacement du graphe.

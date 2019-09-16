@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.EventsEnum;
-import util.stack.ObjectEvent;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 
 /**
  * Implémentation du drag and drop pour déplacer des noeuds sur le graphe des entités.

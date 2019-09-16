@@ -16,8 +16,8 @@ import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
-import util.stack.ObjectEvent;
 
 /**
  * Classe d'un noeud représenté sur le graphe.

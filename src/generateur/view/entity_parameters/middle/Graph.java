@@ -16,7 +16,7 @@ import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGrap
 import generateur.controller.draganddrop.entity_parameters.MoveNodeController;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
-import util.stack.ObjectEvent;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 
 /**
  * Graphe associé aux entités.

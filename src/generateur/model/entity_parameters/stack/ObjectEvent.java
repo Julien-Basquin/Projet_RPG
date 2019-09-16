@@ -1,4 +1,4 @@
-package util.stack;
+package generateur.model.entity_parameters.stack;
 
 import generateur.model.entity_parameters.Cancelable;
 

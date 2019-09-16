@@ -1,4 +1,4 @@
-package util.stack;
+package generateur.model.entity_parameters.stack;
 
 import java.util.ArrayList;
 import java.util.List;

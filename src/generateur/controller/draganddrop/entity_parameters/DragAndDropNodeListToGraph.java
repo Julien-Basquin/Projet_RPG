@@ -14,8 +14,8 @@ import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
-import util.stack.ObjectEvent;
 
 /**
  * Implémentation du drag and drop pour les noeuds du graphe des entités.
