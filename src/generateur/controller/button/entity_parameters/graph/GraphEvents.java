@@ -1,15 +1,17 @@
-package generateur.controller.draganddrop.entity_parameters;
+package generateur.controller.button.entity_parameters.graph;
 
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 import generateur.Generator;
-import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
@@ -21,19 +23,33 @@ import generateur.view.entity_parameters.middle.Graph;
  * @author Julien B.
  */
 
-public class MoveNodeController extends DragListener {
+public class GraphEvents extends DragListener {
 	private int actualX;
 	private int actualY;
 	private Graph graph;
 	
-	public MoveNodeController(Graph graph) {
+	public GraphEvents(Graph graph) {
 		this.graph = graph;
 	}
 	
 	@Override
+	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		super.touchUp(event, x, y, pointer, button);
+		
+		if (graph.getSelected() != null && !graph.isDragged()) {
+			graph.getSelected().setChecked(false);
+			graph.setSelected(null);
+		}
+		
+		graph.setDragged(false);
+	}
+
+	@Override
 	public void dragStart(InputEvent event, float x, float y, int pointer) {
 		actualX = Gdx.input.getX();
 		actualY = Gdx.input.getY();
+		
+		graph.setDragged(true);
 		
 		//Désactivation des éléments du graphe
 		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
