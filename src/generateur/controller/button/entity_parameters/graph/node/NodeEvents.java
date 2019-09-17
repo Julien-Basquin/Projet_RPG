@@ -26,7 +26,7 @@ public class NodeEvents {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				super.touchUp(event, x, y, pointer, button);
 				if (getTapCount() == 2) {
-							Generator.stage.addActor(new NodeModificationDialogue(Generator.skin,node));
+					Generator.stage.addActor(new NodeModificationDialogue(Generator.skin,node));
 				}
 				if (graph.getSelected() != null) {
 					graph.getSelected().setChecked(false);

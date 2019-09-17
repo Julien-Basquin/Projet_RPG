@@ -21,16 +21,15 @@ public class NodeModificationDialogue extends Dialog {
 		setSize(width / 1.5f, height / 1.5f);
 		setPosition(width / 2 - getWidth() / 2, height / 2 - getHeight() / 2);		
 
-		NodeSplitPane nodeSplitPane = new NodeSplitPane(skin, node);
-		//nodeSplitPane.setFillParent(true);
-		nodeSplitPane.setPosition(getX(), getY());
-		nodeSplitPane.setSize(getWidth(), getHeight()-getButtonTable().getPrefHeight()-this.getTitleTable().getPrefHeight());
-		addActor(nodeSplitPane);
 		
 		//Ajout des boutons à la fenêtre de dialogue
 		button(new CancelButton(skin));
 		
-		//this.getButtonTable().setZIndex(99);
+		//Création du panneau de modification des noeuds
+		NodeSplitPane nodeSplitPane = new NodeSplitPane(skin, node);
+		nodeSplitPane.setPosition(getOriginX(), getOriginY() + getButtonTable().getPrefHeight());
+		nodeSplitPane.setSize(getWidth(), getHeight() - getTitleTable().getPrefHeight() - getButtonTable().getPrefHeight());
+		addActor(nodeSplitPane);
 		
 	}
 
