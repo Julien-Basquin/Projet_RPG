@@ -10,10 +10,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import generateur.Generator;
+import generateur.controller.button.entity_parameters.graph.GraphEvents;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGraph;
-import generateur.controller.draganddrop.entity_parameters.MoveNodeController;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
@@ -28,6 +28,7 @@ public class Graph extends Group implements Cancelable {
 	private Map<Integer, Node> nodeList;
 	private Map<Integer, Link> linkList;
 	private Node selected;
+	private boolean isDragged;
 	
 	private final Logger logger = Logger.getLogger(Graph.class);
 	
@@ -38,7 +39,7 @@ public class Graph extends Group implements Cancelable {
 		nodeList = new HashMap<Integer, Node>();
 		linkList = new HashMap<Integer, Link>();
 		
-		addListener(new MoveNodeController(this));
+		addListener(new GraphEvents(this));
 		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
 	}
@@ -57,6 +58,8 @@ public class Graph extends Group implements Cancelable {
 			link.getValue().update(this);
 			addLink(link.getValue(), false);
 		}
+		
+		addListener(new GraphEvents(this));
 		
 		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
 	}
@@ -164,6 +167,14 @@ public class Graph extends Group implements Cancelable {
 
 	public void setSelected(Node selected) {
 		this.selected = selected;
+	}
+
+	public boolean isDragged() {
+		return isDragged;
+	}
+
+	public void setDragged(boolean isDragged) {
+		this.isDragged = isDragged;
 	}
 
 	/**
