@@ -140,6 +140,22 @@ public class Node extends Button implements Cancelable {
 		}
 	}
 
+	/**
+	 * update image
+	 */
+	private void updateImage() {
+		if (categoryTexture != null) {
+			categoryTexture.dispose();
+		}
+		if (iconTexture != null) {
+			iconTexture.dispose();
+		}
+		
+		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
+		categoryImage = new Image(categoryTexture);
+		setStyle(new NodeStyle(categoryTexture));
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -162,6 +178,7 @@ public class Node extends Button implements Cancelable {
 
 	public void setCategory(NodeCategorieEnum category) {
 		this.category = category;
+		updateImage();
 	}
 
 	public String getDescription() {

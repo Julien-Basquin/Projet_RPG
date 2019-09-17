@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.view.dialog.entity_parameters.graph.NodeModificationDialogue;
 import generateur.view.entity_parameters.middle.Graph;
 
 /**
@@ -25,7 +26,7 @@ public class NodeEvents {
 				switch(button) {
 					case Buttons.LEFT :		//Sélection d'un noeud
 						if (getTapCount() == 2) {
-							System.out.println("lol");
+							Generator.stage.addActor(new NodeModificationDialogue(Generator.skin,node));
 						}
 						if (graph.getSelected() != null) {
 							graph.getSelected().setChecked(false);
