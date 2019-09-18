@@ -16,6 +16,7 @@ import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
+import util.ActorActions;
 
 /**
  * Bouton de réinitialisation du graphe des entités
@@ -37,7 +38,7 @@ public class ResetGraphButton extends TextButton {
 				super.clicked(event, x, y);
 
 				logger.debug("Cleaning entity graph...");
-				Graph graph = (Graph) Generator.findActor("graph");
+				Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 				Generator.previousStates.push(new ObjectEvent(new Graph(graph), EventsEnum.INIT + "_Graph"));
 				ObjectEvent.incrGroupId();
 				Generator.nextStates.clear();

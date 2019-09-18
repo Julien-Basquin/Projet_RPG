@@ -15,6 +15,7 @@ import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
+import util.ActorActions;
 
 /**
  * Classe représentant un lien entre plusieurs noeuds dans le graphe.
@@ -151,7 +152,7 @@ public class Link extends Button implements Cancelable {
 
 	@Override
 	public void undo(EventsEnum event) {
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		ObjectEvent objectEvent = Generator.previousStates.pop();
 		Link link = graph.getLinkList().get(id);
 		
@@ -176,7 +177,7 @@ public class Link extends Button implements Cancelable {
 
 	@Override
 	public void redo(EventsEnum event) {
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		ObjectEvent objectEvent = Generator.nextStates.pop();
 		Link link = graph.getLinkList().get(id);
 		

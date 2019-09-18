@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.NodeCategorieEnum;
+import util.ActorActions;
 
 /**
  * Liste déroulante des catégories et modification de toutes les informations liées au node.
@@ -58,8 +58,8 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 				//Mise à jour des listes en fonction de la catégorie
 				logger.info("Updating linked lists...");
 				node.setCategory(getSelected());
-			    VerticalGroup group = ((VerticalGroup)Generator.findActor("node_image_group"));
-			    group.removeActor(((Image)Generator.findActor("node_image")));
+			    VerticalGroup group = ((VerticalGroup) ActorActions.findActor(Generator.stage, "node_image_group"));
+			    group.removeActor(((Image) ActorActions.findActor(Generator.stage, "node_image")));
 			    Image image = node.getCategoryImage();
 			    image.setName("node_image");
 			    group.addActor(image);

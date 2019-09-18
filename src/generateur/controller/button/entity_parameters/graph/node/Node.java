@@ -18,6 +18,7 @@ import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
+import util.ActorActions;
 
 /**
  * Classe d'un noeud représenté sur le graphe.
@@ -277,7 +278,7 @@ public class Node extends Button implements Cancelable {
 	@Override
 	public void undo(EventsEnum event) {
 		//Graphe actuel
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		//Retrait de l'évènement précédent
 		ObjectEvent objectEvent = Generator.previousStates.pop();
 		//Récupération du noeud sur le graphe ayant le même id que this
@@ -317,7 +318,7 @@ public class Node extends Button implements Cancelable {
 	@Override
 	public void redo(EventsEnum event) {
 		//Graphe actuel
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		//Récupération de l'évènement suivant
 		ObjectEvent objectEvent = Generator.nextStates.pop();
 		//Récupération du noeud sur le graphe ayant le même id que this

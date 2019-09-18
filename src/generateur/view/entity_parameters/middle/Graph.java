@@ -17,6 +17,7 @@ import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGrap
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
+import util.ActorActions;
 
 /**
  * Graphe associé aux entités.
@@ -196,7 +197,7 @@ public class Graph extends Group implements Cancelable {
 	@Override
 	public void undo(EventsEnum event) {
 		//Récupération du graphe actuel, différent de this
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		ObjectEvent objectEvent = Generator.previousStates.pop();
 		
 		switch(event) {
@@ -221,7 +222,7 @@ public class Graph extends Group implements Cancelable {
 
 	@Override
 	public void redo(EventsEnum event) {
-		Graph graph = (Graph) Generator.findActor("graph");
+		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
 		ObjectEvent objectEvent = Generator.nextStates.pop();
 		
 		switch(event) {
