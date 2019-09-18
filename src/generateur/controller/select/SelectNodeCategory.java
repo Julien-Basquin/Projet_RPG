@@ -5,11 +5,15 @@ import org.apache.log4j.Logger;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.NodeCategorieEnum;
 
@@ -54,6 +58,11 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 				//Mise à jour des listes en fonction de la catégorie
 				logger.info("Updating linked lists...");
 				node.setCategory(getSelected());
+			    VerticalGroup group = ((VerticalGroup)Generator.findActor("node_image_group"));
+			    group.removeActor(((Image)Generator.findActor("node_image")));
+			    Image image = node.getCategoryImage();
+			    image.setName("node_image");
+			    group.addActor(image);
 				switch(getSelected()) {
 				case ATTRIBUT:
 					logger.info("set attribut  data...");

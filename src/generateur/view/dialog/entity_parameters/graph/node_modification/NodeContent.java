@@ -1,5 +1,6 @@
 package generateur.view.dialog.entity_parameters.graph.node_modification;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,7 +16,6 @@ public class NodeContent extends ScrollPane {
 	public NodeContent(Skin skin,Node node) {
 		super(null, skin);
 		
-		Node nodeCopie = new Node(node);
 		setName("node_content");
 		
 		VerticalGroup groupContent = new VerticalGroup();
@@ -29,10 +29,19 @@ public class NodeContent extends ScrollPane {
 		nameGroup.addActor(name);
 		nameGroup.addActor(nameField);
 
+		// image
+		VerticalGroup imageGroup = new VerticalGroup();
+		Label image = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
+		Image nodeImage = node.getCategoryImage();
+		nodeImage.setName("node_image");
+		imageGroup.setName("node_image_group");
+		imageGroup.addActor(image);
+		imageGroup.addActor(nodeImage);
+		
 		//Sélection de la catégorie
 		VerticalGroup categoryGroup = new VerticalGroup();
 		Label category = new Label(Launcher.languageManager.getProperty("Global.Category"), skin);
-		SelectNodeCategory categorySelect = new SelectNodeCategory(groupContent, skin, nodeCopie);
+		SelectNodeCategory categorySelect = new SelectNodeCategory(groupContent, skin, node);
 		categorySelect.setName("node_category");
 		categorySelect.setSelected(node.getCategory());
 		categoryGroup.addActor(category);
@@ -41,6 +50,7 @@ public class NodeContent extends ScrollPane {
 
 		//Ajout des objets au groupe
 		groupContent.addActor(nameGroup);
+		groupContent.addActor(imageGroup);
 		groupContent.addActor(categoryGroup);
 		this.setActor(groupContent);
 
