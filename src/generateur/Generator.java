@@ -43,6 +43,11 @@ public class Generator extends ApplicationAdapter {
 	@Override
 	public void create() {
 		logger.info("Starting generator...");
+
+		// set full screen
+		if (Launcher.configuration.getBoolean("Config.General.Fullscreen")) {
+			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		}
 		
 		skin = new Skin(new FileHandle("ressources/generateur/skin/default/uiskin.json"));
 		stage = new Stage();
