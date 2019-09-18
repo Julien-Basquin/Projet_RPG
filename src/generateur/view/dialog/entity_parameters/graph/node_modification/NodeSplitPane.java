@@ -17,6 +17,10 @@ public class NodeSplitPane extends SplitPane {
 		nodeContent.setName("node_content");
 		this.setFirstWidget(nodeContent);
 		
+		NodeValueContent nodeValueContent = new NodeValueContent(skin, nodeCopie);
+		nodeValueContent.setName("node_value_content");
+		setSecondWidget(nodeValueContent);
+		
 		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
 		this.setMinSplitAmount(0.33f);
 		this.setSplitAmount(0.33f);
