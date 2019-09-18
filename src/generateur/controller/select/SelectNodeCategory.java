@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -59,11 +58,9 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 				//Mise à jour des listes en fonction de la catégorie
 				logger.info("Updating linked lists...");
 				node.setCategory(getSelected());
-			    VerticalGroup group = ((VerticalGroup) ActorActions.findActor(Generator.stage, "node_image_group"));
-			    group.removeActor(((Image) ActorActions.findActor(Generator.stage, "node_image")));
+				Image oldImage = (Image) ActorActions.findActor(Generator.stage, "node_image");
 			    Image image = node.getCategoryImage();
-			    image.setName("node_image");
-			    group.addActor(image);
+			    ActorActions.replaceActor(Generator.stage, oldImage, image, true);
 			    
 			    NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(Generator.stage, "node_value_content"));
 			    nodeValueContent.clearChildren();
