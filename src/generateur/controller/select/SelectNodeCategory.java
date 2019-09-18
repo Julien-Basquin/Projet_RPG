@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.NodeCategorieEnum;
+import generateur.view.dialog.entity_parameters.graph.node_modification.NodeValueContent;
 
 /**
  * Liste déroulante des catégories et modification de toutes les informations liées au node.
@@ -63,23 +64,10 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 			    Image image = node.getCategoryImage();
 			    image.setName("node_image");
 			    group.addActor(image);
-				switch(getSelected()) {
-				case ATTRIBUT:
-					logger.info("set attribut  data...");
-					break;
-				case COMPETENCE:
-					logger.info("set competence  data...");
-					break;
-				case EQUIPEMENT:
-					logger.info("set equipement  data...");
-					break;
-				case STATISTIQUE:
-					logger.info("set statistique  data...");
-					break;
-				default:
-					logger.info("set default  data...");
-					break;
-				}
+			    
+			    NodeValueContent nodeValueContent = ((NodeValueContent)Generator.findActor("node_value_content"));
+			    nodeValueContent.clearChildren();
+			    nodeValueContent.fire(new ChangeEvent());
 				value = getSelected().name();
 				logger.info("...updating completed.");
 			}
