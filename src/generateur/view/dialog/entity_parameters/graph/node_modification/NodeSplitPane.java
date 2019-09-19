@@ -22,9 +22,9 @@ public class NodeSplitPane extends SplitPane {
 		setSecondWidget(nodeValueContent);
 		
 		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
-		this.setMinSplitAmount(0.33f);
-		this.setSplitAmount(0.33f);
-		this.setMaxSplitAmount(0.33f);
+		this.setMinSplitAmount(0.5f);
+		this.setSplitAmount(0.5f);
+		this.setMaxSplitAmount(0.5f);
 	}
 	
 	public void dispose() {

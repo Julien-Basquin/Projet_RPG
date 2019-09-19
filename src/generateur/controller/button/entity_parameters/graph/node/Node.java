@@ -32,12 +32,16 @@ public class Node extends Button implements Cancelable {
 	
 	/**Identifiant*/	
 	private int id;
-	/**Nom*/
-	private String name;
 	/**Categorie*/
 	private NodeCategorieEnum category;
+	/**Nom*/
+	private String name;
 	/**Description*/
 	private String description;
+	/**Coût de déverrouillage*/
+	private int cout;
+	/**Coût de déverrouillage*/
+	private boolean unlock;
 	
 	/**Texture de l'image de la catégorie*/
 	private Texture categoryTexture;
@@ -82,15 +86,18 @@ public class Node extends Button implements Cancelable {
 	
 	public Node(Node node) {
 		super();
-		id = node.getId();
-		category = node.getCategory();
-		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
-		categoryImage = new Image(categoryTexture);
+		setId(node.getId());
+		setCategory(node.getCategory());
+		setCategoryTexture(new Texture(new FileHandle(path + findColor(category) + ".png")));
+		setCategoryImage(new Image(categoryTexture));
 		setStyle(new NodeStyle(categoryTexture));
 		setSize(64, 64);
 		setPosition(node.getX(), node.getY());
-		links = node.getLinks();
-		
+		setLinks(node.getLinks());
+		setCout(node.getCout());
+		setDescription(node.getDescription());
+		setName(node.getName());
+		setUnlock(node.isUnlock());
 		//Visibilité du noeud
 		setVisible(node.isVisible());
 	}
@@ -248,6 +255,19 @@ public class Node extends Button implements Cancelable {
 
 	public void setLinks(Map<Integer, Link> links) {
 		this.links = links;
+	}
+	
+	public int getCout() {
+		return cout;
+	}
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
+	public boolean isUnlock() {
+		return unlock;
+	}
+	public void setUnlock(boolean unlock) {
+		this.unlock = unlock;
 	}
 
 	@Override
