@@ -50,23 +50,25 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				//Logging du changement de valeur si la valeur a été changée
-				if (getSelected() != null && value != getSelected().name()) {
-					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected() : ""));
+				if (getStage() != null) {					
+					//Logging du changement de valeur si la valeur a été changée
+					if (getSelected() != null && value != getSelected().name()) {
+						logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected() : ""));
+					}
+					
+					//Mise à jour des listes en fonction de la catégorie
+					logger.info("Updating linked lists...");
+					node.setCategory(getSelected());
+					Image oldImage = (Image) ActorActions.findActor(Generator.stage, "node_image");
+					Image image = node.getCategoryImage();
+					ActorActions.replaceActor(Generator.stage, oldImage, image, true);
+					
+					NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(Generator.stage, "node_value_content"));
+					nodeValueContent.clearChildren();
+					nodeValueContent.fire(new ChangeEvent());
+					value = getSelected().name();
+					logger.info("...updating completed.");
 				}
-
-				//Mise à jour des listes en fonction de la catégorie
-				logger.info("Updating linked lists...");
-				node.setCategory(getSelected());
-				Image oldImage = (Image) ActorActions.findActor(Generator.stage, "node_image");
-			    Image image = node.getCategoryImage();
-			    ActorActions.replaceActor(Generator.stage, oldImage, image, true);
-			    
-			    NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(Generator.stage, "node_value_content"));
-			    nodeValueContent.clearChildren();
-			    nodeValueContent.fire(new ChangeEvent());
-				value = getSelected().name();
-				logger.info("...updating completed.");
 			}
 
 		});
