@@ -35,8 +35,8 @@ sourceSets {
 mainClassName = "view.DesktopLauncher"
 
 ext {
-	gdxVersion = '1.9.9'
-	visuiVersion = '1.4.2'
+	gdxVersion = '1.9.10'
+	visuiVersion = '1.4.4'
 }
 
 configurations { natives }
@@ -45,7 +45,7 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:23.0'
 	
-	compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+	compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 	compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 	compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
