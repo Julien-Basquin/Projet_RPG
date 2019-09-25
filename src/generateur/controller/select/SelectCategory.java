@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -15,6 +16,10 @@ import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
 import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
+import app.model.enumeration.objet.objet.TypeObjet;
+import generateur.Generator;
+import generateur.view.global_parameters.GlobalParametersPane;
+import generateur.view.object.EffectTable;
 import util.Converter;
 
 /**
@@ -82,9 +87,19 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							logger.fatal("Error during the loading of armor related data", e);
 						}
 						break;
+					case OBJET:
+						logger.info("Loading object related data...");
+						try {
+							subcategorySelect.setItems(Converter.enumToStringArray(TypeObjet.class));
+							subcategorySelect.setSelectedIndex(0);
+							typeSelect.clearItems();
+							Generator.generatorWindow.setSecondWidget(new EffectTable(skin));
+						} catch (Exception e) {
+							logger.fatal("Error during the loading of object related data", e);
+						}
+						break;
 					case COMPETENCE:
 					case ENTITE:
-					case OBJET:
 						logger.info("No corresponding data. Cleaning lists...");
 						subcategorySelect.clearItems();
 						typeSelect.clearItems();

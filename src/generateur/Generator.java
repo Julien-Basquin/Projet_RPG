@@ -35,7 +35,7 @@ public class Generator extends ApplicationAdapter {
 	/**Logger*/
 	private final Logger logger = Logger.getLogger(Generator.class);
 	
-	private SplitPane generatorWindow;
+	public static SplitPane generatorWindow;
 
 	/**
 	 * Called when the Application is first created.
