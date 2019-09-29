@@ -1,15 +1,18 @@
 package generateur.view.object;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
-
 import generateur.Launcher;
 import generateur.controller.button.object.effect.AddEffect;
+
+/**
+ * Tableau des effets d'un objet
+ * 
+ * @author Julien B.
+ */
 
 public class EffectTable extends Table {
 
@@ -48,7 +51,7 @@ public class EffectTable extends Table {
 		activeLabel.setName("active_label");
 		activeLabel.setAlignment(Align.center);
 		
-		//Ajout des labels
+		//Ajout des labels avec taille prédéfinie
 		add(attributLabel).width(Value.percentWidth(1/8f, this));
 		add(triggerChangeLabel).width(Value.percentWidth(1/8f, this));
 		add(minValueLabel).width(Value.percentWidth(1/8f, this));
@@ -56,14 +59,17 @@ public class EffectTable extends Table {
 		add(percentLabel).width(Value.percentWidth(1/8f, this));
 		add(groupLabel).width(Value.percentWidth(1/8f, this));
 		add(activeLabel).width(Value.percentWidth(1/8f, this));
-//		for (Cell<Actor> cell : getCells()) {
-//			cell.growX();
-//		}
+		//Préparation de la dernière colonne avec un cellule vide
+		add();
 		
 		row();
 		
 		AddEffect addEffectButton = new AddEffect(this, skin);
-		add(addEffectButton);
-		getCell(addEffectButton).align(Align.left);
+		add(addEffectButton).width(Value.percentWidth(1/8f, this));
+		//Ajout de cases vides pour préparer la ligne
+		for (int i = 1; i < getColumns(); i++) {
+			add();
+		}
+
 	}
 }
