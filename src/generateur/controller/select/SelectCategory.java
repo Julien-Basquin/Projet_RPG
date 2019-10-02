@@ -98,6 +98,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							logger.fatal("Error during the loading of armor related data", e);
 						}
 						break;
+					case ENTITE:
+						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
+						break;
 					case OBJET:
 						logger.info("Loading object related data...");
 						try {
@@ -110,7 +113,6 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 						}
 						break;
 					case COMPETENCE:
-					case ENTITE:
 						logger.info("No corresponding data. Cleaning lists...");
 						subcategorySelect.clearItems();
 						typeSelect.clearItems();
