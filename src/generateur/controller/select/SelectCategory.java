@@ -67,7 +67,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 				//Retrait de la partie droite de l'écran
 				if (Generator.generatorWindow != null
 						&& Generator.generatorWindow.getChildren().items[1] != null) {
-					((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
+					try {
+						((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
+					} catch (ClassCastException e) {}
 				}
 				
 				//Récupération des listes des sous-catégories et des types pour mise à jour
