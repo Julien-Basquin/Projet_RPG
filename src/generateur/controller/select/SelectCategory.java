@@ -69,7 +69,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 						&& Generator.generatorWindow.getChildren().items[1] != null) {
 					try {
 						((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
-					} catch (ClassCastException e) {}
+					} catch (ClassCastException e) {
+						Generator.generatorWindow.setSecondWidget(null);
+					}
 				}
 				
 				//Récupération des listes des sous-catégories et des types pour mise à jour
