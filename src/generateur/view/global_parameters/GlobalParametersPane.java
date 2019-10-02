@@ -24,9 +24,9 @@ public class GlobalParametersPane extends SplitPane {
 		this.setFirstWidget(title);
 
 		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
-		this.setMinSplitAmount(title.getPrefHeight() / this.getPrefHeight());
-		this.setSplitAmount(title.getPrefHeight() / this.getPrefHeight());
-		this.setMaxSplitAmount(title.getPrefHeight() / this.getPrefHeight());
+		this.setMinSplitAmount(0.05f);
+		this.setSplitAmount(0.05f);
+		this.setMaxSplitAmount(0.05f);
 	}
 	
 	public void dispose() {
