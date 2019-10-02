@@ -1,4 +1,4 @@
-package generateur.controller.button.object.effect;
+package generateur.controller.button.item.effect;
 
 import java.util.ArrayList;
 import java.util.List;

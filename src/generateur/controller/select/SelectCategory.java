@@ -19,7 +19,8 @@ import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorie
 import app.model.enumeration.objet.objet.TypeObjet;
 import generateur.Generator;
 import generateur.view.global_parameters.GlobalParametersPane;
-import generateur.view.object.EffectTable;
+import generateur.view.item.EffectTable;
+import generateur.view.item.ItemPane;
 import util.Converter;
 
 /**
@@ -93,7 +94,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							subcategorySelect.setItems(Converter.enumToStringArray(TypeObjet.class));
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.clearItems();
-							Generator.generatorWindow.setSecondWidget(new EffectTable(skin));
+							Generator.generatorWindow.setSecondWidget(new ItemPane(skin));
 						} catch (Exception e) {
 							logger.fatal("Error during the loading of object related data", e);
 						}

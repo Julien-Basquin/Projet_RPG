@@ -1,6 +1,5 @@
-package generateur.controller.button.object;
+package generateur.controller.button.item;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -15,19 +14,9 @@ public class NumericField extends TextField {
 
 	public NumericField(Skin skin) {
 		super("", skin);
+		setText("0");
 		
-		addListener(new TextFieldClickListener() {
-
-			@Override
-			public boolean keyTyped(InputEvent event, char character) {
-				if (Character.isDigit(character)) {
-					return super.keyTyped(event, character);
-				}
-				
-				return false;
-			}
-			
-		});
+		setTextFieldFilter(new TextFieldFilter.DigitsOnlyFilter());
 	}
 
 	public boolean isPourcent() {
