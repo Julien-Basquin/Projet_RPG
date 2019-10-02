@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -18,8 +17,6 @@ import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
 import app.model.enumeration.objet.objet.TypeObjet;
 import generateur.Generator;
-import generateur.view.global_parameters.GlobalParametersPane;
-import generateur.view.item.EffectTable;
 import generateur.view.item.ItemPane;
 import util.Converter;
 
