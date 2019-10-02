@@ -2,7 +2,7 @@ package app.model.enumeration.objet.equipement.armure;
 
 public enum TypeArmureEnum {
 
-	TETE("Helmet"),CORPS("Chestplate"),MAINS("Glove"),JAMBES("Leggings"),PIEDS("Boots"),ACCESSOIRE("Accesory");
+	TETE("Helmet"),CORPS("Chestplate"),MAINS("Glove"),JAMBES("Leggings"),PIEDS("Boots");
 	
 	private String nom;
 	private TypeArmureEnum(String nom) {

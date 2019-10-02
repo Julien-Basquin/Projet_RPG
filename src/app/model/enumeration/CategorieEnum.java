@@ -9,6 +9,7 @@ package app.model.enumeration;
 public enum CategorieEnum {
 	ARME("Weapon"),
 	ARMURE("Armor"),
+	ACCESSORY("Accessoryd"),
 	COMPETENCE("Ability"),
 	ENTITE("Entity"),
 	OBJET("Object");

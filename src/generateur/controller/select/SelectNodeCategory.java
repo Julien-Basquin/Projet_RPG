@@ -65,7 +65,7 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 					
 					NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(Generator.stage, "node_value_content"));
 					nodeValueContent.clearChildren();
-					nodeValueContent.fire(new ChangeEvent());
+					nodeValueContent.update(node);
 					value = getSelected().name();
 					logger.info("...updating completed.");
 				}
