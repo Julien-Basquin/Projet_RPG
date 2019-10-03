@@ -13,8 +13,7 @@ public class NumericField extends TextField {
 	private boolean isPourcent;
 
 	public NumericField(Skin skin) {
-		super("", skin);
-		setText("0");
+		super("0", skin);
 		
 		setTextFieldFilter(new TextFieldFilter.DigitsOnlyFilter());
 	}

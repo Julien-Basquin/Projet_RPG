@@ -1,11 +1,7 @@
 package generateur.view.dialog.entity_parameters.graph.node_modification;
 
-import javax.swing.event.ChangeEvent;
-
 import org.apache.log4j.Logger;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -15,11 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import app.model.enumeration.CategorieEnum;
+import app.model.enumeration.element.ElementEnum;
+import app.model.enumeration.statistique.StatistiquesEnum;
 import generateur.Launcher;
 import generateur.controller.button.entity_parameters.graph.node.Node;
-import generateur.controller.select.SelectCategory;
+import generateur.controller.button.item.NumericField;
+import generateur.controller.select.SelectElement;
 import generateur.controller.select.SelectEquipementCategorieNode;
 import generateur.controller.select.SelectNodeCategory;
+import generateur.controller.select.SelectsStatistiqueCategorieNode;
 import generateur.controller.select.StringSelectBox;
 
 public class NodeValueContent extends ScrollPane {
@@ -86,20 +86,19 @@ public class NodeValueContent extends ScrollPane {
 	}
 
 	public void nodeAttribut(Node node) {
-		//Sélection de l'élément
+		//Sélection de la catégorie
 		VerticalGroup elementGroup = new VerticalGroup();
 		Label element = new Label(Launcher.languageManager.getProperty("Global.Category"), skin);
-		SelectNodeCategory elementSelect = new SelectNodeCategory(groupContent, skin, node);
-		elementSelect.setName("node_element");
-		elementGroup.setName("node_element_group");
-		elementSelect.setSelected(node.getCategory());
+		SelectElement elementSelect = new SelectElement(groupContent, skin);
+		elementSelect.setName("category_equipement_node");
+		elementSelect.setItems(ElementEnum.values());
 		elementGroup.addActor(element);
 		elementGroup.addActor(elementSelect);
 
 		//Zone de la Valeur
 		VerticalGroup valueGroup = new VerticalGroup();
 		Label value = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
-		TextField valueField = new TextField("", skin);
+		NumericField valueField = new NumericField(skin);
 		valueField.setName("node_value");
 		valueGroup.setName("node_value_group");
 		valueGroup.addActor(value);
@@ -171,9 +170,8 @@ public class NodeValueContent extends ScrollPane {
 		//Zone du pourcentage
 		VerticalGroup bonusValeurGroupe = new VerticalGroup();
 		Label bonusValeur = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
-		TextField bonusValeurCheckBox = new TextField("", skin);
-		//percentCheckBox.setChecked(((TypeNodeAttribut)node.getTypeNode()).isPercent());
-		bonusCheckBox.setName("node_equipe");
+		NumericField bonusValeurCheckBox = new NumericField(skin);
+		bonusValeurCheckBox.setName("node_equipe");
 		bonusValeurGroupe.setName("node_equipe_group");
 		bonusValeurGroupe.addActor(bonusValeur);
 		bonusValeurGroupe.addActor(bonusValeurCheckBox);
@@ -188,15 +186,37 @@ public class NodeValueContent extends ScrollPane {
 
 	public void nodeStatistique(Node node) {
 
-		//Zone du nom
-		VerticalGroup nameGroup = new VerticalGroup();
-		Label name = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
-		TextField nameField = new TextField(node.getName(), skin);
-		nameField.setName("node_value_name");
-		nameGroup.addActor(name);
-		nameGroup.addActor(nameField);
+		//Sélection de la catégorie
+		VerticalGroup statistiqueGroup = new VerticalGroup();
+		Label statistique = new Label(Launcher.languageManager.getProperty("Global.Category"), skin);
+		SelectsStatistiqueCategorieNode statistiqueSelect = new SelectsStatistiqueCategorieNode(groupContent, skin);
+		statistiqueSelect.setName("category_equipement_node");
+		statistiqueSelect.setItems(StatistiquesEnum.values());
+		statistiqueGroup.addActor(statistique);
+		statistiqueGroup.addActor(statistiqueSelect);
 
-		groupContent.addActor(nameGroup);
+		//Zone du pourcentage
+		VerticalGroup bonusValeurGroupe = new VerticalGroup();
+		Label bonusValeur = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
+		NumericField bonusValeurCheckBox = new NumericField(skin);
+		bonusValeurCheckBox.setName("node_equipe");
+		bonusValeurGroupe.setName("node_equipe_group");
+		bonusValeurGroupe.addActor(bonusValeur);
+		bonusValeurGroupe.addActor(bonusValeurCheckBox);		
+
+		//Zone du pourcentage
+		VerticalGroup bonusGroupe = new VerticalGroup();
+		Label bonus = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
+		CheckBox bonusCheckBox = new CheckBox("", skin);
+		//percentCheckBox.setChecked(((TypeNodeAttribut)node.getTypeNode()).isPercent());
+		bonusCheckBox.setName("node_equipe");
+		bonusGroupe.setName("node_equipe_group");
+		bonusGroupe.addActor(bonus);
+		bonusGroupe.addActor(bonusCheckBox);
+
+		groupContent.addActor(statistiqueGroup);
+		groupContent.addActor(bonusValeurGroupe);
+		groupContent.addActor(bonusGroupe);
 	}
 
 }
