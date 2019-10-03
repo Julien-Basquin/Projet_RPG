@@ -60,6 +60,7 @@ public class DataManager {
 		try(FileWriter file = new FileWriter(path+fileName+".json")){
 			file.write(json.prettyPrint(object));
 			file.flush();
+			file.close();
 		} catch (Exception e) {
 			logger.error("Can't write in path : " +path+fileName+".json " +e);
 		}
@@ -103,6 +104,7 @@ public class DataManager {
 
 			object = parser.fromJson(Class.forName(objectClass.getName()), file);
 
+			file.close();
 		} catch (Exception e) {
 			logger.error("File not found " + path+fileName+".json " + e);
 		}
