@@ -87,7 +87,7 @@ public class StringSelectBox extends SelectBox<String> {
 						group.findActor("item_special_options").remove();
 					}
 					
-					if (getSelected().equalsIgnoreCase(cristal) || getSelected().equalsIgnoreCase(scroll)) {
+					if (getSelected() != null && (getSelected().equalsIgnoreCase(cristal) || getSelected().equalsIgnoreCase(scroll))) {
 						((VerticalGroup) group.findActor("item_content_group")).addActorAt(1, new ItemSpecialOptions(getSelected(), skin));
 					}
 				}
