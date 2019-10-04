@@ -60,12 +60,12 @@ public class AddEffect extends TextButton {
 				int cellNumber = table.getCell(table.findActor("add_effect")).getRow() * table.getColumns() + table.getCell(AddEffect.this).getColumn();
 				
 				table.getCells().get(cellNumber).setActor(selectAttribute).width(Value.percentWidth(1/4f, table));
-				table.getCells().get(cellNumber + 1).setActor(triggerChance).width(Value.percentWidth(1/8f, table));
-				table.getCells().get(cellNumber + 2).setActor(minValue).width(Value.percentWidth(1/8f, table));
-				table.getCells().get(cellNumber + 3).setActor(maxValue).width(Value.percentWidth(1/8f, table));
+				table.getCells().get(cellNumber + 1).setActor(triggerChance).width(Value.percentWidth(1/8f, table)).height(triggerChance.getHeight());
+				table.getCells().get(cellNumber + 2).setActor(minValue).width(Value.percentWidth(1/8f, table)).height(minValue.getHeight());
+				table.getCells().get(cellNumber + 3).setActor(maxValue).width(Value.percentWidth(1/8f, table)).height(maxValue.getHeight());
 				table.getCells().get(cellNumber + 4).setActor(percent).width(Value.percentWidth(1/16f, table));
-				table.getCells().get(cellNumber + 5).setActor(group).width(Value.percentWidth(1/8f, table));
-				table.getCells().get(cellNumber + 6).setActor(active).width(Value.percentWidth(1/8f, table));
+				table.getCells().get(cellNumber + 5).setActor(group).width(Value.percentWidth(1/8f, table)).height(percent.getHeight());
+				table.getCells().get(cellNumber + 6).setActor(active).width(Value.percentWidth(1/8f, table)).height(active.getHeight());
 				table.getCells().get(cellNumber + 7).setActor(removeEffect).width(Value.percentWidth(1/16f, table));
 				
 				table.row();

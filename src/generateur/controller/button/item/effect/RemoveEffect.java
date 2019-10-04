@@ -8,12 +8,16 @@ import java.util.regex.Pattern;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+
+import generateur.controller.button.item.ValueField;
 
 /**
  * Bouton de suppression d'un effet d'un objet
@@ -82,7 +86,15 @@ public class RemoveEffect extends TextButton {
 				table.clearChildren();
 				for (List<Actor> row : listCell) {
 					for (Actor actor : row) {
-						table.add(actor).width(Value.percentWidth(1/8f, table));
+						if (actor instanceof SelectBox || actor instanceof AddEffect) {
+							table.add(actor).width(Value.percentWidth(1/4f, table));
+						} else if (actor instanceof ValueField) {
+							table.add(actor).width(Value.percentWidth(1/8f, table)).height(actor.getHeight());
+						} else if (actor instanceof CheckBox || actor instanceof RemoveEffect) {
+							table.add(actor).width(Value.percentWidth(1/16f, table));
+						} else {
+							table.add(actor);
+						}
 					}
 					
 					table.row();
