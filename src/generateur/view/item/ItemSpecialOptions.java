@@ -21,8 +21,11 @@ public class ItemSpecialOptions extends Table {
 		
 		if (option.equalsIgnoreCase(cristal)) {
 			Label cristalLabel = new Label(Launcher.languageManager.getProperty("Object.Cristal"), skin);
+			cristalLabel.setAlignment(Align.center);
 			Label nbChargeLabel = new Label(Launcher.languageManager.getProperty("Object.Cristal.Charge"), skin);
+			nbChargeLabel.setAlignment(Align.center);
 			Label manaPerChargeLabel = new Label(Launcher.languageManager.getProperty("Object.Cristal.Cost"), skin);
+			manaPerChargeLabel.setAlignment(Align.center);
 			ValueField nbCharge = new ValueField(skin);
 			ValueField manaPerCharge = new ValueField(skin);
 			
@@ -34,7 +37,9 @@ public class ItemSpecialOptions extends Table {
 			add(manaPerCharge).width(Value.percentWidth(1/12f, this));
 		} else if (option.equalsIgnoreCase(scroll)) {
 			Label scrollLabel = new Label(Launcher.languageManager.getProperty("Object.Scroll"), skin);
+			scrollLabel.setAlignment(Align.center);
 			Label incantationLabel = new Label(Launcher.languageManager.getProperty("Object.Scroll.Incantation"), skin);
+			incantationLabel.setAlignment(Align.center);
 			ValueField incantation = new ValueField(skin);
 			
 			add(scrollLabel).width(Value.percentWidth(1/3f, this));

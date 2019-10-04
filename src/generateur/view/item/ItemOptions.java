@@ -22,9 +22,13 @@ public class ItemOptions extends Table {
 		Label usable = new Label(Launcher.languageManager.getProperty("Object.Usable"), skin);
 		usable.setAlignment(Align.center);
 		Label inFightLabel = new Label(Launcher.languageManager.getProperty("Object.Usable.InFight"), skin);
+		inFightLabel.setAlignment(Align.center);
 		Label outFightLabel = new Label(Launcher.languageManager.getProperty("Object.Usable.OutFight"), skin);
+		outFightLabel.setAlignment(Align.center);
 		Label materialLabel = new Label(Launcher.languageManager.getProperty("Object.Usable.Material"), skin);
+		materialLabel.setAlignment(Align.center);
 		Label questLabel = new Label(Launcher.languageManager.getProperty("Object.Usable.Quest"), skin);
+		questLabel.setAlignment(Align.center);
 		
 		CheckBox inFight = new CheckBox("", skin);
 		CheckBox outFight = new CheckBox("", skin);
