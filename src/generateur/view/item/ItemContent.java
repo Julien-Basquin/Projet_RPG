@@ -17,7 +17,6 @@ public class ItemContent extends ScrollPane {
 		group.grow();
 		
 		ItemOptions options = new ItemOptions(skin);
-		
 		EffectTable table = new EffectTable(skin);
 		group.space(50);
 		

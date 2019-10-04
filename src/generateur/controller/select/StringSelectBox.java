@@ -3,12 +3,18 @@ package generateur.controller.select;
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import generateur.Generator;
+import generateur.Launcher;
+import generateur.view.item.ItemSpecialOptions;
+import util.ActorActions;
 import util.Converter;
 
 /**
@@ -70,6 +76,21 @@ public class StringSelectBox extends SelectBox<String> {
 					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected() : ""));
 				}
 				value = getSelected();
+				
+				//ChangeListener pour les items
+				Group group = (Group) ActorActions.findActor(Generator.stage, "item_content");
+				if (group != null) {
+					String cristal = Launcher.languageManager.getProperty("Object.Cristal");
+					String scroll = Launcher.languageManager.getProperty("Object.Scroll");
+					
+					if (group.findActor("item_special_options") != null) {
+						group.findActor("item_special_options").remove();
+					}
+					
+					if (getSelected().equalsIgnoreCase(cristal) || getSelected().equalsIgnoreCase(scroll)) {
+						((VerticalGroup) group.findActor("item_content_group")).addActorAt(1, new ItemSpecialOptions(getSelected(), skin));
+					}
+				}
 			}
 		});
 	}
