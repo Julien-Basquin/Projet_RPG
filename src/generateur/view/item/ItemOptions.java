@@ -57,8 +57,8 @@ public class ItemOptions extends Table {
 		
 		add(target);
 		add(alliesLabel);
-		add(allies).width(Value.percentWidth(1/12f, this)).height(Value.percentHeight(1/4f, this));
+		add(allies).width(Value.percentWidth(1/12f, this)).height(allies.getHeight());
 		add(null, ennemiesLabel);
-		add(ennemies).width(Value.percentWidth(1/12f, this)).height(Value.percentHeight(1/4f, this));
+		add(ennemies).width(Value.percentWidth(1/12f, this)).height(allies.getHeight());
 	}
 }

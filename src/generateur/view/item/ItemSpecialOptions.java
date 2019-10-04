@@ -31,10 +31,10 @@ public class ItemSpecialOptions extends Table {
 			
 			add(cristalLabel).width(Value.percentWidth(1/3f, this));
 			add(nbChargeLabel).width(Value.percentWidth(1/6f, this));
-			add(nbCharge).width(Value.percentWidth(1/12f, this));
+			add(nbCharge).width(Value.percentWidth(1/12f, this)).height(nbCharge.getHeight());
 			add().width(Value.percentWidth(1/6f, this));
 			add(manaPerChargeLabel).width(Value.percentWidth(1/6f, this));
-			add(manaPerCharge).width(Value.percentWidth(1/12f, this));
+			add(manaPerCharge).width(Value.percentWidth(1/12f, this)).height(manaPerCharge.getHeight());
 		} else if (option.equalsIgnoreCase(scroll)) {
 			Label scrollLabel = new Label(Launcher.languageManager.getProperty("Object.Scroll"), skin);
 			scrollLabel.setAlignment(Align.center);
@@ -44,7 +44,7 @@ public class ItemSpecialOptions extends Table {
 			
 			add(scrollLabel).width(Value.percentWidth(1/3f, this));
 			add(incantationLabel).width(Value.percentWidth(1/6f, this));
-			add(incantation).width(Value.percentWidth(1/12f, this));
+			add(incantation).width(Value.percentWidth(1/12f, this)).height(incantation.getHeight());
 		}
 	}
 }
