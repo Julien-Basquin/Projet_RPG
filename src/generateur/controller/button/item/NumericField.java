@@ -1,7 +1,5 @@
 package generateur.controller.button.item;
 
-import java.io.ObjectInputStream.GetField;
-
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -12,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
  */
 
 public class NumericField extends TextField {
-	private boolean isPourcent;
+	private boolean isPercent;
 
 	public NumericField(Skin skin) {
 		super("", skin);
@@ -22,12 +20,12 @@ public class NumericField extends TextField {
 		setTextFieldFilter(new TextFieldFilter.DigitsOnlyFilter());
 	}
 
-	public boolean isPourcent() {
-		return isPourcent;
+	public boolean isPercent() {
+		return isPercent;
 	}
 
-	public void setPourcent(boolean isPourcent) {
-		this.isPourcent = isPourcent;
+	public void setPercent(boolean isPercent) {
+		this.isPercent = isPercent;
 	}
 	
 	
