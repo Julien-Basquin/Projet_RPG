@@ -13,6 +13,10 @@ import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.GraphEvents;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
+import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
+import generateur.controller.button.entity_parameters.graph.node.NodeEquipement;
+import generateur.controller.button.entity_parameters.graph.node.NodeStatistique;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeToGraph;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
@@ -51,7 +55,22 @@ public class Graph extends Group implements Cancelable {
 
 		nodeList = new HashMap<Integer, Node>();
 		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
-			addNode(new Node(node.getValue()), false);
+			switch (node.getValue().getCategory()) {
+			case STATISTIQUE:
+				addNode(new NodeStatistique(node.getValue()), false);
+				break;
+			case EQUIPEMENT:
+				addNode(new NodeEquipement(node.getValue()), false);
+				break;
+			case ATTRIBUT:
+				addNode(new NodeAttribut(node.getValue()), false);
+				break;
+			case COMPETENCE:
+				addNode(new NodeCompetence(node.getValue()), false);
+				break;
+			default:
+				break;
+			}
 		}
 		
 		linkList = new HashMap<Integer, Link>();
@@ -204,7 +223,24 @@ public class Graph extends Group implements Cancelable {
 		case INIT:
 			Generator.nextStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
 			for (Entry<Integer, Node> node : nodeList.entrySet()) {
-				Node newNode = new Node(node.getValue());
+				Node newNode = null;
+				switch (node.getValue().getCategory()) {
+				case STATISTIQUE:
+					newNode = new NodeStatistique(node.getValue());
+					break;
+				case EQUIPEMENT:
+					newNode = new NodeEquipement(node.getValue());
+					break;
+				case ATTRIBUT:
+					newNode = new NodeAttribut(node.getValue());
+					break;
+				case COMPETENCE:
+					newNode = new NodeCompetence(node.getValue());
+					break;
+				default:
+					break;
+				}
+				
 				graph.addNode(newNode, true);
 			}
 			

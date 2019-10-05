@@ -27,80 +27,40 @@ import util.ActorActions;
  * @author Julien B.
  */
 
-public class Node extends Button implements Cancelable {
-	private static int globalId;
+public abstract class Node extends Button implements Cancelable {
+	protected static int globalId;
 	
 	/**Identifiant*/	
-	private int id;
+	protected int id;
 	/**Categorie*/
-	private NodeCategorieEnum category;
+	protected NodeCategorieEnum category;
 	/**Nom*/
-	private String name;
+	protected String name;
 	/**Description*/
-	private String description;
+	protected String description;
 	/**Coût de déverrouillage*/
-	private int cout;
+	protected int cout;
 	/**Coût de déverrouillage*/
-	private boolean unlock;
+	protected boolean unlock;
 	
 	/**Texture de l'image de la catégorie*/
-	private Texture categoryTexture;
+	protected Texture categoryTexture;
 	/**Texture de l'icone*/
-	private Texture iconTexture;
+	protected Texture iconTexture;
 	/**Image de la catégorie (chargée depuis la texture)*/
-	private Image categoryImage;
+	protected Image categoryImage;
 	/**Image de l'icone (chargée depuis la texture)*/
-	private Image iconImage;
+	protected Image iconImage;
 	
 	/**Base du chemin des images des noeuds*/
-	private String path = "ressources/generateur/node/";
+	protected String path = "ressources/generateur/node/";
 	
 	/**Liste des liens du noeuds*/
-	private Map<Integer, Link> links;
+	protected Map<Integer, Link> links;
 	
 	private Logger logger = Logger.getLogger(Node.class);
 
-	public Node(float x, float y) {
-		super();
-		id = globalId++;
-		category = NodeCategorieEnum.STATISTIQUE;
-		categoryTexture = new Texture(new FileHandle(path + "green.png"));
-		categoryImage = new Image(categoryTexture);
-		setStyle(new NodeStyle(categoryTexture));
-		setSize(64, 64);
-		setPosition(x, y);
-		links = new HashMap<Integer, Link>();
-	}
 	
-	public Node(NodeCategorieEnum category, float x, float y) {
-		super();
-		id = globalId++;
-		this.category = category;
-		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
-		categoryImage = new Image(categoryTexture);
-		setStyle(new NodeStyle(categoryTexture));
-		setSize(64, 64);
-		setPosition(x, y);
-		links = new HashMap<Integer, Link>();
-	}
-	
-	public Node(Node node) {
-		super();
-		setId(node.getId());
-		setCategory(node.getCategory());
-		setCategoryTexture(new Texture(new FileHandle(path + findColor(category) + ".png")));
-		setCategoryImage(new Image(categoryTexture));
-		setStyle(new NodeStyle(categoryTexture));
-		setSize(64, 64);
-		setPosition(node.getX(), node.getY());
-		setLinks(node.getLinks());
-		setCout(node.getCout());
-		setDescription(node.getDescription());
-		setName(node.getName());
-		setUnlock(node.isUnlock());
-		//Visibilité du noeud
-		setVisible(node.isVisible());
-	}
 	
 	/**
 	 * Création des évènements du noeud
@@ -296,81 +256,9 @@ public class Node extends Button implements Cancelable {
 	}
 
 	@Override
-	public void undo(EventsEnum event) {
-		//Graphe actuel
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		//Retrait de l'évènement précédent
-		ObjectEvent objectEvent = Generator.previousStates.pop();
-		//Récupération du noeud sur le graphe ayant le même id que this
-		Node node = graph.getNodeList().get(id);
-
-		switch(event) {
-		case ADD:	//Utilisation du noeud récupéré car différent de this
-			//Retrait du noeud récupéré
-			node.remove();
-			graph.getNodeList().remove(id);
-			
-			Generator.nextStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
-			break;
-		case DELETE:	//Utilsiation de this car node n'existe plus
-			//Ajout de this au graphe
-			graph.addNode(this, true);
-
-			Generator.nextStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
-			break;
-		case EDIT:
-			//TODO Edition d'un noeud
-			break;
-		case MOVE:
-			Generator.nextStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
-			
-			node.setPosition(getX(), getY());
-			node.setVisible(isVisible());
-			
-			link();
-			break;
-		default:
-			
-			break;
-		}
-	}
+	public abstract void undo(EventsEnum event);
+		
 
 	@Override
-	public void redo(EventsEnum event) {
-		//Graphe actuel
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		//Récupération de l'évènement suivant
-		ObjectEvent objectEvent = Generator.nextStates.pop();
-		//Récupération du noeud sur le graphe ayant le même id que this
-		Node node = graph.getNodeList().get(id);
-
-		switch(event) {
-		case ADD:
-			//Ajout de this au graphe
-			graph.addNode(this, true);
-
-			Generator.previousStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
-			break;
-		case DELETE:
-			node.remove();
-			graph.getNodeList().remove(id);
-			
-			Generator.previousStates.push(new ObjectEvent(new Node(this), event + "_Node", objectEvent.getGroupId()));
-			break;
-		case EDIT:
-			//TODO Edition d'un noeud
-			break;
-		case MOVE:
-			Generator.previousStates.push(new ObjectEvent(new Node(node), event + "_Node", objectEvent.getGroupId()));
-			
-			node.setPosition(getX(), getY());
-			node.setVisible(isVisible());
-			
-			link();
-			break;
-		default:
-			
-			break;
-		}
-	}
+	public abstract void redo(EventsEnum event);
 }

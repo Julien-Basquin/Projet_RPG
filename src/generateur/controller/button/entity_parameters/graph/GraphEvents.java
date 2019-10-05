@@ -10,6 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
+import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
+import generateur.controller.button.entity_parameters.graph.node.NodeEquipement;
+import generateur.controller.button.entity_parameters.graph.node.NodeStatistique;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
 import generateur.view.entity_parameters.middle.Graph;
@@ -50,7 +54,26 @@ public class GraphEvents extends DragListener {
 		
 		//Désactivation des éléments du graphe
 		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
-			Generator.previousStates.add(new ObjectEvent(new Node(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+			switch (node.getValue().getCategory()) {
+			case STATISTIQUE:
+				Generator.previousStates.add(new ObjectEvent(new NodeStatistique(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				break;
+
+			case EQUIPEMENT:
+				Generator.previousStates.add(new ObjectEvent(new NodeEquipement(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				break;
+				
+			case ATTRIBUT:
+				Generator.previousStates.add(new ObjectEvent(new NodeAttribut(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				break;
+				
+			case COMPETENCE:
+				Generator.previousStates.add(new ObjectEvent(new NodeCompetence(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				break;
+				
+			default:
+				break;
+			}
 			if (node.getValue().isVisible()) {
 				node.getValue().setTouchable(Touchable.disabled);
 			}
