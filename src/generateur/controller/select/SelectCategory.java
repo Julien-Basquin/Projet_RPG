@@ -15,6 +15,7 @@ import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
 import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
+import generateur.Generator;
 import util.Converter;
 
 /**
