@@ -7,7 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
+import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
+import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
+import generateur.controller.button.entity_parameters.graph.node.NodeEquipement;
+import generateur.controller.button.entity_parameters.graph.node.NodeStatistique;
+import generateur.model.entity_parameters.EventsEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
+import generateur.view.entity_parameters.middle.Graph;
 
 /**
  * Implémentation du drag and drop pour déplacer des noeuds sur le graphe des entités.
@@ -42,11 +50,30 @@ public class DragAndDropNodeToGraph extends DragAndDrop {
 			@Override
 			public void drop(Source source, Payload payload, float x, float y, int pointer) {
 				Node node = ((Node) source.getActor());
+				switch (node.getCategory()) {
+				case STATISTIQUE:
+					Generator.previousStates.push(new ObjectEvent(new NodeStatistique(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					break;
+				case EQUIPEMENT:
+					Generator.previousStates.push(new ObjectEvent(new NodeEquipement(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					break;
+				case ATTRIBUT:
+					Generator.previousStates.push(new ObjectEvent(new NodeAttribut(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					break;
+				case COMPETENCE:
+					Generator.previousStates.push(new ObjectEvent(new NodeCompetence(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					break;
+				default:
+					break;
+				}
+				
+				ObjectEvent.incrGroupId();
+				Generator.nextStates.clear();
 
 				//Changement des coordonnée du noeud déplacé
 				node.setPosition(Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
 				
-				node.drawLink();
+				node.link();
 			}
 			
 			@Override

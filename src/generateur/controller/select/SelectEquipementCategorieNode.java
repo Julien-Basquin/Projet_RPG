@@ -1,5 +1,8 @@
 package generateur.controller.select;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,17 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Disposable;
 
 import app.model.enumeration.CategorieEnum;
 import app.model.enumeration.objet.equipement.arme.TypeArmeEnum;
 import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieArmeEnum;
+import app.model.enumeration.objet.equipement.armure.TypeAccessoryEnum;
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
+import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieAccessoryEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
-import app.model.enumeration.objet.objet.TypeObjet;
-import generateur.Generator;
-import generateur.view.entity_parameters.EntityParametersGlobalPane;
-import generateur.view.item.ItemPane;
 import util.Converter;
 
 /**
@@ -28,16 +28,17 @@ import util.Converter;
  * @author Julien B.
  */
 
-public class SelectCategory extends SelectBox<CategorieEnum> {
+public class SelectEquipementCategorieNode extends SelectBox<CategorieEnum> {
 	
 	private String value;
-	private final Logger logger = Logger.getLogger(SelectCategory.class);
+	private final Logger logger = Logger.getLogger(SelectEquipementCategorieNode.class);
 
-	public SelectCategory(Group parent, Skin skin) {
+	public SelectEquipementCategorieNode(Group parent, Skin skin) {
 		super(skin);
 		
 		value = "";
-		setItems(CategorieEnum.values());
+		
+		setItems(CategorieEnum.ARME, CategorieEnum.ARMURE, CategorieEnum.ACCESSORY);
 		
 		addListener(new ClickListener() {
 
@@ -60,19 +61,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 					logger.debug(getName() + " changed : " + value + " -> " + (getSelected() != null ? getSelected().getNom() : ""));
 				}
 				
-				//Retrait de la partie droite de l'écran
-				if (Generator.generatorWindow != null
-						&& Generator.generatorWindow.getChildren().items[1] != null) {
-					try {
-						((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
-					} catch (ClassCastException e) {
-						Generator.generatorWindow.setSecondWidget(null);
-					}
-				}
-				
 				//Récupération des listes des sous-catégories et des types pour mise à jour
-				StringSelectBox subcategorySelect = (StringSelectBox) parent.findActor("subcategory");
-				StringSelectBox typeSelect = (StringSelectBox) parent.findActor("type");
+				StringSelectBox subcategorySelect = (StringSelectBox) parent.findActor("subcategory_node");
+				StringSelectBox typeSelect = (StringSelectBox) parent.findActor("type_node");
 				//Mise à jour des listes en fonction de la catégorie
 				logger.info("Updating linked lists...");
 				switch(getSelected()) {
@@ -98,24 +89,15 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							logger.fatal("Error during the loading of armor related data", e);
 						}
 						break;
-					case ENTITE:
-						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
-						break;
-					case OBJET:
-						logger.info("Loading object related data...");
+					case ACCESSORY:
+						logger.info("Loading accesory related data...");
 						try {
-							subcategorySelect.setItems(Converter.enumToStringArray(TypeObjet.class));
+							subcategorySelect.setItems(Converter.enumToStringArray(TypeAccessoryEnum.class));
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.clearItems();
-							Generator.generatorWindow.setSecondWidget(new ItemPane(skin));
 						} catch (Exception e) {
-							logger.fatal("Error during the loading of object related data", e);
+							logger.fatal("Error during the loading of armor related data", e);
 						}
-						break;
-					case COMPETENCE:
-						logger.info("No corresponding data. Cleaning lists...");
-						subcategorySelect.clearItems();
-						typeSelect.clearItems();
 						break;
 					default:
 						logger.warn("The category does not match any data. Updating failed.");

@@ -7,8 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
@@ -19,6 +17,7 @@ import com.kotcrab.vis.ui.widget.file.FileTypeFilter;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
+import generateur.model.entity_parameters.stack.EventStack;
 import generateur.view.global_parameters.GlobalParametersPane;
 
 /**
@@ -40,7 +39,8 @@ public class Generator extends ApplicationAdapter {
 	private final Logger logger = Logger.getLogger(Generator.class);
 	
 	public static SplitPane generatorWindow;
-
+	public static EventStack previousStates;
+	public static EventStack nextStates;
 	/**
 	 * Called when the Application is first created.
 	 */
@@ -79,6 +79,10 @@ public class Generator extends ApplicationAdapter {
 		
 		//Configuration de la réception des inputs
 		inputMultiplexer = new InputMultiplexer(stage);
+		
+		//Création des piles d'états
+		previousStates = new EventStack();
+		nextStates = new EventStack();
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		
@@ -135,34 +139,22 @@ public class Generator extends ApplicationAdapter {
 		VisUI.dispose();
 	}
 	
-	/**
-	 * Parcours la stage et retourne l'acteur nommé
-	 * 
-	 * @param name	Nom de l'acteur à trouver
-	 * 
-	 * @return L'acteur désigné par le nom si trouvé, null sinon
-	 */
-	public static Actor findActor(String name) {
-		Actor actorByName = null;
-		int i = 0;
-		String actorName = "";
-		
-		do {
-			actorName = stage.getActors().items[i].getName();
-			if (actorName != null && actorName.equals(name)) {
-				actorByName = stage.getActors().items[i];
-			} else {
-				try {
-					Group group = (Group) stage.getActors().items[i];
-					actorByName = group.findActor(name);
-				} catch (ClassCastException e) {
-					continue;
-				}
-			}
-			
-			i++;
-		} while (actorByName == null && i < stage.getActors().size);
-		
-		return actorByName;
-	}
+//	public static void clearNextStates() {
+//		Pattern pattern = Pattern.compile("^(!:[A-Z]+)_([A-Z])*");
+//		Matcher match;
+//		
+//		
+//		for (ObjectEvent objectEvent : nextStates) {
+//			match = pattern.matcher(objectEvent.getEvent());
+//			if (match.find()) {
+//				String regexClass = match.group(1);
+//				regexClass = regexClass.toLowerCase();
+//				regexClass = regexClass.replaceFirst("" + regexClass.charAt(0), "" + (regexClass.charAt(0) - 22));
+//				//TODO TESTER
+//				((Disposable) objectEvent).dispose();
+//			}
+//		}
+//		
+//		nextStates.clear();
+//	}
 }

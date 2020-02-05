@@ -1,5 +1,7 @@
 package generateur.controller.button.dialog_button.entity_parameters.graph;
 
+import java.util.Map.Entry;
+
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,7 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
 import generateur.Launcher;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.controller.button.entity_parameters.graph.node.Node;
+import generateur.model.entity_parameters.EventsEnum;
+import generateur.model.entity_parameters.stack.ObjectEvent;
+import generateur.view.entity_parameters.middle.Graph;
+import util.ActorActions;
 
 /**
  * Bouton de réinitialisation du graphe des entités
@@ -31,7 +38,20 @@ public class ResetGraphButton extends TextButton {
 				super.clicked(event, x, y);
 
 				logger.debug("Cleaning entity graph...");
-				((EntityParametersGraph) Generator.findActor("graph")).dispose();
+				Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
+				Generator.previousStates.push(new ObjectEvent(new Graph(graph), EventsEnum.INIT + "_Graph"));
+				ObjectEvent.incrGroupId();
+				Generator.nextStates.clear();
+
+				for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
+					link.getValue().remove();
+				}
+				graph.getLinkList().clear();
+				
+				for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
+					node.getValue().remove();
+				}
+				graph.getNodeList().clear();
 				logger.debug("...cleaning completed");
 				
 				remove();

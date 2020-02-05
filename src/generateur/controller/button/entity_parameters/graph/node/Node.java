@@ -1,8 +1,8 @@
 package generateur.controller.button.entity_parameters.graph.node;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -11,9 +11,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import generateur.Generator;
 import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.model.entity_parameters.Cancelable;
+import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.model.entity_parameters.stack.ObjectEvent;
+import generateur.view.entity_parameters.middle.Graph;
+import util.ActorActions;
 
 /**
  * Classe d'un noeud représenté sur le graphe.
@@ -22,65 +27,47 @@ import generateur.view.entity_parameters.middle.EntityParametersGraph;
  * @author Julien B.
  */
 
-public class Node extends Button {
-	private static int globalId;
+public abstract class Node extends Button implements Cancelable {
+	protected static int globalId;
 	
 	/**Identifiant*/	
-	private int id;
-	/**Nom*/
-	private String name;
+	protected int id;
 	/**Categorie*/
-	private NodeCategorieEnum category;
+	protected NodeCategorieEnum category;
+	/**Nom*/
+	protected String name;
 	/**Description*/
-	private String description;
+	protected String description;
+	/**Coût de déverrouillage*/
+	protected int cout;
+	/**Coût de déverrouillage*/
+	protected boolean unlock;
 	
 	/**Texture de l'image de la catégorie*/
-	private Texture categoryTexture;
+	protected Texture categoryTexture;
 	/**Texture de l'icone*/
-	private Texture iconTexture;
+	protected Texture iconTexture;
 	/**Image de la catégorie (chargée depuis la texture)*/
-	private Image categoryImage;
+	protected Image categoryImage;
 	/**Image de l'icone (chargée depuis la texture)*/
-	private Image iconImage;
+	protected Image iconImage;
 	
 	/**Base du chemin des images des noeuds*/
-	private String path = "ressources/generateur/node/";
+	protected String path = "ressources/generateur/node/";
 	
 	/**Liste des liens du noeuds*/
-	private Set<Link> links;
+	protected Map<Integer, Link> links;
 	
 	private Logger logger = Logger.getLogger(Node.class);
 
-	public Node(float x, float y) {
-		super();
-		id = globalId++;
-		category = NodeCategorieEnum.STATISTIQUE;
-		categoryTexture = new Texture(new FileHandle(path + "green.png"));
-		categoryImage = new Image(categoryTexture);
-		setStyle(new NodeStyle(categoryTexture));
-		setSize(64, 64);
-		setPosition(x, y);
-		links = new HashSet<Link>();
-	}
 	
-	public Node(NodeCategorieEnum category, float x, float y) {
-		super();
-		id = globalId++;
-		this.category = category;
-		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
-		categoryImage = new Image(categoryTexture);
-		setStyle(new NodeStyle(categoryTexture));
-		setSize(64, 64);
-		setPosition(x, y);
-		links = new HashSet<Link>();
-	}
 	
 	/**
 	 * Création des évènements du noeud
 	 * 
 	 * @param graph	Graphe contenant le noeud
 	 */
-	public void addEvents(EntityParametersGraph graph) {
+	public void addEvents(Graph graph) {
 		new NodeEvents(this, graph);
 	}
 	
@@ -112,14 +99,31 @@ public class Node extends Button {
 	}
 	
 	/**
-	 * Dessine les liens du noeud
+	 * Création et positionnement des liens du noeud sur le graphe.
+	 * Ne dessine pas les liens à l'écran.
 	 */
-	public void drawLink() {
-		for (Link link : links) {
-			link.draw();
+	public void link() {
+		for (Entry<Integer, Link> link : links.entrySet()) {
+			link.getValue().link();
 		}
 	}
 
+	/**
+	 * update image
+	 */
+	private void updateImage() {
+		if (categoryTexture != null) {
+			categoryTexture.dispose();
+		}
+		if (iconTexture != null) {
+			iconTexture.dispose();
+		}
+		
+		categoryTexture = new Texture(new FileHandle(path + findColor(category) + ".png"));
+		categoryImage = new Image(categoryTexture);
+		setStyle(new NodeStyle(categoryTexture));
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -142,6 +146,7 @@ public class Node extends Button {
 
 	public void setCategory(NodeCategorieEnum category) {
 		this.category = category;
+		updateImage();
 	}
 
 	public String getDescription() {
@@ -204,12 +209,25 @@ public class Node extends Button {
 		this.path = path;
 	}
 
-	public Set<Link> getLinks() {
+	public Map<Integer, Link> getLinks() {
 		return links;
 	}
 
-	public void setLinks(Set<Link> links) {
+	public void setLinks(Map<Integer, Link> links) {
 		this.links = links;
+	}
+	
+	public int getCout() {
+		return cout;
+	}
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
+	public boolean isUnlock() {
+		return unlock;
+	}
+	public void setUnlock(boolean unlock) {
+		this.unlock = unlock;
 	}
 
 	@Override
@@ -218,8 +236,8 @@ public class Node extends Button {
 	}
 
 	public void dispose() {
-		for (Link link : links) {
-			link.dispose();
+		for (Entry<Integer, Link> link : links.entrySet()) {
+			link.getValue().dispose();
 		}
 		
 		if (categoryTexture != null) {
@@ -236,4 +254,11 @@ public class Node extends Button {
 	public boolean equals(Object obj) {
 		return id == ((Node) obj).getId();
 	}
+
+	@Override
+	public abstract void undo(EventsEnum event);
+		
+
+	@Override
+	public abstract void redo(EventsEnum event);
 }

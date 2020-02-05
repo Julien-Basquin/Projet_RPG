@@ -35,7 +35,7 @@ public class GlobalParametersContents extends ScrollPane {
 		
 		VerticalGroup groupContent = new VerticalGroup();
 		groupContent.setName("group_content");
-
+		
 		//Zone du nom
 		VerticalGroup nameGroup = new VerticalGroup();
 		Label name = new Label(Launcher.languageManager.getProperty("Global.Name"), skin);
