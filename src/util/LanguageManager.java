@@ -99,7 +99,6 @@ public class LanguageManager {
 
             prop = new Properties();
 
-
             //load a properties file from class path, inside static method
             prop.load(new InputStreamReader(input, Charset.forName("UTF-8")));
 

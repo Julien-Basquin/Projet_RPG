@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.entity_parameters;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -7,30 +7,30 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.Generator;
 import generateur.Launcher;
-import generateur.controller.dialog.CloseDialog;
+import generateur.view.dialog.entity_parameters.graph.ResetGraphDialog;
 
 /**
- * Bouton servant à fermer le générateur.
+ * Bouton de création d'un nouveau fichier d'entité.
  * 
  * @author Julien B.
  */
 
-public class CloseButton extends TextButton {
+public class NewFileButton extends TextButton {
 
-	public CloseButton(Skin skin) {
-		super(Launcher.languageManager.getProperty("Global.Quite"), skin);
-		setName("close");
+	public NewFileButton(Skin skin) {
+		super(Launcher.languageManager.getProperty("Global.New"), skin);
+		setName("new_file");
 		
-		//Ajout d'une fenêtre de dialogue en cliquant sur le bouton
 		addListener(new ClickListener() {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				
-				Generator.stage.addActor(new CloseDialog(skin));
+				Generator.stage.addActor(new ResetGraphDialog(skin));
 			}
 			
 		});
 	}
+
 }

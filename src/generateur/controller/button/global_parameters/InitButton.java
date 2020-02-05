@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.global_parameters;
 
 import org.apache.log4j.Logger;
 
@@ -46,8 +46,10 @@ public class InitButton extends TextButton {
 				
 				//Récupération du parent
 				Group parent = getParent().getParent();
+				
 				//Réinitialisation des champs à vide ou à leur première valeur
 				((TextField) parent.findActor("name")).setText("");
+				
 				//Les changements fait sur la catégorie sont répercutés dans les listes dépendantes, voir SelectCategory
 				((SelectCategory) parent.findActor("category")).setItems(CategorieEnum.values());
 				((SelectCategory) parent.findActor("category")).setSelectedIndex(0);
@@ -55,7 +57,6 @@ public class InitButton extends TextButton {
 				((Container<Image>) parent.findActor("icon_container")).setActor(null);
 				((StringSelectBox) parent.findActor("element")).setItems(Converter.enumToStringArray(ElementEnum.class));
 				((StringSelectBox) parent.findActor("element")).setSelectedIndex(0);
-//				((StringSelectBox) parent.findActor("element")).setvalue(((StringSelectBox) parent.findActor("element")).getSelected());
 				((StringSelectBox) parent.findActor("element")).fire(new ChangeListener.ChangeEvent());
 				((TextArea) parent.findActor("description")).setText("");
 				

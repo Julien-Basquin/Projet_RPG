@@ -19,6 +19,12 @@ public class ObjetNonUtilisable extends GlobalObjet{
 	private boolean materiau;
 	
 	/**
+	 * create null Object for loading
+	 */
+	public ObjetNonUtilisable() {
+	}
+	
+	/**
 	 * default constructor
 	 * @param nom : nom de l'objet
 	 * @param iconPath : path de l'icon
@@ -31,13 +37,13 @@ public class ObjetNonUtilisable extends GlobalObjet{
 	 * @param materiau : true si objet pour le craft
 	 * @param charge : poids de l'objet
 	 */
-	public ObjetNonUtilisable(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, List<ElementEnum> element, List<AttributsEnum> attributs,
+	public ObjetNonUtilisable(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, ElementEnum element, List<AttributsEnum> attributs,
 			TypeRareteEnum rarete, boolean quete, boolean materiau, int charge) {
 		this.nom = nom;
 		this.description = description;
 		this.iconPath = iconPath;
 		this.statistiques = new HashMap<StatistiquesEnum, Integer>(statistiques);
-		this.element = new ArrayList<ElementEnum>(element);
+		this.element = element;
 		this.attributs = new ArrayList<AttributsEnum>(attributs);
 		this.rarete = rarete;
 		this.charge = charge;

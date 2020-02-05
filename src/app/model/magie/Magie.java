@@ -26,6 +26,11 @@ public class Magie extends Base {
 	private boolean utilisableCombat;
 	private boolean utilisableHorsCombat;
 	
+	/**
+	 * create null Ability for loading
+	 */
+	public Magie() {
+	}
 	
 	/**
 	 * Default constructor.
@@ -42,7 +47,7 @@ public class Magie extends Base {
 	 * @param utilisableHorsCombat : true si utilisable hors combat
 	 * @param typeAttaque : le type d'attaque du sort
 	 */
-	public Magie(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, List<ElementEnum> element, List<AttributsEnum> attributs,
+	public Magie(String nom, String iconPath, String description, Map<StatistiquesEnum,Integer> statistiques, ElementEnum element, List<AttributsEnum> attributs,
 			int min, int max, int mana, boolean utilisableCombat, boolean utilisableHorsCombat, List<TypeAttaqueEnum> typeAttaque) {
 		this.nom = nom;
 		this.description = description;
@@ -50,7 +55,7 @@ public class Magie extends Base {
 		this.utilisableCombat = utilisableCombat;
 		this.utilisableHorsCombat = utilisableHorsCombat;
 		this.statistiques = new HashMap<StatistiquesEnum, Integer>(statistiques);
-		this.element = new ArrayList<ElementEnum>(element);
+		this.element = element;
 		this.attributs = new ArrayList<AttributsEnum>(attributs);
 		this.valeurMax = max;
 		this.valeurMin = min;

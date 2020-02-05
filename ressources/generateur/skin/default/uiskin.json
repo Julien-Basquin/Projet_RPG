@@ -52,6 +52,17 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		checked: default-round-down
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		up: default-round
+		down: default-round-down
+	}
+	toggle: {
+		up: default-round
+		down: default-round-down
+		checked: default-round-down
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {
 		checkboxOn: check-on

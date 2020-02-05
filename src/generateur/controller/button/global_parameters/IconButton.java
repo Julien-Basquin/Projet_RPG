@@ -1,4 +1,4 @@
-package generateur.controller.button;
+package generateur.controller.button.global_parameters;
 
 import org.apache.log4j.Logger;
 
@@ -17,9 +17,9 @@ import generateur.Generator;
 import generateur.Launcher;
 
 /**
- * @author Julien B.
- *
  * Bouton de sélection de l'icône.
+ *
+ * @author Julien B.
  */
 
 public class IconButton extends TextButton {

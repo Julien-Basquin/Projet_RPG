@@ -4,8 +4,11 @@ import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
@@ -32,10 +35,11 @@ public class Generator extends ApplicationAdapter {
 	public static Stage stage;
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
+	public static InputMultiplexer inputMultiplexer;
 	/**Logger*/
 	private final Logger logger = Logger.getLogger(Generator.class);
 	
-	private SplitPane generatorWindow;
+	public static SplitPane generatorWindow;
 
 	/**
 	 * Called when the Application is first created.
@@ -74,7 +78,9 @@ public class Generator extends ApplicationAdapter {
 		generatorWindow.setFillParent(true);
 		
 		//Configuration de la réception des inputs
-		Gdx.input.setInputProcessor(stage);
+		inputMultiplexer = new InputMultiplexer(stage);
+		
+		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 		logger.info("...generator started");
 	}
@@ -127,5 +133,36 @@ public class Generator extends ApplicationAdapter {
 		stage.dispose();
 		skin.dispose();
 		VisUI.dispose();
+	}
+	
+	/**
+	 * Parcours la stage et retourne l'acteur nommé
+	 * 
+	 * @param name	Nom de l'acteur à trouver
+	 * 
+	 * @return L'acteur désigné par le nom si trouvé, null sinon
+	 */
+	public static Actor findActor(String name) {
+		Actor actorByName = null;
+		int i = 0;
+		String actorName = "";
+		
+		do {
+			actorName = stage.getActors().items[i].getName();
+			if (actorName != null && actorName.equals(name)) {
+				actorByName = stage.getActors().items[i];
+			} else {
+				try {
+					Group group = (Group) stage.getActors().items[i];
+					actorByName = group.findActor(name);
+				} catch (ClassCastException e) {
+					continue;
+				}
+			}
+			
+			i++;
+		} while (actorByName == null && i < stage.getActors().size);
+		
+		return actorByName;
 	}
 }
