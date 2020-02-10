@@ -117,16 +117,16 @@ class TestEquipement {
 		} catch (Exception e) {
 			logger.error("Erreur setUp : new Armure (pieds)");
 		} 
-		try {
-			amulette = new Armure("Teste amulette", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.AMULETTE, TypeRareteEnum.RARE, false, 10);
-		} catch (Exception e) {
-			logger.error("Erreur setUp : new Armure (amulette)");
-		} 
-		try {
-			anneau = new Armure("Teste anneau1", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.ANNEAU, TypeRareteEnum.RARE, false, 10);
-		} catch (Exception e) {
-			logger.error("Erreur setUp : new Armure (anneau)");
-		} 
+//		try {
+//			amulette = new Armure("Teste amulette", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.AMULETTE, TypeRareteEnum.RARE, false, 10);
+//		} catch (Exception e) {
+//			logger.error("Erreur setUp : new Armure (amulette)");
+//		} 
+//		try {
+//			anneau = new Armure("Teste anneau1", "./test", "Description de teste", statistiques, 10, 10, TypeArmureEnum.ACCESSOIRE, typeDefense, defenseElement, defenseAttribue, SousCategorieArmureEnum.ANNEAU, TypeRareteEnum.RARE, false, 10);
+//		} catch (Exception e) {
+//			logger.error("Erreur setUp : new Armure (anneau)");
+//		} 
 		try {
 			arme = new Arme("Teste arme1", "./test", "Description de teste", statistiques, element, attributs, 10, 15, TypeArmeEnum.DAGUE, typeAttaque, SousCategorieArmeEnum.LEGER, TypeRareteEnum.RARE, false, 10);
 		} catch (Exception e) {

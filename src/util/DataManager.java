@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -36,9 +37,11 @@ import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
 import generateur.Generator;
+import generateur.controller.button.entity_parameters.graph.Link;
+import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.select.SelectCategory;
 import generateur.controller.select.StringSelectBox;
-import generateur.view.entity_parameters.middle.EntityParametersGraph;
+import generateur.view.entity_parameters.middle.Graph;
 
 /**
  * Class for Save and Load data from Json file
@@ -195,7 +198,7 @@ public class DataManager {
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
-		EntityParametersGraph graph = (EntityParametersGraph) Generator.findActor("graph");
+		Graph graph = (Graph) Generator.generatorWindow.findActor("graph");
 		
 		if(graph == null) {
 			logger.error("graph is NULL");
@@ -203,7 +206,9 @@ public class DataManager {
 		}
 		
 		//SkillTree
-		SkillTree skillTree = new SkillTree(graph.getNodeList(), graph.getLinkList());
+		Set<Node> nodeSet = (Set<Node>) graph.getNodeList().values();
+		Set<Link> linkSet = (Set<Link>) graph.getLinkList().values();
+		SkillTree skillTree = new SkillTree(nodeSet, linkSet);
 		
 		//Maping
 		Map<StatistiquesEnum, Integer> statistiques = new HashMap<StatistiquesEnum,Integer>();

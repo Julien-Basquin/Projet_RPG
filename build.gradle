@@ -25,14 +25,16 @@ sourceSets {
 		}
 	}
 	
-	test {
-		java {
-			srcDirs = ["test"]
-		}
-	}
+	/*
+	*test {
+	*	java {
+	*		srcDirs = ["test"]
+	*	}
+	*}
+	*/
 }
 
-mainClassName = "view.DesktopLauncher"
+mainClassName = "generateur.Launcher"
 
 ext {
 	gdxVersion = '1.9.10'
