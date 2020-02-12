@@ -114,9 +114,10 @@ public class GlobalParametersContents extends ScrollPane {
 		groupContent.addActor(groupButton);
 		
 		this.setActor(groupContent);
-		
-		//Remplissage automatique des listes déroulantes liées à la catégorie
-		categorySelect.fire(new ChangeListener.ChangeEvent());
+	}
+	
+	public void fireCategorySelect() {
+		findActor("category").fire(new ChangeListener.ChangeEvent());
 	}
 
 	/**Libération des objets inutilisés*/

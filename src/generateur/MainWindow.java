@@ -18,6 +18,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
 import generateur.model.entity_parameters.stack.EventStack;
+import generateur.view.global.GlobalParametersContents;
 import generateur.view.global.GlobalParametersPane;
 
 /**
@@ -75,6 +76,8 @@ public class MainWindow extends ApplicationAdapter {
 		mainSplit.setSplitAmount(0.33f);
 		mainSplit.setMaxSplitAmount(0.33f);
 		stage.addActor(mainSplit);
+		//Filling category fields
+		((GlobalParametersContents) mainSplit.findActor("global_contents")).fireCategorySelect();
 		mainSplit.setFillParent(true);
 		
 		//Configuration de la réception des inputs
