@@ -17,7 +17,7 @@ import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieAr
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
 import app.model.enumeration.objet.objet.TypeObjet;
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
 import generateur.view.item.ItemPane;
 import util.Converter;
@@ -61,12 +61,12 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 				}
 				
 				//Retrait de la partie droite de l'écran
-				if (Generator.generatorWindow != null
-						&& Generator.generatorWindow.getChildren().items[1] != null) {
+				if (MainWindow.mainSplit != null
+						&& MainWindow.mainSplit.getChildren().items[1] != null) {
 					try {
-						((Disposable) Generator.generatorWindow.getChildren().items[1]).dispose();
+						((Disposable) MainWindow.mainSplit.getChildren().items[1]).dispose();
 					} catch (ClassCastException e) {
-						Generator.generatorWindow.setSecondWidget(null);
+						MainWindow.mainSplit.setSecondWidget(null);
 					}
 				}
 				
@@ -99,7 +99,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 						}
 						break;
 					case ENTITE:
-						Generator.generatorWindow.setSecondWidget(new EntityParametersGlobalPane(skin));
+						MainWindow.mainSplit.setSecondWidget(new EntityParametersGlobalPane(skin));
 						break;
 					case OBJET:
 						logger.info("Loading object related data...");
@@ -107,7 +107,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							subcategorySelect.setItems(Converter.enumToStringArray(TypeObjet.class));
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.clearItems();
-							Generator.generatorWindow.setSecondWidget(new ItemPane(skin));
+							MainWindow.mainSplit.setSecondWidget(new ItemPane(skin));
 						} catch (Exception e) {
 							logger.fatal("Error during the loading of object related data", e);
 						}

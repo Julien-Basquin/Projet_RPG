@@ -40,6 +40,6 @@ public class Launcher {
 		config.setWindowedMode(configuration.getInteger("Config.General.Resolution.Width"), configuration.getInteger("Config.General.Resolution.Height"));
 		// set VSync
 		config.useVsync(configuration.getBoolean("Config.General.VSyncEnabled"));
-		new Lwjgl3Application(new Generator(), config);
+		new Lwjgl3Application(new MainWindow(), config);
 	}
 }

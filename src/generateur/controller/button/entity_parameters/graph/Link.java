@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;
@@ -152,11 +152,11 @@ public class Link extends Button implements Cancelable {
 
 	@Override
 	public void undo(EventsEnum event) {
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		ObjectEvent objectEvent = Generator.previousStates.pop();
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
+		ObjectEvent objectEvent = MainWindow.previousStates.pop();
 		Link link = graph.getLinkList().get(id);
 		
-		Generator.nextStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
+		MainWindow.nextStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
 
 		switch(event) {
 		case ADD:
@@ -166,7 +166,7 @@ public class Link extends Button implements Cancelable {
 		case DELETE:
 			update(graph);
 			graph.getLinkList().put(id, this);
-			Generator.stage.addActor(this);
+			MainWindow.stage.addActor(this);
 			setZIndex(0);
 			break;
 		default:
@@ -177,16 +177,16 @@ public class Link extends Button implements Cancelable {
 
 	@Override
 	public void redo(EventsEnum event) {
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		ObjectEvent objectEvent = Generator.nextStates.pop();
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
+		ObjectEvent objectEvent = MainWindow.nextStates.pop();
 		Link link = graph.getLinkList().get(id);
 		
-		Generator.previousStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
+		MainWindow.previousStates.push(new ObjectEvent(this, event + "_Link", objectEvent.getGroupId()));
 		switch(event) {
 		case ADD:
 			update(graph);
 			graph.getLinkList().put(id, this);
-			Generator.stage.addActor(this);
+			MainWindow.stage.addActor(this);
 			setZIndex(0);
 			break;
 		case DELETE:

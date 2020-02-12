@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
@@ -38,10 +38,10 @@ public class ResetGraphButton extends TextButton {
 				super.clicked(event, x, y);
 
 				logger.debug("Cleaning entity graph...");
-				Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-				Generator.previousStates.push(new ObjectEvent(new Graph(graph), EventsEnum.INIT + "_Graph"));
+				Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
+				MainWindow.previousStates.push(new ObjectEvent(new Graph(graph), EventsEnum.INIT + "_Graph"));
 				ObjectEvent.incrGroupId();
-				Generator.nextStates.clear();
+				MainWindow.nextStates.clear();
 
 				for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
 					link.getValue().remove();

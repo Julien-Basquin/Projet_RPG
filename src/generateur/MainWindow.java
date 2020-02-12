@@ -18,7 +18,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
 import generateur.model.entity_parameters.stack.EventStack;
-import generateur.view.global_parameters.GlobalParametersPane;
+import generateur.view.global.GlobalParametersPane;
 
 /**
  * Classe principale du générateur, contient la logique de base de l'application.
@@ -26,7 +26,7 @@ import generateur.view.global_parameters.GlobalParametersPane;
  * @author Julien B.
  */
 
-public class Generator extends ApplicationAdapter {
+public class MainWindow extends ApplicationAdapter {
 
 	/**Contient tous les éléments graphiques.*/
 	public static Skin skin;
@@ -36,9 +36,9 @@ public class Generator extends ApplicationAdapter {
 	public static FileChooser fileChooser;
 	public static InputMultiplexer inputMultiplexer;
 	/**Logger*/
-	private final Logger logger = Logger.getLogger(Generator.class);
+	private final Logger logger = Logger.getLogger(MainWindow.class);
 	
-	public static SplitPane generatorWindow;
+	public static SplitPane mainSplit;
 	public static EventStack previousStates;
 	public static EventStack nextStates;
 	/**
@@ -68,14 +68,14 @@ public class Generator extends ApplicationAdapter {
 		fileChooser.setFileTypeFilter(typeFilter);
 		
 		//Création des deux zones du générateur
-		generatorWindow = new SplitPane(new GlobalParametersPane(skin), null, false, skin);
-		generatorWindow.setName("generator");
+		mainSplit = new SplitPane(new GlobalParametersPane(skin), null, false, skin);
+		mainSplit.setName("generator");
 		//Verrouillage de la séparation
-		generatorWindow.setMinSplitAmount(0.33f);
-		generatorWindow.setSplitAmount(0.33f);
-		generatorWindow.setMaxSplitAmount(0.33f);
-		stage.addActor(generatorWindow);
-		generatorWindow.setFillParent(true);
+		mainSplit.setMinSplitAmount(0.33f);
+		mainSplit.setSplitAmount(0.33f);
+		mainSplit.setMaxSplitAmount(0.33f);
+		stage.addActor(mainSplit);
+		mainSplit.setFillParent(true);
 		
 		//Configuration de la réception des inputs
 		inputMultiplexer = new InputMultiplexer(stage);
@@ -133,7 +133,7 @@ public class Generator extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		logger.info("...closing generator.");
-		((GlobalParametersPane) generatorWindow.findActor("global_pane")).dispose();
+		((GlobalParametersPane) mainSplit.findActor("global_pane")).dispose();
 		stage.dispose();
 		skin.dispose();
 		VisUI.dispose();

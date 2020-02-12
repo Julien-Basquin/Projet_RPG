@@ -1,4 +1,4 @@
-package generateur.view.global_parameters;
+package generateur.view.global;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;

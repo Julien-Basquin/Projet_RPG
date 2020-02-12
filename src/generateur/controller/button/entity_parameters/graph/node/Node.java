@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.model.entity_parameters.Cancelable;
 import generateur.model.entity_parameters.EventsEnum;

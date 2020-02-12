@@ -36,7 +36,7 @@ import app.model.enumeration.statistique.StatistiquesEnum;
 import app.model.magie.Magie;
 import app.model.objet.Arme;
 import app.model.objet.Armure;
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.select.SelectCategory;
@@ -198,7 +198,7 @@ public class DataManager {
 			throw new GdxRuntimeException("# ERROR: Parent is NULL #");
 		}
 
-		Graph graph = (Graph) Generator.generatorWindow.findActor("graph");
+		Graph graph = (Graph) MainWindow.mainSplit.findActor("graph");
 		
 		if(graph == null) {
 			logger.error("graph is NULL");

@@ -19,12 +19,12 @@ import app.model.enumeration.objet.equipement.arme.souscategorie.SousCategorieAr
 import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
 import app.model.enumeration.objet.objet.TypeObjet;
-import generateur.Generator;
-import generateur.view.global_parameters.GlobalParametersPane;
+import generateur.MainWindow;
 import generateur.view.item.EffectTable;
 import generateur.view.item.ItemPane;
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
+import generateur.view.global.GlobalParametersPane;
 import util.Converter;
 
 /**

@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.widget.file.FileChooserListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 
 /**
@@ -42,7 +42,7 @@ public class IconButton extends TextButton {
 				super.clicked(event, x, y);
 				
 				//Action à la sélection du fichier
-				Generator.fileChooser.setListener(new FileChooserListener() {
+				MainWindow.fileChooser.setListener(new FileChooserListener() {
 					
 					@Override
 					public void selected(Array<FileHandle> files) {
@@ -60,7 +60,7 @@ public class IconButton extends TextButton {
 				});
 				
 				//Apparition de la fenêtre de sélection
-				Generator.stage.addActor(Generator.fileChooser.fadeIn());
+				MainWindow.stage.addActor(MainWindow.fileChooser.fadeIn());
 			}
 			
 		});

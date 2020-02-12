@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 import generateur.view.dialog.entity_parameters.graph.ResetGraphDialog;
 
@@ -27,7 +27,7 @@ public class NewFileButton extends TextButton {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				
-				Generator.stage.addActor(new ResetGraphDialog(skin));
+				MainWindow.stage.addActor(new ResetGraphDialog(skin));
 			}
 			
 		});

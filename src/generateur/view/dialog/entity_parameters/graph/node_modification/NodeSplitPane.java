@@ -3,7 +3,7 @@ package generateur.view.dialog.entity_parameters.graph.node_modification;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
 import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
@@ -11,7 +11,7 @@ import generateur.controller.button.entity_parameters.graph.node.NodeEquipement;
 import generateur.controller.button.entity_parameters.graph.node.NodeStatistique;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
-import generateur.view.global_parameters.GlobalParametersContents;
+import generateur.view.global.GlobalParametersContents;
 
 public class NodeSplitPane extends SplitPane {
 

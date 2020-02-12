@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
 import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
@@ -56,19 +56,19 @@ public class GraphEvents extends DragListener {
 		for (Entry<Integer, Node> node : graph.getNodeList().entrySet()) {
 			switch (node.getValue().getCategory()) {
 			case STATISTIQUE:
-				Generator.previousStates.add(new ObjectEvent(new NodeStatistique(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				MainWindow.previousStates.add(new ObjectEvent(new NodeStatistique(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 				break;
 
 			case EQUIPEMENT:
-				Generator.previousStates.add(new ObjectEvent(new NodeEquipement(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				MainWindow.previousStates.add(new ObjectEvent(new NodeEquipement(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 				break;
 				
 			case ATTRIBUT:
-				Generator.previousStates.add(new ObjectEvent(new NodeAttribut(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				MainWindow.previousStates.add(new ObjectEvent(new NodeAttribut(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 				break;
 				
 			case COMPETENCE:
-				Generator.previousStates.add(new ObjectEvent(new NodeCompetence(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+				MainWindow.previousStates.add(new ObjectEvent(new NodeCompetence(node.getValue()), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 				break;
 				
 			default:
@@ -96,7 +96,7 @@ public class GraphEvents extends DragListener {
 				node.getValue().moveBy(moveByX, -moveByY);
 
 				//Acteur situé sous le noeud
-				Actor firstActorEncountered = Generator.stage.hit(node.getValue().getX(), node.getValue().getY(), true);
+				Actor firstActorEncountered = MainWindow.stage.hit(node.getValue().getX(), node.getValue().getY(), true);
 				
 				//Gestion de la visibilité des noeuds
 				if (node.getValue().isVisible() && (firstActorEncountered != null) && !firstActorEncountered.equals(graph)) {
@@ -138,7 +138,7 @@ public class GraphEvents extends DragListener {
 		}
 		
 		ObjectEvent.incrGroupId();
-		Generator.nextStates.clear();
+		MainWindow.nextStates.clear();
 	}
 	
 }

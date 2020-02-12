@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.model.entity_parameters.NodeCategorieEnum;
 import generateur.view.dialog.entity_parameters.graph.node_modification.NodeValueContent;
@@ -59,11 +59,11 @@ public class SelectNodeCategory extends SelectBox<NodeCategorieEnum> {
 					//Mise à jour des listes en fonction de la catégorie
 					logger.info("Updating linked lists...");
 					node.setCategory(getSelected());
-					Image oldImage = (Image) ActorActions.findActor(Generator.stage, "node_image");
+					Image oldImage = (Image) ActorActions.findActor(MainWindow.stage, "node_image");
 					Image image = node.getCategoryImage();
-					ActorActions.replaceActor(Generator.stage, oldImage, image, true);
+					ActorActions.replaceActor(MainWindow.stage, oldImage, image, true);
 					
-					NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(Generator.stage, "node_value_content"));
+					NodeValueContent nodeValueContent = ((NodeValueContent) ActorActions.findActor(MainWindow.stage, "node_value_content"));
 					nodeValueContent.clearChildren();
 					nodeValueContent.update(node);
 					value = getSelected().name();

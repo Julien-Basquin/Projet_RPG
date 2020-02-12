@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import app.model.Base;
 import app.model.enumeration.CategorieEnum;
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 import generateur.controller.dialog.CloseDialog;
 import generateur.controller.dialog.ConfirmDialog;
@@ -65,11 +65,11 @@ public class SaveButton extends TextButton {
 					object = DataManager.objectConstructor(parent);
 					List<String> errors = DataManager.objectValidation(parent);
 					if ( errors != null ) {
-						Generator.stage.addActor(new ErrorDialog(skin,errors));
+						MainWindow.stage.addActor(new ErrorDialog(skin,errors));
 					} else {
 						//Sauvegarde de l'objet
 						DataManager.saveData(object, path, ((TextField) parent.findActor("name")).getText());
-						Generator.stage.addActor(new ConfirmDialog(skin));
+						MainWindow.stage.addActor(new ConfirmDialog(skin));
 						logger.info("File save : "+path+((TextField) parent.findActor("name")).getText());
 					}
 				} catch (Exception e) {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.NodeCategorieEnum;
@@ -59,9 +59,9 @@ public class NodeStatistique extends Node {
 	@Override
 	public void redo(EventsEnum event) {
 		//Graphe actuel
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
 		//Récupération de l'évènement suivant
-		ObjectEvent objectEvent = Generator.nextStates.pop();
+		ObjectEvent objectEvent = MainWindow.nextStates.pop();
 		//Récupération du noeud sur le graphe ayant le même id que this
 		Node node = graph.getNodeList().get(id);
 
@@ -70,19 +70,19 @@ public class NodeStatistique extends Node {
 			//Ajout de this au graphe
 			graph.addNode(this, true);
 
-			Generator.previousStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.previousStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
 			break;
 		case DELETE:
 			node.remove();
 			graph.getNodeList().remove(id);
 
-			Generator.previousStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.previousStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
 			break;
 		case EDIT:
 			//TODO Edition d'un noeud
 			break;
 		case MOVE:
-			Generator.previousStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.previousStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
 
 			node.setPosition(getX(), getY());
 			node.setVisible(isVisible());
@@ -99,9 +99,9 @@ public class NodeStatistique extends Node {
 	@Override
 	public void undo(EventsEnum event) {
 		//Graphe actuel
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
 		//Retrait de l'évènement précédent
-		ObjectEvent objectEvent = Generator.previousStates.pop();
+		ObjectEvent objectEvent = MainWindow.previousStates.pop();
 		//Récupération du noeud sur le graphe ayant le même id que this
 		Node node = graph.getNodeList().get(id);
 
@@ -111,19 +111,19 @@ public class NodeStatistique extends Node {
 			node.remove();
 			graph.getNodeList().remove(id);
 
-			Generator.nextStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.nextStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
 			break;
 		case DELETE:	//Utilsiation de this car node n'existe plus
 			//Ajout de this au graphe
 			graph.addNode(this, true);
 
-			Generator.nextStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.nextStates.push(new ObjectEvent(new NodeStatistique(this), event + "_Node", objectEvent.getGroupId()));
 			break;
 		case EDIT:
 			//TODO Edition d'un noeud
 			break;
 		case MOVE:
-			Generator.nextStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
+			MainWindow.nextStates.push(new ObjectEvent(new NodeStatistique(node), event + "_Node", objectEvent.getGroupId()));
 
 			node.setPosition(getX(), getY());
 			node.setVisible(isVisible());

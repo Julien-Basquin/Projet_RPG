@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
 import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
@@ -52,23 +52,23 @@ public class DragAndDropNodeToGraph extends DragAndDrop {
 				Node node = ((Node) source.getActor());
 				switch (node.getCategory()) {
 				case STATISTIQUE:
-					Generator.previousStates.push(new ObjectEvent(new NodeStatistique(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					MainWindow.previousStates.push(new ObjectEvent(new NodeStatistique(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 					break;
 				case EQUIPEMENT:
-					Generator.previousStates.push(new ObjectEvent(new NodeEquipement(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					MainWindow.previousStates.push(new ObjectEvent(new NodeEquipement(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 					break;
 				case ATTRIBUT:
-					Generator.previousStates.push(new ObjectEvent(new NodeAttribut(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					MainWindow.previousStates.push(new ObjectEvent(new NodeAttribut(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 					break;
 				case COMPETENCE:
-					Generator.previousStates.push(new ObjectEvent(new NodeCompetence(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
+					MainWindow.previousStates.push(new ObjectEvent(new NodeCompetence(node), EventsEnum.MOVE + "_Node", ObjectEvent.getGlobalGroupId()));
 					break;
 				default:
 					break;
 				}
 				
 				ObjectEvent.incrGroupId();
-				Generator.nextStates.clear();
+				MainWindow.nextStates.clear();
 
 				//Changement des coordonnée du noeud déplacé
 				node.setPosition(Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));

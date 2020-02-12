@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 import generateur.view.item.ItemSpecialOptions;
 import util.ActorActions;
@@ -78,7 +78,7 @@ public class StringSelectBox extends SelectBox<String> {
 				value = getSelected();
 				
 				//ChangeListener pour les items
-				Group group = (Group) ActorActions.findActor(Generator.stage, "item_content");
+				Group group = (Group) ActorActions.findActor(MainWindow.stage, "item_content");
 				if (group != null) {
 					String cristal = Launcher.languageManager.getProperty("Object.Cristal");
 					String scroll = Launcher.languageManager.getProperty("Object.Scroll");

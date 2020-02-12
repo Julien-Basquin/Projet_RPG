@@ -1,4 +1,4 @@
-package generateur.view.global_parameters;
+package generateur.view.global;
 
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;

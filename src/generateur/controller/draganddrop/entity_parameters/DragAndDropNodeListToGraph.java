@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.node.Node;
 import generateur.controller.button.entity_parameters.graph.node.NodeAttribut;
 import generateur.controller.button.entity_parameters.graph.node.NodeCompetence;
@@ -92,8 +92,8 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 					((Graph) target).addNode(node, true);
 
 					//Enregistrement de l'état
-					Generator.previousStates.push(new ObjectEvent(new NodeStatistique(node), EventsEnum.ADD + "_Node"));
-					Generator.nextStates.clear();
+					MainWindow.previousStates.push(new ObjectEvent(new NodeStatistique(node), EventsEnum.ADD + "_Node"));
+					MainWindow.nextStates.clear();
 					break;
 				case EQUIPEMENT:
 					node = new NodeStatistique(category, Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
@@ -101,8 +101,8 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 					((Graph) target).addNode(node, true);
 
 					//Enregistrement de l'état
-					Generator.previousStates.push(new ObjectEvent(new NodeEquipement(node), EventsEnum.ADD + "_Node"));
-					Generator.nextStates.clear();
+					MainWindow.previousStates.push(new ObjectEvent(new NodeEquipement(node), EventsEnum.ADD + "_Node"));
+					MainWindow.nextStates.clear();
 					break;
 				case ATTRIBUT:
 					node = new NodeStatistique(category, Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
@@ -110,8 +110,8 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 					((Graph) target).addNode(node, true);
 
 					//Enregistrement de l'état
-					Generator.previousStates.push(new ObjectEvent(new NodeAttribut(node), EventsEnum.ADD + "_Node"));
-					Generator.nextStates.clear();
+					MainWindow.previousStates.push(new ObjectEvent(new NodeAttribut(node), EventsEnum.ADD + "_Node"));
+					MainWindow.nextStates.clear();
 					break;
 				case COMPETENCE:
 					node = new NodeStatistique(category, Gdx.input.getX() - 64, (Gdx.graphics.getHeight() - Gdx.input.getY()));
@@ -119,8 +119,8 @@ public class DragAndDropNodeListToGraph extends DragAndDrop {
 					((Graph) target).addNode(node, true);
 
 					//Enregistrement de l'état
-					Generator.previousStates.push(new ObjectEvent(new NodeCompetence(node), EventsEnum.ADD + "_Node"));
-					Generator.nextStates.clear();
+					MainWindow.previousStates.push(new ObjectEvent(new NodeCompetence(node), EventsEnum.ADD + "_Node"));
+					MainWindow.nextStates.clear();
 					break;
 				default:
 					break;

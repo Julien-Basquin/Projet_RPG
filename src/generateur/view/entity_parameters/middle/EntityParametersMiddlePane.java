@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Disposable;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.draganddrop.entity_parameters.DragAndDropNodeListToGraph;
 import generateur.view.entity_parameters.bottom.EntityParametersBottomPane;
 
@@ -28,7 +28,7 @@ public class EntityParametersMiddlePane extends SplitPane implements Disposable 
 		
 		//Verrouillage de la barre de séparation (empêche de changer la taille des conteneurs)
 		float prefWidth = ((VerticalGroup) findActor("entity_node_column")).getPrefWidth();
-		float splitPosition = (Gdx.graphics.getWidth() * (1 - Generator.generatorWindow.getSplitAmount()));
+		float splitPosition = (Gdx.graphics.getWidth() * (1 - MainWindow.mainSplit.getSplitAmount()));
 		this.setMinSplitAmount(prefWidth / splitPosition);
 		this.setSplitAmount(prefWidth / splitPosition);
 		this.setMaxSplitAmount(prefWidth / splitPosition);

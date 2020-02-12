@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.controller.button.entity_parameters.graph.GraphEvents;
 import generateur.controller.button.entity_parameters.graph.Link;
 import generateur.controller.button.entity_parameters.graph.node.Node;
@@ -46,7 +46,7 @@ public class Graph extends Group implements Cancelable {
 		
 		addListener(new GraphEvents(this));
 		
-		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
+		Gdx.input.setInputProcessor(MainWindow.inputMultiplexer);
 	}
 	
 	public Graph(Graph graph) {
@@ -81,7 +81,7 @@ public class Graph extends Group implements Cancelable {
 		
 		addListener(new GraphEvents(this));
 		
-		Gdx.input.setInputProcessor(Generator.inputMultiplexer);
+		Gdx.input.setInputProcessor(MainWindow.inputMultiplexer);
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class Graph extends Group implements Cancelable {
 		node.addEvents(this);
 		
 		if (draw) {			
-			Generator.stage.addActor(node);
+			MainWindow.stage.addActor(node);
 			logger.debug("Node added at " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight() - Gdx.input.getY()));
 		}
 
@@ -127,8 +127,8 @@ public class Graph extends Group implements Cancelable {
 		if (!link.isEmpty()) {
 			if (changeHistory) {
 				//Actual state becomes a previous state
-				Generator.previousStates.push(new ObjectEvent(link, EventsEnum.ADD + "_Link"));
-				Generator.nextStates.clear();
+				MainWindow.previousStates.push(new ObjectEvent(link, EventsEnum.ADD + "_Link"));
+				MainWindow.nextStates.clear();
 			}
 			
 			linkList.put(link.getId(), link);
@@ -149,7 +149,7 @@ public class Graph extends Group implements Cancelable {
 		if ((Gdx.input.isKeyJustPressed(Keys.DEL) || Gdx.input.isKeyJustPressed(Keys.FORWARD_DEL)) && selected != null) {
 			for (Entry<Integer, Link> link : selected.getLinks().entrySet()) {
 				link.getValue().remove();
-				Generator.previousStates.push(new ObjectEvent(link.getValue(), EventsEnum.DELETE + "_Link", ObjectEvent.getGlobalGroupId()));
+				MainWindow.previousStates.push(new ObjectEvent(link.getValue(), EventsEnum.DELETE + "_Link", ObjectEvent.getGlobalGroupId()));
 				linkList.remove(link.getKey());
 			}
 
@@ -157,9 +157,9 @@ public class Graph extends Group implements Cancelable {
 			nodeList.get(selected.getId()).remove();
 			nodeList.remove(selected.getId());
 
-			Generator.previousStates.push(new ObjectEvent(selected, EventsEnum.DELETE + "_Node", ObjectEvent.getGlobalGroupId()));
+			MainWindow.previousStates.push(new ObjectEvent(selected, EventsEnum.DELETE + "_Node", ObjectEvent.getGlobalGroupId()));
 			ObjectEvent.incrGroupId();
-			Generator.nextStates.clear();
+			MainWindow.nextStates.clear();
 			
 			selected = null;
 		}
@@ -216,12 +216,12 @@ public class Graph extends Group implements Cancelable {
 	@Override
 	public void undo(EventsEnum event) {
 		//Récupération du graphe actuel, différent de this
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		ObjectEvent objectEvent = Generator.previousStates.pop();
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
+		ObjectEvent objectEvent = MainWindow.previousStates.pop();
 		
 		switch(event) {
 		case INIT:
-			Generator.nextStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
+			MainWindow.nextStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
 			for (Entry<Integer, Node> node : nodeList.entrySet()) {
 				Node newNode = null;
 				switch (node.getValue().getCategory()) {
@@ -247,7 +247,7 @@ public class Graph extends Group implements Cancelable {
 			for (Entry<Integer, Link> link : linkList.entrySet()) {
 				link.getValue().update(graph);
 				graph.addLink(link.getValue(), false);
-				Generator.stage.addActor(link.getValue());
+				MainWindow.stage.addActor(link.getValue());
 			}
 			break;
 		default:
@@ -258,12 +258,12 @@ public class Graph extends Group implements Cancelable {
 
 	@Override
 	public void redo(EventsEnum event) {
-		Graph graph = (Graph) ActorActions.findActor(Generator.stage, "graph");
-		ObjectEvent objectEvent = Generator.nextStates.pop();
+		Graph graph = (Graph) ActorActions.findActor(MainWindow.stage, "graph");
+		ObjectEvent objectEvent = MainWindow.nextStates.pop();
 		
 		switch(event) {
 		case INIT:
-			Generator.previousStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
+			MainWindow.previousStates.push(new ObjectEvent(new Graph(graph), event + "_Graph", objectEvent.getGroupId()));
 			for (Entry<Integer, Link> link : graph.getLinkList().entrySet()) {
 				link.getValue().remove();
 			}

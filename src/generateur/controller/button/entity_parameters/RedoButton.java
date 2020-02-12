@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import generateur.Generator;
+import generateur.MainWindow;
 import generateur.Launcher;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
@@ -29,16 +29,16 @@ public class RedoButton extends TextButton {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (!Generator.nextStates.isEmpty()) {
-					ObjectEvent objectEvent = Generator.nextStates.peek();
+				if (!MainWindow.nextStates.isEmpty()) {
+					ObjectEvent objectEvent = MainWindow.nextStates.peek();
 					Pattern pattern = Pattern.compile("([A-Z]+)_([A-Z][a-z]+)");
 					Matcher match;
 					
-					for (ObjectEvent obj : Generator.nextStates.searchByGroup(objectEvent.getGroupId())) {
+					for (ObjectEvent obj : MainWindow.nextStates.searchByGroup(objectEvent.getGroupId())) {
 						match = pattern.matcher(obj.getEvent());
 						
 						if (match.find()) {
-							Generator.nextStates.peek().getObject().redo(EventsEnum.valueOf(match.group(1)));
+							MainWindow.nextStates.peek().getObject().redo(EventsEnum.valueOf(match.group(1)));
 						}
 					}
 				}
