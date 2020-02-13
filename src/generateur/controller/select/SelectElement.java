@@ -24,7 +24,7 @@ import generateur.view.item.EffectTable;
 import generateur.view.item.ItemPane;
 import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
-import generateur.view.global.GlobalParametersPane;
+import generateur.view.global.GlobalPane;
 import util.Converter;
 
 /**

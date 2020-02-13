@@ -11,10 +11,10 @@ import com.badlogic.gdx.utils.Align;
  * @author Julien B.
  */
 
-public class GlobalParametersPane extends SplitPane {
+public class GlobalPane extends SplitPane {
 
-	public GlobalParametersPane(Skin skin) {
-		super(null, new GlobalParametersContents(skin), true, skin);
+	public GlobalPane(Skin skin) {
+		super(null, new GlobalContentSplitPane(skin), true, skin);
 		setName("global_pane");
 		
 		//TODO internationalisation
@@ -30,6 +30,6 @@ public class GlobalParametersPane extends SplitPane {
 	}
 	
 	public void dispose() {
-		((GlobalParametersContents) findActor("global_contents")).dispose();
+		((GlobalContents) findActor("global_contents")).dispose();
 	}
 }

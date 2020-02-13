@@ -18,8 +18,8 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 
 import generateur.model.entity_parameters.stack.EventStack;
-import generateur.view.global.GlobalParametersContents;
-import generateur.view.global.GlobalParametersPane;
+import generateur.view.global.GlobalContents;
+import generateur.view.global.GlobalPane;
 
 /**
  * Classe principale du générateur, contient la logique de base de l'application.
@@ -69,7 +69,7 @@ public class MainWindow extends ApplicationAdapter {
 		fileChooser.setFileTypeFilter(typeFilter);
 		
 		//Création des deux zones du générateur
-		mainSplit = new SplitPane(new GlobalParametersPane(skin), null, false, skin);
+		mainSplit = new SplitPane(new GlobalPane(skin), null, false, skin);
 		mainSplit.setName("generator");
 		//Verrouillage de la séparation
 		mainSplit.setMinSplitAmount(0.33f);
@@ -77,7 +77,7 @@ public class MainWindow extends ApplicationAdapter {
 		mainSplit.setMaxSplitAmount(0.33f);
 		stage.addActor(mainSplit);
 		//Filling category fields
-		((GlobalParametersContents) mainSplit.findActor("global_contents")).fireCategorySelect();
+		((GlobalContents) mainSplit.findActor("global_contents")).fireCategorySelect();
 		mainSplit.setFillParent(true);
 		
 		//Configuration de la réception des inputs
@@ -88,6 +88,8 @@ public class MainWindow extends ApplicationAdapter {
 		nextStates = new EventStack();
 		
 		Gdx.input.setInputProcessor(inputMultiplexer);
+		
+//		stage.setDebugAll(true);
 		
 		logger.info("...generator started");
 	}
@@ -136,7 +138,7 @@ public class MainWindow extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		logger.info("...closing generator.");
-		((GlobalParametersPane) mainSplit.findActor("global_pane")).dispose();
+		((GlobalPane) mainSplit.findActor("global_pane")).dispose();
 		stage.dispose();
 		skin.dispose();
 		VisUI.dispose();

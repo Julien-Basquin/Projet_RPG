@@ -3,7 +3,6 @@ package generateur.controller.select;
 import org.apache.log4j.Logger;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,6 +19,7 @@ import app.model.enumeration.objet.objet.TypeObjet;
 import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
 import generateur.view.item.ItemPane;
+import util.ActorActions;
 import util.Converter;
 
 /**
@@ -33,7 +33,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 	private String value;
 	private final Logger logger = Logger.getLogger(SelectCategory.class);
 
-	public SelectCategory(Group parent, Skin skin) {
+	public SelectCategory(Skin skin) {
 		super(skin);
 		
 		value = "";
@@ -71,8 +71,8 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 				}
 				
 				//Récupération des listes des sous-catégories et des types pour mise à jour
-				StringSelectBox subcategorySelect = (StringSelectBox) parent.findActor("subcategory");
-				StringSelectBox typeSelect = (StringSelectBox) parent.findActor("type");
+				StringSelectBox subcategorySelect = (StringSelectBox) ActorActions.findActor(MainWindow.stage, "subcategory");
+				StringSelectBox typeSelect = (StringSelectBox) ActorActions.findActor(MainWindow.stage, "type");
 				//Mise à jour des listes en fonction de la catégorie
 				logger.info("Updating linked lists...");
 				switch(getSelected()) {

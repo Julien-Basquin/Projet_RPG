@@ -11,7 +11,7 @@ import generateur.controller.button.entity_parameters.graph.node.NodeEquipement;
 import generateur.controller.button.entity_parameters.graph.node.NodeStatistique;
 import generateur.model.entity_parameters.EventsEnum;
 import generateur.model.entity_parameters.stack.ObjectEvent;
-import generateur.view.global.GlobalParametersContents;
+import generateur.view.global.GlobalContents;
 
 public class NodeSplitPane extends SplitPane {
 
@@ -52,6 +52,6 @@ public class NodeSplitPane extends SplitPane {
 	}
 	
 	public void dispose() {
-		((GlobalParametersContents) findActor("global_contents")).dispose();
+		((GlobalContents) findActor("global_contents")).dispose();
 	}
 }
