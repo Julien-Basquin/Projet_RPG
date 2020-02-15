@@ -16,6 +16,7 @@ public class NumericField extends TextField {
 		super("", skin);
 		setText("0");
 		setHeight(this.getStyle().font.getCapHeight() * 2);
+		pack();
 		
 		setTextFieldFilter(new TextFieldFilter.DigitsOnlyFilter());
 	}

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
+import generateur.MainWindow;
 import generateur.controller.button.item.ValueField;
 
 /**
@@ -87,13 +88,15 @@ public class RemoveEffect extends TextButton {
 				for (List<Actor> row : listCell) {
 					for (Actor actor : row) {
 						if (actor instanceof SelectBox || actor instanceof AddEffect) {
-							table.add(actor).width(Value.percentWidth(1/4f, table));
+							table.add(actor).width(MainWindow.stage.getWidth() * 0.66f * 1/4f).center();
 						} else if (actor instanceof ValueField) {
-							table.add(actor).width(Value.percentWidth(1/8f, table)).height(actor.getHeight());
-						} else if (actor instanceof CheckBox || actor instanceof RemoveEffect) {
-							table.add(actor).width(Value.percentWidth(1/16f, table));
+							table.add(actor).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+						} else if (actor instanceof RemoveEffect) {
+							table.add(actor).width(MainWindow.stage.getWidth() * 0.66f * 1/16f).center().grow();
+						} else if (actor instanceof CheckBox) {
+							table.add(actor).width(MainWindow.stage.getWidth() * 0.66f * 1/16f).center().grow();
 						} else {
-							table.add(actor);
+							table.add(actor).center();
 						}
 					}
 					

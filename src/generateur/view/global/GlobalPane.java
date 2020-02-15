@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.SplitPane;
 import com.badlogic.gdx.utils.Align;
 
+import generateur.MainWindow;
+
 /**
  * Classe affichant tout la partie des paramètres globaux (titre + cotenu)
  * 
@@ -16,6 +18,7 @@ public class GlobalPane extends SplitPane {
 	public GlobalPane(Skin skin) {
 		super(null, new GlobalContentSplitPane(skin), true, skin);
 		setName("global_pane");
+		setWidth(MainWindow.firstActorWidth);
 		
 		//TODO internationalisation
 		Label title = new Label("Paramètres globaux", skin);

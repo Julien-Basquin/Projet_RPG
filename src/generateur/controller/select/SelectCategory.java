@@ -18,7 +18,7 @@ import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorie
 import app.model.enumeration.objet.objet.TypeObjet;
 import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
-import generateur.view.item.ItemPane;
+import generateur.view.item_base.ItemPane;
 import util.ActorActions;
 import util.Converter;
 
@@ -83,6 +83,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.setItems(Converter.enumToStringArray(SousCategorieArmeEnum.class));
 							typeSelect.setSelectedIndex(0);
+							ItemPane itemPane = new ItemPane(skin);
+							itemPane.setWidth(MainWindow.secondActorWidth);
+							MainWindow.mainSplit.setSecondWidget(itemPane);
 						} catch (Exception e) {
 							logger.fatal("Error during the loading of weapon related data", e);
 						}
@@ -94,12 +97,17 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.setItems(Converter.enumToStringArray(SousCategorieArmureEnum.class));
 							typeSelect.setSelectedIndex(0);
+							ItemPane itemPane = new ItemPane(skin);
+							itemPane.setWidth(MainWindow.secondActorWidth);
+							MainWindow.mainSplit.setSecondWidget(itemPane);
 						} catch (Exception e) {
 							logger.fatal("Error during the loading of armor related data", e);
 						}
 						break;
 					case ENTITE:
-						MainWindow.mainSplit.setSecondWidget(new EntityParametersGlobalPane(skin));
+						EntityParametersGlobalPane entityParametersGlobalPane = new EntityParametersGlobalPane(skin);
+						entityParametersGlobalPane.setWidth(MainWindow.secondActorWidth);
+						MainWindow.mainSplit.setSecondWidget(entityParametersGlobalPane);
 						break;
 					case OBJET:
 						logger.info("Loading object related data...");
@@ -107,7 +115,9 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 							subcategorySelect.setItems(Converter.enumToStringArray(TypeObjet.class));
 							subcategorySelect.setSelectedIndex(0);
 							typeSelect.clearItems();
-							MainWindow.mainSplit.setSecondWidget(new ItemPane(skin));
+							ItemPane itemPane = new ItemPane(skin);
+							itemPane.setWidth(MainWindow.secondActorWidth);
+							MainWindow.mainSplit.setSecondWidget(itemPane);
 						} catch (Exception e) {
 							logger.fatal("Error during the loading of object related data", e);
 						}
@@ -121,6 +131,7 @@ public class SelectCategory extends SelectBox<CategorieEnum> {
 						logger.warn("The category does not match any data. Updating failed.");
 						break;
 				}
+				
 				value = getSelected().name();
 				logger.info("...updating completed.");
 			}

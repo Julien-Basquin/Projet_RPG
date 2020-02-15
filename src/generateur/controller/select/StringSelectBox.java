@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import generateur.MainWindow;
+import generateur.view.item_base.item.ItemSpecialOptions;
 import generateur.Launcher;
-import generateur.view.item.ItemSpecialOptions;
 import util.ActorActions;
 import util.Converter;
 

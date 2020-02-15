@@ -18,8 +18,10 @@ public class ValueField extends SplitPane {
 		
 		float width = field.getWidth() / 4;
 		float height = field.getHeight() / 2;
-		if (width == 0 || height == 0) {
+		if (width == 0) {
 			width = field.getPrefWidth() / 4;
+		}
+		if (height == 0) {
 			height = field.getPrefHeight() / 2;
 		}
 		plus.setSize(width, height);

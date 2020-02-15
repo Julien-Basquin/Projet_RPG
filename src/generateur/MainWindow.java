@@ -33,6 +33,8 @@ public class MainWindow extends ApplicationAdapter {
 	public static Skin skin;
 	/**Conteneur des éléments graphiques avec prise en compte des intéractions utilisateur.*/
 	public static Stage stage;
+	public static float firstActorWidth;
+	public static float secondActorWidth;
 	/**Permet d'ouvrir une fenêtre et de sélectionner un fichier de l'ordinateur*/
 	public static FileChooser fileChooser;
 	public static InputMultiplexer inputMultiplexer;
@@ -42,6 +44,7 @@ public class MainWindow extends ApplicationAdapter {
 	public static SplitPane mainSplit;
 	public static EventStack previousStates;
 	public static EventStack nextStates;
+	
 	/**
 	 * Called when the Application is first created.
 	 */
@@ -56,6 +59,8 @@ public class MainWindow extends ApplicationAdapter {
 		
 		skin = new Skin(new FileHandle("ressources/generateur/skin/default/uiskin.json"));
 		stage = new Stage();
+		firstActorWidth = stage.getWidth() * 0.33f;
+		secondActorWidth = stage.getWidth() * 0.66f;
 		
 		//Chargement de VisUI et du sélecteur de fichier
 		//Voir https://github.com/kotcrab/vis-ui

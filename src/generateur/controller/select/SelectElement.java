@@ -20,11 +20,11 @@ import app.model.enumeration.objet.equipement.armure.TypeArmureEnum;
 import app.model.enumeration.objet.equipement.armure.souscategorie.SousCategorieArmureEnum;
 import app.model.enumeration.objet.objet.TypeObjet;
 import generateur.MainWindow;
-import generateur.view.item.EffectTable;
-import generateur.view.item.ItemPane;
 import generateur.MainWindow;
 import generateur.view.entity_parameters.EntityParametersGlobalPane;
 import generateur.view.global.GlobalPane;
+import generateur.view.item_base.EffectTable;
+import generateur.view.item_base.ItemPane;
 import util.Converter;
 
 /**

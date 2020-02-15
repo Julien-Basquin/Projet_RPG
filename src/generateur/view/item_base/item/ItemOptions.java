@@ -1,4 +1,4 @@
-package generateur.view.item;
+package generateur.view.item_base.item;
 
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,7 +16,6 @@ public class ItemOptions extends Table {
 		super(skin);
 		setName("object_contents");
 		align(Align.topLeft);
-//		debugAll();
 		
 		//Usability
 		Label usable = new Label(Launcher.languageManager.getProperty("Object.Usable"), skin);
@@ -45,6 +44,8 @@ public class ItemOptions extends Table {
 		ValueField ennemies = new ValueField(skin);
 
 		add(usable).width(Value.percentWidth(1/3f, this));
+		row();
+		add();
 		add(inFightLabel).width(Value.percentWidth(1/6f, this));
 		add(inFight).width(Value.percentWidth(1/12f, this));
 		add().width(Value.percentWidth(1/6f, this));
@@ -56,6 +57,8 @@ public class ItemOptions extends Table {
 		row();
 		
 		add(target);
+		row();
+		add();
 		add(alliesLabel);
 		add(allies).width(Value.percentWidth(1/12f, this)).height(allies.getHeight());
 		add(null, ennemiesLabel);

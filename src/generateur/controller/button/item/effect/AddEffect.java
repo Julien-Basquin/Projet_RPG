@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import app.model.enumeration.attribut.AttributsEnum;
+import generateur.MainWindow;
 import generateur.controller.button.item.ValueField;
 import util.Converter;
 
@@ -22,6 +23,7 @@ public class AddEffect extends TextButton {
 
 	public AddEffect(Table table, Skin skin) {
 		super("+", skin);
+//		setStyle(skin.get(EffectTableButtonStyle.class));
 		setName("add_effect");
 		
 		addListener(new ClickListener() {
@@ -59,19 +61,19 @@ public class AddEffect extends TextButton {
 				
 				int cellNumber = table.getCell(table.findActor("add_effect")).getRow() * table.getColumns() + table.getCell(AddEffect.this).getColumn();
 				
-				table.getCells().get(cellNumber).setActor(selectAttribute).width(Value.percentWidth(1/4f, table));
-				table.getCells().get(cellNumber + 1).setActor(triggerChance).width(Value.percentWidth(1/8f, table)).height(triggerChance.getHeight());
-				table.getCells().get(cellNumber + 2).setActor(minValue).width(Value.percentWidth(1/8f, table)).height(minValue.getHeight());
-				table.getCells().get(cellNumber + 3).setActor(maxValue).width(Value.percentWidth(1/8f, table)).height(maxValue.getHeight());
-				table.getCells().get(cellNumber + 4).setActor(percent).width(Value.percentWidth(1/16f, table));
-				table.getCells().get(cellNumber + 5).setActor(group).width(Value.percentWidth(1/8f, table)).height(percent.getHeight());
-				table.getCells().get(cellNumber + 6).setActor(active).width(Value.percentWidth(1/8f, table)).height(active.getHeight());
-				table.getCells().get(cellNumber + 7).setActor(removeEffect).width(Value.percentWidth(1/16f, table));
+				table.getCells().get(cellNumber).setActor(selectAttribute).width(MainWindow.stage.getWidth() * 0.66f * 1/4f).center();
+				table.getCells().get(cellNumber + 1).setActor(triggerChance).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+				table.getCells().get(cellNumber + 2).setActor(minValue).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+				table.getCells().get(cellNumber + 3).setActor(maxValue).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+				table.getCells().get(cellNumber + 4).setActor(percent).width(MainWindow.stage.getWidth() * 0.66f * 1/16f).center().grow();
+				table.getCells().get(cellNumber + 5).setActor(group).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+				table.getCells().get(cellNumber + 6).setActor(active).width(MainWindow.stage.getWidth() * 0.66f * 1/8f).center();
+				table.getCells().get(cellNumber + 7).setActor(removeEffect).width(MainWindow.stage.getWidth() * 0.66f * 1/16f).center().grow();
 				
 				table.row();
 				
 				AddEffect addEffectButton = AddEffect.this;
-				table.add(addEffectButton).width(Value.percentWidth(1/4f, table));
+				table.add(addEffectButton).width(MainWindow.stage.getWidth() * 0.66f * 1/4f).center();
 				for (int i = 1; i < table.getColumns(); i++) {
 					table.add();
 				}

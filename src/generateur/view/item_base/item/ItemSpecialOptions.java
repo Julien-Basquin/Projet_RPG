@@ -1,4 +1,4 @@
-package generateur.view.item;
+package generateur.view.item_base.item;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
