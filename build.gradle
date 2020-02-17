@@ -19,19 +19,16 @@ plugins {
 
 // Define the main class for the application
 sourceSets {
+	test {
+		java {
+			srcDirs = ["test"]
+		}
+	}
 	main {
 		java {
 			srcDirs = ["src"]
 		}
-	}
-	
-	/*
-	*test {
-	*	java {
-	*		srcDirs = ["test"]
-	*	}
-	*}
-	*/
+	}	
 }
 
 mainClassName = "generateur.Launcher"
@@ -67,13 +64,28 @@ dependencies {
 	compile "com.kotcrab.vis:vis-ui:$visuiVersion"
 	
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0'
 	
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+    
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
 }
 
+// Java target version
+sourceCompatibility = 1.8
+
 test {
-	useJUnitPlatform()
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 // In this section you declare where to find the dependencies of your project

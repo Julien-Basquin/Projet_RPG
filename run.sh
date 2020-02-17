@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo Start Build
+echo Launch Test
 
-gradle build --stacktrace
+gradle test --info
 
 echo Launch Project
 
